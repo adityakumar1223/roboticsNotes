@@ -1,0 +1,1896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Robotics Complete Guide – Beginner to Advanced</title>
+<style>
+  :root {
+    --primary: #1a1a2e;
+    --secondary: #16213e;
+    --accent: #0f3460;
+    --highlight: #e94560;
+    --gold: #f5a623;
+    --green: #27ae60;
+    --blue: #2980b9;
+    --light: #ecf0f1;
+    --text: #2c3e50;
+    --card-bg: #ffffff;
+    --border: #dde3ea;
+    --code-bg: #1e1e2e;
+    --code-text: #cdd6f4;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif; background:#f0f4f8; color:var(--text); line-height:1.7; }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
+    color:white; text-align:center; padding:60px 20px 40px;
+    position:relative; overflow:hidden;
+  }
+  header::before {
+    content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%;
+    background: radial-gradient(ellipse at center, rgba(233,69,96,0.15) 0%, transparent 60%);
+    animation: pulse 4s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.05);} }
+  header h1 { font-size:2.8rem; font-weight:800; letter-spacing:2px; position:relative; }
+  header h1 span { color:#e94560; }
+  header p { font-size:1.1rem; opacity:0.85; margin-top:12px; position:relative; }
+  .header-badge { display:inline-block; background:#e94560; color:white; padding:5px 18px; border-radius:20px; font-size:0.85rem; margin-top:15px; font-weight:600; }
+
+  /* NAVIGATION */
+  nav {
+    background: var(--secondary);
+    padding:0; position:sticky; top:0; z-index:1000;
+    box-shadow:0 2px 15px rgba(0,0,0,0.3);
+  }
+  .nav-tabs { display:flex; overflow-x:auto; scrollbar-width:none; }
+  .nav-tabs::-webkit-scrollbar { display:none; }
+  .nav-tab {
+    color:#ccc; padding:14px 22px; cursor:pointer; white-space:nowrap;
+    font-size:0.88rem; font-weight:600; border-bottom:3px solid transparent;
+    transition:all 0.3s; text-transform:uppercase; letter-spacing:0.5px;
+  }
+  .nav-tab:hover { color:white; background:rgba(255,255,255,0.05); }
+  .nav-tab.active { color:#e94560; border-bottom-color:#e94560; background:rgba(233,69,96,0.08); }
+
+  /* CONTENT */
+  .content { max-width:1100px; margin:0 auto; padding:30px 20px; }
+  .section { display:none; }
+  .section.active { display:block; }
+
+  /* CARDS */
+  .card {
+    background:var(--card-bg); border-radius:16px; padding:32px;
+    margin-bottom:28px; box-shadow:0 4px 20px rgba(0,0,0,0.08);
+    border-left:5px solid var(--highlight); transition:transform 0.2s, box-shadow 0.2s;
+  }
+  .card:hover { transform:translateY(-2px); box-shadow:0 8px 30px rgba(0,0,0,0.12); }
+  .card.blue-border { border-left-color: var(--blue); }
+  .card.green-border { border-left-color: var(--green); }
+  .card.gold-border { border-left-color: var(--gold); }
+  .card.purple-border { border-left-color: #9b59b6; }
+
+  h2 { font-size:1.7rem; color:var(--primary); margin-bottom:12px; display:flex; align-items:center; gap:10px; }
+  h2 .icon { font-size:1.5rem; }
+  h3 { font-size:1.2rem; color:var(--accent); margin:20px 0 8px; }
+  h4 { font-size:1rem; color:var(--highlight); margin:14px 0 6px; font-weight:700; }
+  p { margin-bottom:12px; color:#445; }
+  ul, ol { margin:10px 0 14px 22px; }
+  li { margin-bottom:6px; color:#445; }
+
+  /* HIGHLIGHT BOXES */
+  .info-box {
+    background:linear-gradient(135deg, #e8f4fd, #d6eaf8);
+    border:1px solid #aed6f1; border-radius:10px; padding:18px 20px;
+    margin:16px 0; border-left:4px solid #2980b9;
+  }
+  .warn-box {
+    background:linear-gradient(135deg, #fef9e7, #fdebd0);
+    border:1px solid #f9ca8a; border-radius:10px; padding:18px 20px;
+    margin:16px 0; border-left:4px solid #f5a623;
+  }
+  .success-box {
+    background:linear-gradient(135deg, #eafaf1, #d5f5e3);
+    border:1px solid #a9dfbf; border-radius:10px; padding:18px 20px;
+    margin:16px 0; border-left:4px solid #27ae60;
+  }
+  .example-box {
+    background:#1e1e2e; color:#cdd6f4; border-radius:12px; padding:20px;
+    margin:16px 0; font-family:'Courier New',monospace; font-size:0.9rem;
+    line-height:1.8; overflow-x:auto;
+  }
+  .example-box .comment { color:#6272a4; }
+  .example-box .keyword { color:#ff79c6; }
+  .example-box .string { color:#f1fa8c; }
+  .example-box .number { color:#bd93f9; }
+  .example-box .func { color:#50fa7b; }
+
+  /* DIAGRAM CONTAINERS */
+  .diagram { text-align:center; margin:20px 0; background:#f8f9fa; border-radius:12px; padding:20px; border:1px solid var(--border); }
+  .diagram svg { max-width:100%; height:auto; }
+  .diagram-caption { font-size:0.85rem; color:#888; margin-top:10px; font-style:italic; }
+
+  /* COMPARISON TABLE */
+  table { width:100%; border-collapse:collapse; margin:16px 0; border-radius:10px; overflow:hidden; box-shadow:0 2px 10px rgba(0,0,0,0.08); }
+  th { background:var(--accent); color:white; padding:12px 16px; text-align:left; font-size:0.9rem; }
+  td { padding:11px 16px; border-bottom:1px solid var(--border); font-size:0.9rem; }
+  tr:nth-child(even) td { background:#f8f9fa; }
+  tr:hover td { background:#eef2ff; }
+
+  /* TAGS / BADGES */
+  .tag { display:inline-block; background:#e94560; color:white; padding:3px 12px; border-radius:20px; font-size:0.78rem; font-weight:700; margin:3px; }
+  .tag.blue { background:#2980b9; }
+  .tag.green { background:#27ae60; }
+  .tag.gold { background:#f39c12; }
+  .tag.purple { background:#8e44ad; }
+
+  /* GRID */
+  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin:16px 0; }
+  .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:16px 0; }
+  @media(max-width:700px) { .grid-2,.grid-3 { grid-template-columns:1fr; } header h1 { font-size:1.8rem; } }
+
+  /* MINI CARD */
+  .mini-card {
+    background:#f8f9fa; border-radius:12px; padding:18px;
+    border:1px solid var(--border); text-align:center;
+  }
+  .mini-card .emoji { font-size:2.5rem; margin-bottom:8px; }
+  .mini-card h4 { color:var(--accent); font-size:0.95rem; margin:0 0 6px; }
+  .mini-card p { font-size:0.85rem; color:#666; margin:0; }
+
+  /* SECTION TITLE */
+  .section-title {
+    background:linear-gradient(135deg, var(--primary), var(--accent));
+    color:white; padding:20px 28px; border-radius:14px; margin-bottom:28px;
+    display:flex; align-items:center; gap:14px;
+  }
+  .section-title .big-icon { font-size:2.5rem; }
+  .section-title h1 { font-size:1.5rem; font-weight:800; }
+  .section-title p { opacity:0.85; font-size:0.95rem; margin:0; }
+
+  /* NUMBER STEPS */
+  .steps { counter-reset:step; }
+  .step { display:flex; gap:16px; margin:14px 0; align-items:flex-start; }
+  .step-num {
+    counter-increment:step; min-width:36px; height:36px;
+    background:var(--highlight); color:white; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-weight:800; font-size:0.95rem; flex-shrink:0;
+  }
+  .step-content h4 { margin:0 0 4px; color:var(--accent); }
+  .step-content p { margin:0; font-size:0.9rem; }
+
+  /* LAWS BOX */
+  .law-box {
+    background:linear-gradient(135deg, #1a1a2e, #16213e);
+    color:white; border-radius:14px; padding:24px; margin:12px 0;
+    border-left:5px solid #e94560;
+  }
+  .law-box h4 { color:#e94560; font-size:1rem; margin-bottom:8px; }
+  .law-box p { color:#ccc; margin:0; }
+
+  /* FOOTER */
+  footer {
+    background:var(--primary); color:#aaa; text-align:center;
+    padding:30px 20px; margin-top:40px;
+  }
+  footer span { color:#e94560; }
+
+  /* SEARCH */
+  .search-bar {
+    display:flex; gap:10px; margin-bottom:24px;
+  }
+  .search-bar input {
+    flex:1; padding:12px 18px; border:2px solid var(--border); border-radius:10px;
+    font-size:1rem; outline:none; transition:border-color 0.2s;
+  }
+  .search-bar input:focus { border-color:var(--highlight); }
+  .search-bar button {
+    background:var(--highlight); color:white; border:none; padding:12px 22px;
+    border-radius:10px; cursor:pointer; font-weight:700;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🤖 <span>ROBOTICS</span> Complete Guide</h1>
+  <p>From Absolute Beginner to Advanced — Everything You Need to Know</p>
+  <div class="header-badge">📚 Covers Short Type · Long Type · Short Notes</div>
+</header>
+
+<nav>
+  <div class="nav-tabs">
+    <div class="nav-tab active" onclick="showSection('basics')">🤖 Basics</div>
+    <div class="nav-tab" onclick="showSection('control')">⚙️ Control Systems</div>
+    <div class="nav-tab" onclick="showSection('anatomy')">🦾 Anatomy & Joints</div>
+    <div class="nav-tab" onclick="showSection('sensors')">📡 Sensors</div>
+    <div class="nav-tab" onclick="showSection('micro')">💻 Microcontrollers</div>
+    <div class="nav-tab" onclick="showSection('boards')">🔌 Boards</div>
+    <div class="nav-tab" onclick="showSection('vision')">👁️ Vision & AI</div>
+    <div class="nav-tab" onclick="showSection('ros')">🌐 ROS</div>
+    <div class="nav-tab" onclick="showSection('automation')">🏭 Automation</div>
+  </div>
+</nav>
+
+<div class="content">
+
+<!-- ===================== SECTION: BASICS ===================== -->
+<div class="section active" id="basics">
+  <div class="section-title">
+    <div class="big-icon">🤖</div>
+    <div>
+      <h1>Robotics — The Basics</h1>
+      <p>Start here! Learn what robotics is, its laws, types, and components.</p>
+    </div>
+  </div>
+
+  <!-- 1. Define Robotics -->
+  <div class="card">
+    <h2><span class="icon">📖</span> 1. What is Robotics?</h2>
+    <p><strong>Robotics</strong> is the branch of technology that deals with the <strong>design, construction, operation, and use of robots</strong>. It combines several fields including mechanical engineering, electrical engineering, computer science, and artificial intelligence.</p>
+    <div class="info-box">
+      <strong>Simple Definition:</strong> Robotics is the science and technology of building machines (robots) that can perform tasks automatically — either by following fixed instructions or by sensing the world around them and making decisions.
+    </div>
+    <h3>What is a Robot?</h3>
+    <p>A <strong>robot</strong> is a programmable mechanical machine that can perform tasks with speed, precision, and consistency — often in environments that are dangerous, repetitive, or impossible for humans.</p>
+    <div class="grid-3">
+      <div class="mini-card"><div class="emoji">🏭</div><h4>Industrial Robots</h4><p>Used in factories for welding, painting, assembly</p></div>
+      <div class="mini-card"><div class="emoji">🏠</div><h4>Service Robots</h4><p>Used in homes — like Roomba vacuum cleaner</p></div>
+      <div class="mini-card"><div class="emoji">🚀</div><h4>Space Robots</h4><p>Mars Rovers exploring other planets</p></div>
+      <div class="mini-card"><div class="emoji">💊</div><h4>Medical Robots</h4><p>Da Vinci surgical robot performs precise surgery</p></div>
+      <div class="mini-card"><div class="emoji">🪖</div><h4>Military Robots</h4><p>Bomb disposal robots, drones</p></div>
+      <div class="mini-card"><div class="emoji">🎓</div><h4>Educational Robots</h4><p>LEGO Mindstorms, Arduino-based bots</p></div>
+    </div>
+    <h3>Key Areas of Robotics</h3>
+    <ul>
+      <li><strong>Mechanical Design</strong> – How the robot's body is built (arms, wheels, grippers)</li>
+      <li><strong>Electronics</strong> – Circuits, sensors, actuators, power systems</li>
+      <li><strong>Programming</strong> – Code that tells the robot what to do</li>
+      <li><strong>Artificial Intelligence</strong> – Letting robots learn and make decisions</li>
+      <li><strong>Control Systems</strong> – How the robot monitors and adjusts its own behavior</li>
+    </ul>
+  </div>
+
+  <!-- 2. Three Laws -->
+  <div class="card blue-border">
+    <h2><span class="icon">⚖️</span> 2. The Three Laws of Robotics</h2>
+    <p>These famous laws were written by science-fiction author <strong>Isaac Asimov</strong> in 1942. They are a set of rules that fictional robots must follow — and they still influence real-world robot ethics today.</p>
+    <div class="law-box">
+      <h4>🔴 First Law</h4>
+      <p>"A robot may not injure a human being or, through inaction, allow a human being to come to harm."</p>
+    </div>
+    <div class="law-box">
+      <h4>🟡 Second Law</h4>
+      <p>"A robot must obey the orders given to it by human beings, except where such orders would conflict with the First Law."</p>
+    </div>
+    <div class="law-box">
+      <h4>🟢 Third Law</h4>
+      <p>"A robot must protect its own existence as long as such protection does not conflict with the First or Second Law."</p>
+    </div>
+    <div class="warn-box">
+      <strong>📌 Remember:</strong> The laws are ordered by priority. The First Law beats the Second, and the Second beats the Third. Asimov later added a "Zeroth Law": A robot may not harm humanity as a whole.
+    </div>
+  </div>
+
+  <!-- 3. Types of Robots -->
+  <div class="card green-border">
+    <h2><span class="icon">🗂️</span> 3. Types of Robots Based on Applications</h2>
+    <div class="grid-2">
+      <div>
+        <h3>By Application</h3>
+        <ul>
+          <li><strong>Industrial Robots</strong> – Assembly lines, welding, painting (e.g., car manufacturing)</li>
+          <li><strong>Service Robots</strong> – Help humans in daily life (e.g., Roomba, hospital bots)</li>
+          <li><strong>Medical Robots</strong> – Surgery, rehabilitation, drug delivery</li>
+          <li><strong>Military Robots</strong> – Surveillance, bomb disposal, drones</li>
+          <li><strong>Agricultural Robots</strong> – Planting, harvesting, spraying</li>
+          <li><strong>Space Robots</strong> – Exploration (Curiosity Mars Rover)</li>
+          <li><strong>Underwater Robots (ROVs)</strong> – Exploring oceans, repairing pipelines</li>
+          <li><strong>Educational Robots</strong> – Teaching coding and engineering</li>
+          <li><strong>Entertainment Robots</strong> – Humanoids, animatronics</li>
+          <li><strong>Domestic Robots</strong> – Cleaning, cooking assistance</li>
+        </ul>
+      </div>
+      <div>
+        <h3>By Configuration</h3>
+        <ul>
+          <li><strong>Cartesian / Gantry</strong> – Moves in X, Y, Z axes (like a 3D printer)</li>
+          <li><strong>SCARA</strong> – Selective Compliance Assembly Robot Arm</li>
+          <li><strong>Articulated</strong> – Has rotating joints like a human arm</li>
+          <li><strong>Delta</strong> – Three-arm design, very fast (used in packaging)</li>
+          <li><strong>Polar</strong> – Operates in spherical workspace</li>
+          <li><strong>Cylindrical</strong> – Rotary + vertical + horizontal movement</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Robot Anatomy -->
+  <div class="card gold-border">
+    <h2><span class="icon">🦴</span> 4. Robot Anatomy</h2>
+    <p><strong>Robot Anatomy</strong> refers to the physical structure and internal organization of a robot — just like human anatomy studies the human body.</p>
+    <div class="diagram">
+      <svg viewBox="0 0 500 380" xmlns="http://www.w3.org/2000/svg">
+        <!-- Body outline -->
+        <rect x="180" y="60" width="140" height="100" rx="15" fill="#2980b9" opacity="0.9"/>
+        <text x="250" y="115" text-anchor="middle" fill="white" font-size="14" font-weight="bold">CONTROLLER</text>
+        <text x="250" y="132" text-anchor="middle" fill="white" font-size="11">(Brain / CPU)</text>
+        <!-- Head -->
+        <circle cx="250" cy="38" r="28" fill="#e94560"/>
+        <text x="250" y="43" text-anchor="middle" fill="white" font-size="11" font-weight="bold">SENSORS</text>
+        <!-- Left arm -->
+        <rect x="90" y="70" width="80" height="25" rx="8" fill="#27ae60"/>
+        <text x="130" y="87" text-anchor="middle" fill="white" font-size="11">LEFT ARM</text>
+        <rect x="50" y="100" width="80" height="22" rx="8" fill="#1a9e4f"/>
+        <text x="90" y="115" text-anchor="middle" fill="white" font-size="10">ACTUATOR</text>
+        <!-- Right arm -->
+        <rect x="330" y="70" width="80" height="25" rx="8" fill="#27ae60"/>
+        <text x="370" y="87" text-anchor="middle" fill="white" font-size="11">RIGHT ARM</text>
+        <rect x="370" y="100" width="80" height="22" rx="8" fill="#1a9e4f"/>
+        <text x="410" y="115" text-anchor="middle" fill="white" font-size="10">ACTUATOR</text>
+        <!-- Torso / Power -->
+        <rect x="195" y="170" width="110" height="60" rx="10" fill="#8e44ad"/>
+        <text x="250" y="200" text-anchor="middle" fill="white" font-size="12" font-weight="bold">POWER</text>
+        <text x="250" y="218" text-anchor="middle" fill="white" font-size="10">SUPPLY</text>
+        <!-- Legs -->
+        <rect x="195" y="240" width="45" height="80" rx="8" fill="#f39c12"/>
+        <text x="217" y="285" text-anchor="middle" fill="white" font-size="10">LEFT</text>
+        <text x="217" y="298" text-anchor="middle" fill="white" font-size="10">LEG</text>
+        <rect x="260" y="240" width="45" height="80" rx="8" fill="#f39c12"/>
+        <text x="282" y="285" text-anchor="middle" fill="white" font-size="10">RIGHT</text>
+        <text x="282" y="298" text-anchor="middle" fill="white" font-size="10">LEG</text>
+        <!-- Connectors -->
+        <line x1="250" y1="66" x2="250" y2="60" stroke="#ccc" stroke-width="2"/>
+        <line x1="180" y1="90" x2="170" y2="85" stroke="#ccc" stroke-width="2"/>
+        <line x1="320" y1="90" x2="330" y2="85" stroke="#ccc" stroke-width="2"/>
+        <!-- Labels on side -->
+        <text x="10" y="40" fill="#555" font-size="11">① Sensors</text>
+        <text x="10" y="60" fill="#555" font-size="11">② Controller</text>
+        <text x="10" y="80" fill="#555" font-size="11">③ Actuators</text>
+        <text x="10" y="100" fill="#555" font-size="11">④ Power</text>
+        <text x="10" y="120" fill="#555" font-size="11">⑤ Links</text>
+        <text x="10" y="140" fill="#555" font-size="11">⑥ End Effector</text>
+      </svg>
+      <div class="diagram-caption">Figure: Basic Anatomy of a Robot showing its key components</div>
+    </div>
+    <h3>Main Parts of a Robot</h3>
+    <ul>
+      <li><strong>Sensors</strong> – Detect the environment (cameras, ultrasonic, IR, temperature)</li>
+      <li><strong>Actuators</strong> – Create movement (motors, servos, pneumatics)</li>
+      <li><strong>Controller (Brain)</strong> – Processes data and gives commands (microcontroller, computer)</li>
+      <li><strong>Power Supply</strong> – Provides energy (battery, solar, wired)</li>
+      <li><strong>Links</strong> – Rigid structural parts connecting joints</li>
+      <li><strong>Joints</strong> – Connecting points that allow movement between links</li>
+      <li><strong>End Effector</strong> – The "hand" of the robot (gripper, welding torch, camera)</li>
+    </ul>
+  </div>
+
+  <!-- 8. Components of a Robot -->
+  <div class="card">
+    <h2><span class="icon">🔩</span> 8. Different Components of a Robot</h2>
+    <div class="grid-2">
+      <div>
+        <h3>Hardware Components</h3>
+        <ul>
+          <li><strong>Frame/Chassis</strong> – The skeleton/body structure</li>
+          <li><strong>Motors</strong> – DC motors, servo motors, stepper motors</li>
+          <li><strong>Wheels/Tracks/Legs</strong> – For locomotion</li>
+          <li><strong>Sensors</strong> – Camera, ultrasonic, IR, temperature, etc.</li>
+          <li><strong>Battery</strong> – Power source (Li-Po, Li-Ion)</li>
+          <li><strong>Wiring/PCB</strong> – Electrical connections</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Software / Control Components</h3>
+        <ul>
+          <li><strong>Microcontroller/Processor</strong> – Arduino, Raspberry Pi, 8051</li>
+          <li><strong>Firmware</strong> – Low-level code running on hardware</li>
+          <li><strong>Operating System</strong> – ROS, Linux for complex robots</li>
+          <li><strong>Control Algorithms</strong> – PID controllers, path planning</li>
+          <li><strong>Communication</strong> – WiFi, Bluetooth, RF, CAN bus</li>
+        </ul>
+      </div>
+    </div>
+    <div class="success-box">
+      <strong>🎯 Real Example:</strong> An Arduino robot car has: Arduino UNO (controller) + L298N motor driver (actuator interface) + HC-SR04 ultrasonic sensor + 4 DC motors + Li-Po battery + chassis frame.
+    </div>
+  </div>
+
+  <!-- 9. Pitch Yaw Roll -->
+  <div class="card blue-border">
+    <h2><span class="icon">🔄</span> 9. Pitch, Yaw, and Roll</h2>
+    <p>These are the three fundamental rotations describing how an object (airplane, drone, robot) can move in 3D space. Think of an airplane to understand them easily.</p>
+    <div class="diagram">
+      <svg viewBox="0 0 500 250" xmlns="http://www.w3.org/2000/svg">
+        <!-- Plane body -->
+        <ellipse cx="250" cy="120" rx="80" ry="22" fill="#2980b9"/>
+        <!-- Wings -->
+        <ellipse cx="250" cy="120" rx="140" ry="12" fill="#3498db" opacity="0.7"/>
+        <!-- Tail -->
+        <ellipse cx="160" cy="110" rx="35" ry="8" fill="#1a6b9a" transform="rotate(-30 160 110)"/>
+        
+        <!-- PITCH arrow (up/down nose) -->
+        <path d="M 330 120 Q 370 80 340 60" stroke="#e94560" stroke-width="3" fill="none" marker-end="url(#arr1)"/>
+        <text x="355" y="70" fill="#e94560" font-size="13" font-weight="bold">PITCH</text>
+        <text x="345" y="83" fill="#e94560" font-size="10">Nose up/down</text>
+        
+        <!-- YAW arrow (left/right) -->
+        <path d="M 250 170 Q 290 195 310 175" stroke="#27ae60" stroke-width="3" fill="none" marker-end="url(#arr2)"/>
+        <text x="295" y="205" fill="#27ae60" font-size="13" font-weight="bold">YAW</text>
+        <text x="280" y="220" fill="#27ae60" font-size="10">Left/right turn</text>
+        
+        <!-- ROLL arrow (wing tilt) -->
+        <path d="M 140 110 Q 110 80 130 55" stroke="#f39c12" stroke-width="3" fill="none" marker-end="url(#arr3)"/>
+        <text x="80" y="55" fill="#f39c12" font-size="13" font-weight="bold">ROLL</text>
+        <text x="68" y="68" fill="#f39c12" font-size="10">Wing tilt</text>
+        
+        <defs>
+          <marker id="arr1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#e94560"/></marker>
+          <marker id="arr2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#27ae60"/></marker>
+          <marker id="arr3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#f39c12"/></marker>
+        </defs>
+      </svg>
+      <div class="diagram-caption">Figure: Pitch, Yaw, Roll — the three rotational axes</div>
+    </div>
+    <div class="grid-3">
+      <div class="info-box">
+        <h4>🔴 Pitch</h4>
+        <p>Rotation around the <strong>left-right (lateral) axis</strong>. Like nodding your head YES. Makes the nose go up or down.</p>
+      </div>
+      <div class="warn-box">
+        <h4>🟢 Yaw</h4>
+        <p>Rotation around the <strong>vertical (up-down) axis</strong>. Like shaking your head NO. Turns left or right.</p>
+      </div>
+      <div class="success-box">
+        <h4>🟡 Roll</h4>
+        <p>Rotation around the <strong>front-back (longitudinal) axis</strong>. Like tilting your head to the side. Wings tilt.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10. DOF -->
+  <div class="card green-border">
+    <h2><span class="icon">📐</span> 10. Degrees of Freedom (DOF)</h2>
+    <p><strong>Degrees of Freedom (DOF)</strong> describes the number of independent movements a robot (or any mechanical system) can make. The more DOF, the more flexible and versatile the robot.</p>
+    <div class="info-box">
+      <strong>Think of it this way:</strong> A door can only open/close → 1 DOF. Your shoulder can move in many directions → 3 DOF. A full human arm has about 7 DOF!
+    </div>
+    <div class="grid-2">
+      <div>
+        <h3>Types of DOF</h3>
+        <ul>
+          <li><strong>Translational DOF</strong> – Linear movement (forward/back, up/down, left/right) along X, Y, Z axes</li>
+          <li><strong>Rotational DOF</strong> – Rotation around axes (Pitch, Yaw, Roll)</li>
+        </ul>
+        <h3>In 3D Space</h3>
+        <p>An object in free 3D space has <strong>6 DOF</strong>: 3 translational (X, Y, Z) + 3 rotational (Pitch, Yaw, Roll). This is why many robot arms are designed with 6 joints.</p>
+      </div>
+      <div>
+        <h3>Examples</h3>
+        <table>
+          <tr><th>Robot/Object</th><th>DOF</th></tr>
+          <tr><td>A door hinge</td><td>1</td></tr>
+          <tr><td>A 2D drawing robot</td><td>2</td></tr>
+          <tr><td>SCARA robot arm</td><td>4</td></tr>
+          <tr><td>Standard industrial arm</td><td>6</td></tr>
+          <tr><td>Human arm (shoulder to wrist)</td><td>7</td></tr>
+          <tr><td>Full humanoid body</td><td>30+</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="warn-box">
+      <strong>Significance:</strong> More DOF = more flexibility but also more complexity in programming and control. A 6-DOF robot arm can position its end effector at any point in 3D space with any orientation.
+    </div>
+  </div>
+
+  <!-- 6. Robot Manipulator -->
+  <div class="card">
+    <h2><span class="icon">🦾</span> 6. Robot Manipulator</h2>
+    <p>A <strong>robot manipulator</strong> is a mechanical arm system — the "arm" of a robot — designed to manipulate objects in its environment. It mimics the function of a human arm and hand.</p>
+    <h3>Structure of a Manipulator</h3>
+    <ul>
+      <li><strong>Base</strong> – Fixed mounting point (attached to floor or surface)</li>
+      <li><strong>Links</strong> – Rigid arm segments (like bones in your arm)</li>
+      <li><strong>Joints</strong> – Connect links and allow relative motion (like elbows, wrists)</li>
+      <li><strong>End Effector</strong> – The "hand" — a gripper, tool, or welding torch</li>
+    </ul>
+    <div class="success-box">
+      <strong>Real-World Example:</strong> The robotic arm in a car factory uses a manipulator with 6 joints to weld car body parts. Each joint can rotate, giving it complete freedom to reach any position in its workspace.
+    </div>
+    <h3>Types of Manipulators</h3>
+    <ul>
+      <li><strong>Cartesian</strong> – Moves in straight X,Y,Z lines (like a 3D printer head)</li>
+      <li><strong>Cylindrical</strong> – One rotary + two linear joints</li>
+      <li><strong>Spherical/Polar</strong> – Two rotary + one linear joint</li>
+      <li><strong>Articulated</strong> – All rotary joints, most human-like and flexible</li>
+      <li><strong>SCARA</strong> – Horizontal rotary joints, great for assembly tasks</li>
+    </ul>
+  </div>
+
+  <!-- 7. Actuators -->
+  <div class="card gold-border">
+    <h2><span class="icon">⚡</span> 7. What are Actuators?</h2>
+    <p>An <strong>actuator</strong> is a device that converts energy into physical motion. It's what makes robots move! The controller sends a signal, and the actuator performs the physical action.</p>
+    <div class="grid-3">
+      <div class="mini-card">
+        <div class="emoji">⚡</div>
+        <h4>Electric Actuators</h4>
+        <p>DC motors, servo motors, stepper motors. Most common in robotics. Easy to control digitally.</p>
+      </div>
+      <div class="mini-card">
+        <div class="emoji">💨</div>
+        <h4>Pneumatic Actuators</h4>
+        <p>Powered by compressed air. Very fast and powerful. Used in industrial arms.</p>
+      </div>
+      <div class="mini-card">
+        <div class="emoji">💧</div>
+        <h4>Hydraulic Actuators</h4>
+        <p>Powered by pressurized fluid. Extremely high force. Used in heavy machinery.</p>
+      </div>
+    </div>
+    <h3>Most Common Actuators in Student Robots</h3>
+    <ul>
+      <li><strong>DC Motor</strong> – Rotates continuously, used for wheels. Speed controlled by PWM.</li>
+      <li><strong>Servo Motor</strong> – Rotates to a specific angle (0°–180°). Used for robot arms/joints.</li>
+      <li><strong>Stepper Motor</strong> – Moves in precise small steps. Used in 3D printers, CNC machines.</li>
+      <li><strong>Linear Actuator</strong> – Converts rotation to straight-line push/pull movement.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===================== SECTION: CONTROL SYSTEMS ===================== -->
+<div class="section" id="control">
+  <div class="section-title">
+    <div class="big-icon">⚙️</div>
+    <div>
+      <h1>Control Systems in Robotics</h1>
+      <p>Learn how robots manage, monitor, and correct their own movements.</p>
+    </div>
+  </div>
+
+  <!-- What is a Control System -->
+  <div class="card">
+    <h2><span class="icon">🎛️</span> What is a Control System?</h2>
+    <p>A <strong>control system</strong> is a set of devices and algorithms that manages, commands, directs, or regulates the behavior of another system (the robot) to achieve a desired outcome.</p>
+    <div class="info-box">
+      <strong>Everyday Analogy:</strong> When you drive a car, your eyes (sensors) see the road, your brain (controller) decides what to do, and your hands/feet (actuators) steer and brake. If you drift too far right, you correct it. That correction is what a control system does — automatically.
+    </div>
+    <h3>Basic Control System Diagram</h3>
+    <div class="diagram">
+      <svg viewBox="0 0 560 120" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="40" width="100" height="40" rx="8" fill="#2980b9"/>
+        <text x="60" y="65" text-anchor="middle" fill="white" font-size="12" font-weight="bold">INPUT</text>
+        <text x="60" y="78" text-anchor="middle" fill="white" font-size="10">(Desired State)</text>
+        <polygon points="115,60 130,60 130,55 145,60 130,65 130,60" fill="#555"/>
+        <rect x="150" y="40" width="110" height="40" rx="8" fill="#e94560"/>
+        <text x="205" y="63" text-anchor="middle" fill="white" font-size="12" font-weight="bold">CONTROLLER</text>
+        <text x="205" y="76" text-anchor="middle" fill="white" font-size="10">(Decision Maker)</text>
+        <polygon points="265,60 280,60 280,55 295,60 280,65 280,60" fill="#555"/>
+        <rect x="300" y="40" width="100" height="40" rx="8" fill="#27ae60"/>
+        <text x="350" y="63" text-anchor="middle" fill="white" font-size="12" font-weight="bold">ACTUATOR</text>
+        <text x="350" y="76" text-anchor="middle" fill="white" font-size="10">(Executer)</text>
+        <polygon points="405,60 420,60 420,55 435,60 420,65 420,60" fill="#555"/>
+        <rect x="440" y="40" width="100" height="40" rx="8" fill="#8e44ad"/>
+        <text x="490" y="63" text-anchor="middle" fill="white" font-size="12" font-weight="bold">OUTPUT</text>
+        <text x="490" y="76" text-anchor="middle" fill="white" font-size="10">(Actual State)</text>
+      </svg>
+      <div class="diagram-caption">Figure: Basic Open-Loop Control System Flow</div>
+    </div>
+  </div>
+
+  <!-- Open Loop -->
+  <div class="card blue-border">
+    <h2><span class="icon">➡️</span> Non-Servo (Open Loop) Control System</h2>
+    <p>In an <strong>open-loop (non-servo) control system</strong>, the controller sends a command to the actuator, and the system performs the action — but it does <strong>NOT check</strong> whether the desired result was achieved. There is no feedback.</p>
+    <div class="diagram">
+      <svg viewBox="0 0 560 130" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="50" width="120" height="40" rx="8" fill="#2980b9"/>
+        <text x="70" y="73" text-anchor="middle" fill="white" font-size="12" font-weight="bold">INPUT/COMMAND</text>
+        <polygon points="135,70 150,70 150,65 165,70 150,75 150,70" fill="#555"/>
+        <rect x="170" y="50" width="120" height="40" rx="8" fill="#e94560"/>
+        <text x="230" y="73" text-anchor="middle" fill="white" font-size="12" font-weight="bold">CONTROLLER</text>
+        <polygon points="295,70 310,70 310,65 325,70 310,75 310,70" fill="#555"/>
+        <rect x="330" y="50" width="120" height="40" rx="8" fill="#27ae60"/>
+        <text x="390" y="73" text-anchor="middle" fill="white" font-size="12" font-weight="bold">PLANT/PROCESS</text>
+        <polygon points="455,70 470,70 470,65 485,70 470,75 470,70" fill="#555"/>
+        <rect x="490" y="50" width="60" height="40" rx="8" fill="#8e44ad"/>
+        <text x="520" y="73" text-anchor="middle" fill="white" font-size="12" font-weight="bold">OUTPUT</text>
+        <text x="280" y="15" text-anchor="middle" fill="#e94560" font-size="13" font-weight="bold">❌ NO FEEDBACK PATH — Open Loop</text>
+      </svg>
+    </div>
+    <h3>Examples of Open Loop Systems</h3>
+    <ul>
+      <li>🚿 <strong>Water sprinkler</strong> – Runs for a fixed time regardless of how wet the lawn is</li>
+      <li>🍞 <strong>Toaster</strong> – Toasts for a set time, doesn't check if bread is done</li>
+      <li>⏱️ <strong>Washing machine (timer-based)</strong> – Runs for preset time, not based on cleanliness</li>
+      <li>🤖 <strong>Simple robot moving for 2 seconds</strong> – Doesn't know if it actually traveled the distance</li>
+    </ul>
+    <div class="warn-box">
+      <strong>Limitation:</strong> Open-loop systems can fail if conditions change (e.g., motor slows due to load) because there's no way to detect and correct errors.
+    </div>
+  </div>
+
+  <!-- Close Loop -->
+  <div class="card green-border">
+    <h2><span class="icon">🔁</span> Servo (Closed Loop) Control System</h2>
+    <p>In a <strong>closed-loop (servo) control system</strong>, the output is continuously <strong>measured and fed back</strong> to the controller. If there's a difference between the desired state and actual state (called the <strong>error</strong>), the controller corrects it automatically.</p>
+    <div class="diagram">
+      <svg viewBox="0 0 560 180" xmlns="http://www.w3.org/2000/svg">
+        <!-- Input -->
+        <rect x="5" y="60" width="80" height="40" rx="8" fill="#2980b9"/>
+        <text x="45" y="83" text-anchor="middle" fill="white" font-size="11" font-weight="bold">DESIRED</text>
+        <!-- Comparator -->
+        <circle cx="135" cy="80" r="22" fill="#555"/>
+        <text x="135" y="76" text-anchor="middle" fill="white" font-size="14" font-weight="bold">+</text>
+        <text x="135" y="90" text-anchor="middle" fill="#ff6b6b" font-size="14" font-weight="bold">-</text>
+        <!-- Error label -->
+        <text x="185" y="55" fill="#e94560" font-size="10">Error Signal</text>
+        <!-- Controller -->
+        <rect x="170" y="60" width="100" height="40" rx="8" fill="#e94560"/>
+        <text x="220" y="83" text-anchor="middle" fill="white" font-size="12" font-weight="bold">CONTROLLER</text>
+        <!-- Actuator -->
+        <rect x="290" y="60" width="90" height="40" rx="8" fill="#27ae60"/>
+        <text x="335" y="83" text-anchor="middle" fill="white" font-size="12" font-weight="bold">ACTUATOR</text>
+        <!-- Plant -->
+        <rect x="400" y="60" width="80" height="40" rx="8" fill="#8e44ad"/>
+        <text x="440" y="83" text-anchor="middle" fill="white" font-size="12" font-weight="bold">OUTPUT</text>
+        <!-- Sensor feedback -->
+        <rect x="310" y="135" width="100" height="30" rx="8" fill="#f39c12"/>
+        <text x="360" y="153" text-anchor="middle" fill="white" font-size="11" font-weight="bold">SENSOR</text>
+        <!-- Arrows -->
+        <polygon points="88,80 103,80 103,75 118,80 103,85 103,80" fill="#555"/>
+        <polygon points="158,80 173,80 173,75 188,80 173,85 173,80" fill="#555"/>
+        <polygon points="273,80 288,80 288,75 303,80 288,85 288,80" fill="#555"/>
+        <polygon points="383,80 398,80 398,75 413,80 398,85 398,80" fill="#555"/>
+        <!-- Feedback path -->
+        <path d="M 440 100 L 440 150 L 410 150" stroke="#f39c12" stroke-width="2.5" fill="none"/>
+        <path d="M 310 150 L 135 150 L 135 103" stroke="#f39c12" stroke-width="2.5" fill="none" marker-end="url(#fb)"/>
+        <text x="270" y="168" text-anchor="middle" fill="#f39c12" font-size="11" font-weight="bold">FEEDBACK PATH</text>
+        <defs>
+          <marker id="fb" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#f39c12"/></marker>
+        </defs>
+      </svg>
+      <div class="diagram-caption">Figure: Closed-Loop (Servo) Control System with Feedback</div>
+    </div>
+    <h3>Examples of Closed Loop Systems</h3>
+    <ul>
+      <li>🌡️ <strong>Air conditioner thermostat</strong> – Measures room temperature, turns on/off to maintain set temp</li>
+      <li>🚗 <strong>Car cruise control</strong> – Measures actual speed, adjusts engine to maintain target speed</li>
+      <li>🤖 <strong>Servo motor in robot arm</strong> – Encoder measures actual angle, corrects if off target</li>
+      <li>🎮 <strong>Line-following robot</strong> – IR sensors detect line position, adjusts motor speeds to stay on line</li>
+    </ul>
+    <div class="success-box">
+      <strong>✅ Advantage:</strong> Closed-loop systems are much more accurate and robust. They automatically correct errors caused by disturbances, load changes, or component variations.
+    </div>
+    <h3>Role of Closed Loop in Robotics</h3>
+    <p>In robotics, closed-loop control is essential for:</p>
+    <ul>
+      <li>Precise positioning of robot arms (within millimeter accuracy)</li>
+      <li>Maintaining balance in bipedal/humanoid robots</li>
+      <li>Speed regulation of motors under varying loads</li>
+      <li>Following a path accurately (GPS-based navigation)</li>
+      <li>Grasping objects with the right force (force sensors + feedback)</li>
+    </ul>
+  </div>
+
+  <!-- Characteristics of Good Control System -->
+  <div class="card gold-border">
+    <h2><span class="icon">✅</span> Characteristics of a Good Control System</h2>
+    <div class="grid-2">
+      <ul>
+        <li><strong>Accuracy</strong> – The output matches the desired value precisely</li>
+        <li><strong>Stability</strong> – The system settles to steady state without oscillating wildly</li>
+        <li><strong>Speed of Response</strong> – Quickly reaches the desired output</li>
+        <li><strong>Sensitivity</strong> – Low sensitivity to disturbances and parameter changes</li>
+      </ul>
+      <ul>
+        <li><strong>Robustness</strong> – Works correctly even when conditions change</li>
+        <li><strong>Noise Rejection</strong> – Filters out unwanted signals</li>
+        <li><strong>Reliability</strong> – Works consistently over time without failures</li>
+        <li><strong>Simplicity</strong> – Easier to design, maintain, and troubleshoot</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Torque -->
+  <div class="card">
+    <h2><span class="icon">🔧</span> Torque, Moment of Inertia, and Power</h2>
+    <h3>Torque (τ)</h3>
+    <p><strong>Torque</strong> is a measure of the <strong>rotational force</strong> applied to an object. It determines how much twisting/rotational effect a force produces.</p>
+    <div class="example-box">
+      <span class="comment">// Formula:</span><br>
+      Torque (τ) = Force (F) × Distance (r)<br>
+      <span class="comment">// Units: Newton-meters (N·m)</span><br><br>
+      <span class="comment">// Example: Opening a door</span><br>
+      F = 10 N, r = 0.5 m (distance from hinge)<br>
+      τ = 10 × 0.5 = <span class="number">5 N·m</span>
+    </div>
+    <p>In robotics, a motor's torque determines how much weight/load a robot arm can lift. Higher torque = can move heavier loads.</p>
+
+    <h3>Moment of Inertia (I)</h3>
+    <p><strong>Moment of Inertia</strong> is the resistance of an object to changes in its <strong>rotational motion</strong>. A heavier or larger object has more inertia — it's harder to start spinning and harder to stop.</p>
+    <div class="example-box">
+      <span class="comment">// Formula for a simple point mass:</span><br>
+      I = m × r²<br>
+      <span class="comment">// m = mass (kg), r = distance from axis (m)</span><br>
+      <span class="comment">// Units: kg·m²</span>
+    </div>
+    <p><strong>Analogy:</strong> A figure skater spins faster when they pull their arms in (reduce r) — reducing moment of inertia.</p>
+
+    <h3>Power (P)</h3>
+    <p><strong>Power</strong> is the rate at which work is done or energy is transferred.</p>
+    <div class="example-box">
+      <span class="comment">// Formula:</span><br>
+      P = Work / Time  OR  P = Force × Velocity<br>
+      <span class="comment">// For rotation: P = Torque × Angular velocity (ω)</span><br>
+      <span class="comment">// Units: Watts (W)</span>
+    </div>
+    <p>In robotics, choosing the right motor means balancing torque, speed (RPM), and power consumption.</p>
+  </div>
+</div>
+
+<!-- ===================== SECTION: ANATOMY & JOINTS ===================== -->
+<div class="section" id="anatomy">
+  <div class="section-title">
+    <div class="big-icon">🦾</div>
+    <div>
+      <h1>Robot Anatomy — Links, Joints & DOF</h1>
+      <p>How a robot's mechanical body is structured and how it moves.</p>
+    </div>
+  </div>
+
+  <!-- Links -->
+  <div class="card">
+    <h2><span class="icon">🔗</span> Links in Robotic Systems</h2>
+    <p><strong>Links</strong> are the <strong>rigid structural members</strong> of a robot arm — they are the "bones" of the robot. Links do not move by themselves; they transmit force and motion from one joint to another.</p>
+    <h3>Types of Links</h3>
+    <ul>
+      <li><strong>Base Link</strong> – Fixed to the ground or mounting surface. Acts as reference frame.</li>
+      <li><strong>Intermediate Links</strong> – Connect joints in sequence (like upper arm, forearm in human)</li>
+      <li><strong>End Effector Link</strong> – The last link, holding the tool or gripper</li>
+    </ul>
+    <div class="info-box">
+      <strong>Analogy:</strong> Think of links as the bones in your arm:
+      <br>Upper arm = Link 1, Forearm = Link 2, Hand = End Effector
+      <br>Shoulder, Elbow, Wrist = Joints connecting these links
+    </div>
+    <h3>Role of Links</h3>
+    <ul>
+      <li>Provide structural strength and rigidity to the robot arm</li>
+      <li>Define the workspace (reach) of the robot</li>
+      <li>Transmit motion from motors/actuators to end effector</li>
+      <li>Longer links → larger workspace but less precision and more bending stress</li>
+    </ul>
+  </div>
+
+  <!-- Joints -->
+  <div class="card blue-border">
+    <h2><span class="icon">🔩</span> Joints in Robotics</h2>
+    <p><strong>Joints</strong> are the connections between links that allow <strong>relative motion</strong>. Each joint provides one or more degrees of freedom. The type of joint determines what kind of motion is possible.</p>
+    <div class="grid-2">
+      <div>
+        <h3>🔄 Revolute Joint (R)</h3>
+        <p>Also called a <strong>rotary joint</strong>. It allows rotation around a single axis — like a hinge or door knob. Most common joint in robot arms.</p>
+        <ul>
+          <li><strong>1 DOF</strong> – only rotational</li>
+          <li>Example: elbow joint, shoulder rotation</li>
+          <li>Used in: all articulated robot arms</li>
+        </ul>
+        <div class="diagram">
+          <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="40" width="70" height="20" rx="5" fill="#2980b9"/>
+            <circle cx="85" cy="50" r="15" fill="#e94560"/>
+            <rect x="100" y="30" width="70" height="20" rx="5" fill="#27ae60" transform="rotate(-30 100 50)"/>
+            <path d="M 100 50 Q 115 35 115 50" stroke="#f39c12" stroke-width="2" fill="none" stroke-dasharray="4"/>
+            <text x="100" y="85" text-anchor="middle" fill="#555" font-size="11">Revolute Joint</text>
+          </svg>
+        </div>
+      </div>
+      <div>
+        <h3>↔️ Prismatic Joint (P)</h3>
+        <p>Also called a <strong>sliding/linear joint</strong>. It allows movement along a single axis — like a piston or drawer. Extends or retracts linearly.</p>
+        <ul>
+          <li><strong>1 DOF</strong> – only translational</li>
+          <li>Example: hydraulic cylinder, telescoping arm</li>
+          <li>Used in: pick-and-place systems, CNC machines</li>
+        </ul>
+        <div class="diagram">
+          <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="40" width="80" height="20" rx="5" fill="#2980b9"/>
+            <rect x="90" y="35" width="100" height="30" rx="5" fill="#27ae60"/>
+            <line x1="85" y1="50" x2="90" y2="50" stroke="#555" stroke-width="2"/>
+            <polygon points="130,42 150,42 150,38 165,50 150,62 150,58 130,58" fill="#e94560"/>
+            <text x="100" y="85" text-anchor="middle" fill="#555" font-size="11">Prismatic Joint</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <h3>Other Joint Types</h3>
+    <table>
+      <tr><th>Joint Type</th><th>Motion</th><th>DOF</th><th>Example</th></tr>
+      <tr><td>Revolute (R)</td><td>Rotation around one axis</td><td>1</td><td>Elbow, door hinge</td></tr>
+      <tr><td>Prismatic (P)</td><td>Linear sliding motion</td><td>1</td><td>Piston, drawer</td></tr>
+      <tr><td>Cylindrical (C)</td><td>Rotation + Translation on same axis</td><td>2</td><td>Drill press chuck</td></tr>
+      <tr><td>Spherical (S)</td><td>Rotation around 3 axes</td><td>3</td><td>Ball-and-socket (shoulder/hip)</td></tr>
+      <tr><td>Universal (U)</td><td>Rotation around 2 axes</td><td>2</td><td>Cardan joint in cars</td></tr>
+      <tr><td>Planar</td><td>Motion in 2D plane</td><td>3</td><td>Flat sliding arm</td></tr>
+    </table>
+    <div class="success-box">
+      <strong>Role of Joints:</strong> Joints give the robot its ability to move and reach different positions. The number and type of joints directly determines the robot's DOF, workspace, and capabilities.
+    </div>
+  </div>
+</div>
+
+<!-- ===================== SECTION: SENSORS ===================== -->
+<div class="section" id="sensors">
+  <div class="section-title">
+    <div class="big-icon">📡</div>
+    <div>
+      <h1>Sensors in Robotics</h1>
+      <p>How robots perceive the world — from light to temperature to touch.</p>
+    </div>
+  </div>
+
+  <!-- Overview -->
+  <div class="card">
+    <h2><span class="icon">🔍</span> What are Sensors?</h2>
+    <p>A <strong>sensor</strong> is a device that detects changes in the environment and converts them into signals (usually electrical) that a microcontroller or computer can process. Sensors are the "eyes, ears, and skin" of a robot.</p>
+    <div class="grid-2">
+      <div>
+        <h3>Active Sensors</h3>
+        <p><strong>Active sensors</strong> emit energy (light, sound, radio waves) and detect the reflected signal. They need a power source to operate.</p>
+        <ul>
+          <li>Ultrasonic sensor (emits sound waves)</li>
+          <li>IR sensor (emits infrared light)</li>
+          <li>LIDAR (emits laser pulses)</li>
+          <li>Radar (emits radio waves)</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Passive Sensors</h3>
+        <p><strong>Passive sensors</strong> only detect energy from the environment. They don't emit anything.</p>
+        <ul>
+          <li>Camera (captures ambient light)</li>
+          <li>LDR (measures existing light level)</li>
+          <li>Thermocouple (measures temperature)</li>
+          <li>Microphone (detects sound from environment)</li>
+        </ul>
+      </div>
+    </div>
+    <h3>Tactile vs Non-Tactile Sensors</h3>
+    <table>
+      <tr><th>Feature</th><th>Tactile Sensors</th><th>Non-Tactile Sensors</th></tr>
+      <tr><td>Contact needed?</td><td>Yes — must touch object</td><td>No — works at a distance</td></tr>
+      <tr><td>Examples</td><td>Force sensor, touch sensor, pressure pad</td><td>IR, ultrasonic, camera, LIDAR</td></tr>
+      <tr><td>Use case</td><td>Grasping objects, detecting collision</td><td>Navigation, obstacle avoidance</td></tr>
+      <tr><td>Range</td><td>Very short (direct contact)</td><td>Short to long range</td></tr>
+    </table>
+  </div>
+
+  <!-- Tactile Sensor -->
+  <div class="card blue-border">
+    <h2><span class="icon">👆</span> Tactile Sensor</h2>
+    <p>A <strong>tactile sensor</strong> is a sensor that detects physical contact, pressure, or force — mimicking the sense of touch in humans. It senses when something touches the robot and how hard it is pressing.</p>
+    <h3>How It Works</h3>
+    <ul>
+      <li>When pressure is applied, the sensor material deforms slightly</li>
+      <li>This deformation changes an electrical property (resistance, capacitance, or voltage)</li>
+      <li>The change is measured and converted to a pressure/force value</li>
+    </ul>
+    <h3>Types of Tactile Sensors</h3>
+    <ul>
+      <li><strong>Force/Torque Sensor</strong> – Measures the magnitude and direction of force</li>
+      <li><strong>Pressure Sensor Array</strong> – Grid of pressure points (like artificial skin)</li>
+      <li><strong>Limit Switch</strong> – Simple on/off touch detection</li>
+      <li><strong>Piezoelectric Sensor</strong> – Generates voltage when pressed</li>
+    </ul>
+    <div class="success-box">
+      <strong>Application in Robotics:</strong> Used in robot grippers to control grasping force — the robot can pick up a fragile egg without crushing it by monitoring tactile feedback.
+    </div>
+  </div>
+
+  <!-- TILT Sensor -->
+  <div class="card green-border">
+    <h2><span class="icon">📐</span> TILT Sensor</h2>
+    <p>A <strong>tilt sensor</strong> detects the orientation or angle of an object relative to gravity. It senses whether something is tilted beyond a certain angle.</p>
+    <h3>Working Principle</h3>
+    <p>The most common basic tilt sensor uses a <strong>mercury ball or metal ball</strong> inside a cylinder:</p>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Level Position</h4><p>The metal ball rests at the bottom of the cylinder, completing an electrical circuit → Output: HIGH (1)</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Tilted Position</h4><p>When tilted beyond threshold angle, the ball rolls away → Circuit breaks → Output: LOW (0)</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Signal Sent</h4><p>The microcontroller reads this digital HIGH/LOW signal to know if the device is tilted.</p></div></div>
+    </div>
+    <h3>Advanced Tilt Sensors</h3>
+    <ul>
+      <li><strong>MEMS Accelerometer (MPU-6050)</strong> – Measures acceleration in X,Y,Z axes. Can calculate precise tilt angle.</li>
+      <li><strong>Gyroscope</strong> – Measures angular rate of rotation</li>
+      <li><strong>IMU (Inertial Measurement Unit)</strong> – Combines accelerometer + gyroscope</li>
+    </ul>
+    <h3>Applications</h3>
+    <ul>
+      <li>Self-balancing robots (like Segway-style bots)</li>
+      <li>Drone stabilization</li>
+      <li>Game controllers (sensing phone tilt)</li>
+      <li>Alarm systems (detecting if something is moved)</li>
+    </ul>
+  </div>
+
+  <!-- LDR -->
+  <div class="card">
+    <h2><span class="icon">💡</span> LDR Sensor (Light Dependent Resistor)</h2>
+    <p>An <strong>LDR</strong> (also called photoresistor) is a sensor whose <strong>resistance changes based on the amount of light</strong> falling on it.</p>
+    <div class="info-box">
+      <strong>Key Principle:</strong>
+      <br>🌞 More Light → Lower Resistance → Higher current flow → HIGH voltage reading
+      <br>🌑 Less Light → Higher Resistance → Lower current flow → LOW voltage reading
+    </div>
+    <h3>Working Principle</h3>
+    <p>LDR is made of a light-sensitive semiconductor material (usually cadmium sulfide). When photons (light particles) hit the material, they excite electrons, making more charge carriers available, reducing resistance. It's used in a voltage divider circuit to give an analog reading.</p>
+    <div class="example-box">
+      <span class="comment">// Arduino example - LDR on analog pin A0</span><br>
+      <span class="keyword">int</span> ldrPin = A0;<br>
+      <span class="keyword">int</span> ldrValue = <span class="number">0</span>;<br><br>
+      <span class="keyword">void</span> <span class="func">setup</span>() {<br>
+      &nbsp;&nbsp;Serial.<span class="func">begin</span>(<span class="number">9600</span>);<br>
+      }<br><br>
+      <span class="keyword">void</span> <span class="func">loop</span>() {<br>
+      &nbsp;&nbsp;ldrValue = <span class="func">analogRead</span>(ldrPin); <span class="comment">// 0-1023</span><br>
+      &nbsp;&nbsp;<span class="keyword">if</span> (ldrValue &lt; <span class="number">500</span>) {<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;Serial.<span class="func">println</span>(<span class="string">"Dark!"</span>); <span class="comment">// Turn on LED</span><br>
+      &nbsp;&nbsp;} <span class="keyword">else</span> {<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;Serial.<span class="func">println</span>(<span class="string">"Bright!"</span>);<br>
+      &nbsp;&nbsp;}<br>
+      }
+    </div>
+    <h3>Applications</h3>
+    <ul>
+      <li>Automatic street lights (turn on when dark)</li>
+      <li>Light-following robots</li>
+      <li>Camera automatic exposure control</li>
+    </ul>
+  </div>
+
+  <!-- IR Sensor -->
+  <div class="card gold-border">
+    <h2><span class="icon">🔴</span> IR Sensor (Infrared Sensor)</h2>
+    <p>An <strong>IR sensor</strong> detects infrared radiation (light just below visible spectrum). It consists of two parts: an <strong>IR LED</strong> (emitter) and a <strong>photodiode</strong> (receiver).</p>
+    <div class="diagram">
+      <svg viewBox="0 0 450 130" xmlns="http://www.w3.org/2000/svg">
+        <!-- Emitter -->
+        <rect x="20" y="40" width="80" height="50" rx="8" fill="#e94560"/>
+        <text x="60" y="62" text-anchor="middle" fill="white" font-size="11" font-weight="bold">IR LED</text>
+        <text x="60" y="76" text-anchor="middle" fill="white" font-size="10">(Emitter)</text>
+        <!-- Waves -->
+        <path d="M 105 65 Q 125 50 145 65 Q 165 80 185 65 Q 205 50 225 65" stroke="#f39c12" stroke-width="2.5" fill="none" stroke-dasharray="6"/>
+        <text x="165" y="45" text-anchor="middle" fill="#f39c12" font-size="10">IR Waves</text>
+        <!-- Object -->
+        <rect x="225" y="30" width="50" height="70" rx="6" fill="#8e44ad"/>
+        <text x="250" y="60" text-anchor="middle" fill="white" font-size="10" font-weight="bold">OBJECT</text>
+        <text x="250" y="74" text-anchor="middle" fill="white" font-size="10">(reflects)</text>
+        <!-- Reflected waves -->
+        <path d="M 278 65 Q 298 50 318 65 Q 338 80 358 65" stroke="#27ae60" stroke-width="2.5" fill="none" stroke-dasharray="6"/>
+        <text x="318" y="45" text-anchor="middle" fill="#27ae60" font-size="10">Reflected</text>
+        <!-- Receiver -->
+        <rect x="355" y="40" width="80" height="50" rx="8" fill="#2980b9"/>
+        <text x="395" y="62" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Photodiode</text>
+        <text x="395" y="76" text-anchor="middle" fill="white" font-size="10">(Receiver)</text>
+        <!-- Labels -->
+        <text x="225" y="118" text-anchor="middle" fill="#555" font-size="11">When object is near: reflected IR detected → Output LOW</text>
+      </svg>
+      <div class="diagram-caption">Figure: IR Sensor Working Principle</div>
+    </div>
+    <h3>Working Principle</h3>
+    <ol>
+      <li>IR LED continuously emits infrared light</li>
+      <li>If an object is nearby, IR light reflects off it</li>
+      <li>The photodiode detects the reflected IR</li>
+      <li>Output pin goes LOW (object detected) or HIGH (no object)</li>
+    </ol>
+    <h3>Applications</h3>
+    <ul>
+      <li><strong>Line-following robots</strong> – Detects black/white line on floor (black absorbs IR, white reflects)</li>
+      <li><strong>Obstacle avoidance</strong> – Detects nearby obstacles</li>
+      <li><strong>TV remotes</strong> – IR sends commands to TV</li>
+      <li><strong>Object counting</strong> on conveyor belts</li>
+    </ul>
+  </div>
+
+  <!-- Proximity Sensor -->
+  <div class="card blue-border">
+    <h2><span class="icon">📶</span> Proximity Sensor</h2>
+    <p>A <strong>proximity sensor</strong> detects the presence of objects <strong>without physical contact</strong> — at close range. It senses when an object is "near" but doesn't measure exact distance.</p>
+    <h3>Types of Proximity Sensors</h3>
+    <ul>
+      <li><strong>Inductive Proximity Sensor</strong> – Detects metal objects using electromagnetic field (like detecting a metal key near the sensor)</li>
+      <li><strong>Capacitive Proximity Sensor</strong> – Detects any object (metal or non-metal) by measuring capacitance change</li>
+      <li><strong>Magnetic Proximity Sensor (Reed Switch)</strong> – Detects magnets</li>
+      <li><strong>Ultrasonic Proximity Sensor</strong> – Uses sound waves, works for any material</li>
+      <li><strong>Photoelectric (IR/Optical)</strong> – Uses light beam interruption</li>
+    </ul>
+    <div class="success-box">
+      <strong>Application:</strong> Smartphones use capacitive proximity sensors to turn off the screen when you hold the phone to your ear — saving battery and preventing accidental touches.
+    </div>
+  </div>
+
+  <!-- Ultrasonic -->
+  <div class="card green-border">
+    <h2><span class="icon">🔊</span> Ultrasonic Sensor (HC-SR04)</h2>
+    <p>An <strong>ultrasonic sensor</strong> measures distance by sending out high-frequency sound pulses and measuring how long they take to bounce back.</p>
+    <div class="diagram">
+      <svg viewBox="0 0 480 120" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="35" width="100" height="50" rx="8" fill="#2980b9"/>
+        <text x="60" y="58" text-anchor="middle" fill="white" font-size="11" font-weight="bold">HC-SR04</text>
+        <circle cx="30" cy="70" r="10" fill="#1a5276"/>
+        <text x="30" y="73" text-anchor="middle" fill="white" font-size="8">TRIG</text>
+        <circle cx="80" cy="70" r="10" fill="#145a32"/>
+        <text x="80" y="73" text-anchor="middle" fill="white" font-size="8">ECHO</text>
+        <!-- Sound waves going forward -->
+        <path d="M 115 60 Q 135 45 155 60" stroke="#f39c12" stroke-width="2" fill="none"/>
+        <path d="M 115 60 Q 145 35 175 60" stroke="#f39c12" stroke-width="2" fill="none" opacity="0.7"/>
+        <path d="M 115 60 Q 155 25 195 60" stroke="#f39c12" stroke-width="2" fill="none" opacity="0.4"/>
+        <!-- Object -->
+        <rect x="310" y="25" width="40" height="70" rx="6" fill="#8e44ad"/>
+        <text x="330" y="65" text-anchor="middle" fill="white" font-size="10">Wall</text>
+        <!-- Return waves -->
+        <path d="M 305 60 Q 285 45 265 60" stroke="#27ae60" stroke-width="2" fill="none"/>
+        <path d="M 305 60 Q 275 35 245 60" stroke="#27ae60" stroke-width="2" fill="none" opacity="0.7"/>
+        <!-- Time label -->
+        <text x="215" y="20" text-anchor="middle" fill="#555" font-size="10">⟵ Time to travel = t ⟶</text>
+        <!-- Formula -->
+        <text x="215" y="110" text-anchor="middle" fill="#e94560" font-size="12" font-weight="bold">Distance = (Speed of Sound × t) / 2</text>
+      </svg>
+      <div class="diagram-caption">Figure: Ultrasonic sensor measuring distance using sound waves</div>
+    </div>
+    <h3>Working Steps</h3>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h4>TRIG pulse sent</h4><p>Microcontroller sends a 10µs HIGH pulse to TRIG pin</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Ultrasonic burst emitted</h4><p>Sensor sends 8 cycles of 40kHz ultrasonic sound</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><h4>ECHO goes HIGH</h4><p>ECHO pin becomes HIGH immediately after burst is sent</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Sound returns</h4><p>Sound bounces off object and returns to sensor</p></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-content"><h4>Calculate distance</h4><p>Distance = (ECHO pulse duration × 34300 cm/s) ÷ 2</p></div></div>
+    </div>
+    <div class="example-box">
+      <span class="comment">// Arduino - Ultrasonic Distance Measurement</span><br>
+      <span class="keyword">int</span> trigPin = <span class="number">9</span>, echoPin = <span class="number">10</span>;<br>
+      <span class="keyword">long</span> duration; <span class="keyword">float</span> distance;<br><br>
+      <span class="keyword">void</span> <span class="func">setup</span>() { Serial.<span class="func">begin</span>(<span class="number">9600</span>); }<br><br>
+      <span class="keyword">void</span> <span class="func">loop</span>() {<br>
+      &nbsp;&nbsp;<span class="func">digitalWrite</span>(trigPin, HIGH);<br>
+      &nbsp;&nbsp;<span class="func">delayMicroseconds</span>(<span class="number">10</span>);<br>
+      &nbsp;&nbsp;<span class="func">digitalWrite</span>(trigPin, LOW);<br>
+      &nbsp;&nbsp;duration = <span class="func">pulseIn</span>(echoPin, HIGH);<br>
+      &nbsp;&nbsp;distance = duration * <span class="number">0.034</span> / <span class="number">2</span>; <span class="comment">// in cm</span><br>
+      &nbsp;&nbsp;Serial.<span class="func">println</span>(distance);<br>
+      }
+    </div>
+  </div>
+
+  <!-- DHT11 -->
+  <div class="card">
+    <h2><span class="icon">🌡️</span> DHT11 Temperature & Humidity Sensor</h2>
+    <p>The <strong>DHT11</strong> is a basic, low-cost digital sensor that measures both <strong>temperature</strong> and <strong>relative humidity</strong>. It provides calibrated digital output using a single data wire.</p>
+    <div class="grid-2">
+      <div>
+        <h3>Specifications</h3>
+        <table>
+          <tr><th>Property</th><th>Value</th></tr>
+          <tr><td>Temperature Range</td><td>0°C to 50°C</td></tr>
+          <tr><td>Humidity Range</td><td>20% to 80% RH</td></tr>
+          <tr><td>Accuracy (Temp)</td><td>±2°C</td></tr>
+          <tr><td>Accuracy (Humidity)</td><td>±5% RH</td></tr>
+          <tr><td>Sampling Rate</td><td>1 reading per second</td></tr>
+          <tr><td>Voltage</td><td>3.3V – 5.5V</td></tr>
+          <tr><td>Pins</td><td>VCC, Data, GND</td></tr>
+        </table>
+      </div>
+      <div>
+        <h3>How DHT11 Works</h3>
+        <p>DHT11 uses two internal sensors:</p>
+        <ul>
+          <li><strong>Humidity sensing element</strong> – A moisture-absorbing substrate between two electrodes. Humidity changes its capacitance.</li>
+          <li><strong>Thermistor (NTC)</strong> – Its resistance changes with temperature.</li>
+        </ul>
+        <p>An internal microchip converts these readings to digital data and sends it via a proprietary single-wire protocol.</p>
+        <h4>Data Format</h4>
+        <p>Sends 40 bits total: 8 bits humidity integer + 8 bits humidity decimal + 8 bits temp integer + 8 bits temp decimal + 8 bits checksum</p>
+      </div>
+    </div>
+    <div class="example-box">
+      <span class="comment">// Arduino DHT11 Example (using DHT library)</span><br>
+      <span class="keyword">#include</span> &lt;DHT.h&gt;<br>
+      DHT dht(<span class="number">2</span>, DHT11); <span class="comment">// Data pin = 2</span><br><br>
+      <span class="keyword">void</span> <span class="func">setup</span>() { Serial.<span class="func">begin</span>(<span class="number">9600</span>); dht.<span class="func">begin</span>(); }<br><br>
+      <span class="keyword">void</span> <span class="func">loop</span>() {<br>
+      &nbsp;&nbsp;<span class="keyword">float</span> temp = dht.<span class="func">readTemperature</span>();<br>
+      &nbsp;&nbsp;<span class="keyword">float</span> hum = dht.<span class="func">readHumidity</span>();<br>
+      &nbsp;&nbsp;Serial.<span class="func">print</span>(<span class="string">"Temp: "</span>); Serial.<span class="func">println</span>(temp);<br>
+      &nbsp;&nbsp;Serial.<span class="func">print</span>(<span class="string">"Humidity: "</span>); Serial.<span class="func">println</span>(hum);<br>
+      &nbsp;&nbsp;<span class="func">delay</span>(<span class="number">1000</span>);<br>
+      }
+    </div>
+    <h3>Temperature Sensor Working in General</h3>
+    <p>Temperature sensors detect heat by measuring a physical property that changes with temperature:</p>
+    <ul>
+      <li><strong>Thermistor (NTC/PTC)</strong> – Resistance changes with temperature. NTC: resistance decreases as temperature increases.</li>
+      <li><strong>Thermocouple (Type K)</strong> – Two different metals joined; temperature difference generates a small voltage (Seebeck effect)</li>
+      <li><strong>DS18B20</strong> – Digital temperature sensor, very precise, uses 1-Wire protocol</li>
+      <li><strong>LM35</strong> – Analog sensor; outputs 10mV per °C directly readable by ADC</li>
+    </ul>
+    <div class="info-box">
+      <strong>Two Common Examples:</strong>
+      <br>① <strong>LM35</strong> – Simple analog sensor, output = 10mV/°C, range: -55°C to 150°C
+      <br>② <strong>DS18B20</strong> – Digital sensor, ±0.5°C accuracy, waterproof version available for liquid temp measurement
+    </div>
+  </div>
+
+  <!-- Bluetooth GPS GSM -->
+  <div class="card gold-border">
+    <h2><span class="icon">📡</span> Bluetooth, GPS & GSM in Robotic Communication</h2>
+    <div class="grid-3">
+      <div>
+        <h3>🔵 Bluetooth</h3>
+        <p><strong>Bluetooth</strong> is a short-range wireless communication technology operating at 2.4 GHz.</p>
+        <ul>
+          <li>Range: ~10m (classic) to 100m (BLE)</li>
+          <li>Module: HC-05, HC-06, HM-10 (BLE)</li>
+          <li>Use: Remote control robots via smartphone, wireless sensor data, robot-to-robot communication</li>
+        </ul>
+      </div>
+      <div>
+        <h3>🛰️ GPS</h3>
+        <p><strong>GPS</strong> (Global Positioning System) provides location coordinates (latitude, longitude) by receiving signals from satellites.</p>
+        <ul>
+          <li>Accuracy: 2-5 meters (civilian)</li>
+          <li>Module: NEO-6M, NEO-M8N</li>
+          <li>Use: Outdoor robot navigation, drone waypoint following, autonomous vehicles</li>
+        </ul>
+      </div>
+      <div>
+        <h3>📶 GSM</h3>
+        <p><strong>GSM</strong> (Global System for Mobile) allows robots to communicate over cellular networks via SMS, calls, or internet (GPRS).</p>
+        <ul>
+          <li>Range: Nationwide (anywhere with cellular coverage)</li>
+          <li>Module: SIM800L, SIM900</li>
+          <li>Use: Remote monitoring, sending sensor data via SMS, long-distance control</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== SECTION: MICROCONTROLLERS ===================== -->
+<div class="section" id="micro">
+  <div class="section-title">
+    <div class="big-icon">💻</div>
+    <div>
+      <h1>Microprocessors & Microcontrollers</h1>
+      <p>The brain of every robot — understanding how they work.</p>
+    </div>
+  </div>
+
+  <!-- Microprocessor -->
+  <div class="card">
+    <h2><span class="icon">🧠</span> What is a Microprocessor?</h2>
+    <p>A <strong>microprocessor</strong> is an integrated circuit (IC) that contains only the <strong>Central Processing Unit (CPU)</strong> on a single chip. It performs arithmetic, logic, and control operations but requires <strong>external memory (RAM, ROM) and I/O components</strong> to function.</p>
+    <div class="info-box">
+      <strong>Simple Analogy:</strong> A microprocessor is like just the brain — it's powerful and fast, but it needs a body (memory, storage, I/O circuits) to actually do things.
+    </div>
+    <h3>Examples of Microprocessors</h3>
+    <ul>
+      <li>Intel 8085, 8086 (historic, used in education)</li>
+      <li>ARM Cortex-A series (used in smartphones)</li>
+      <li>Intel Core i5/i7 (used in computers)</li>
+      <li>Raspberry Pi's Broadcom BCM2837 (used in robotics education)</li>
+    </ul>
+
+    <h2 style="margin-top:28px"><span class="icon">📟</span> What is a Microcontroller?</h2>
+    <p>A <strong>microcontroller</strong> is a complete computer on a single chip. It contains a <strong>CPU + RAM + ROM/Flash + I/O ports + timers + communication interfaces</strong> — everything built-in.</p>
+    <div class="success-box">
+      <strong>Simple Analogy:</strong> A microcontroller is like a brain PLUS body — all in one small chip. It's self-contained and ready to use with minimal external components.
+    </div>
+
+    <h2 style="margin-top:28px"><span class="icon">⚖️</span> Microprocessor vs Microcontroller</h2>
+    <table>
+      <tr><th>Feature</th><th>Microprocessor</th><th>Microcontroller</th></tr>
+      <tr><td>Contains CPU?</td><td>Yes</td><td>Yes</td></tr>
+      <tr><td>Built-in RAM/ROM?</td><td>No (external)</td><td>Yes (on-chip)</td></tr>
+      <tr><td>Built-in I/O?</td><td>No (needs external ICs)</td><td>Yes (GPIO, UART, SPI, I2C)</td></tr>
+      <tr><td>Cost</td><td>Higher (needs more chips)</td><td>Lower (all-in-one)</td></tr>
+      <tr><td>Processing Power</td><td>Very high (GHz)</td><td>Moderate (MHz)</td></tr>
+      <tr><td>Power Consumption</td><td>High</td><td>Low</td></tr>
+      <tr><td>Application</td><td>Laptops, desktops, phones</td><td>Embedded systems, robots, appliances</td></tr>
+      <tr><td>Examples</td><td>Intel 8085, ARM Cortex-A</td><td>Arduino (ATmega328), 8051, PIC</td></tr>
+    </table>
+  </div>
+
+  <!-- 8051 -->
+  <div class="card blue-border">
+    <h2><span class="icon">🔢</span> 8051 Microcontroller — Architecture & Details</h2>
+    <p>The <strong>8051</strong> is a classic 8-bit microcontroller developed by Intel in 1980. It is still widely used for learning and in many embedded applications.</p>
+    <div class="grid-2">
+      <div>
+        <h3>Key Features</h3>
+        <ul>
+          <li>8-bit CPU</li>
+          <li>4KB internal ROM (program memory)</li>
+          <li>128 bytes internal RAM</li>
+          <li>32 I/O pins (4 ports × 8 bits)</li>
+          <li>2 x 16-bit Timers (Timer 0 and Timer 1)</li>
+          <li>1 UART serial port</li>
+          <li>6 interrupt sources</li>
+          <li>Clock speed: typically 12 MHz</li>
+        </ul>
+        <h3>Architecture Components</h3>
+        <ul>
+          <li><strong>ALU</strong> – Arithmetic Logic Unit (does math and logic)</li>
+          <li><strong>Accumulator (A)</strong> – Main 8-bit register for calculations</li>
+          <li><strong>B Register</strong> – Used for multiply/divide operations</li>
+          <li><strong>PC (Program Counter)</strong> – Holds address of next instruction</li>
+          <li><strong>SP (Stack Pointer)</strong> – Points to top of stack</li>
+          <li><strong>PSW</strong> – Program Status Word (flags: carry, zero, parity, etc.)</li>
+          <li><strong>DPTR</strong> – 16-bit Data Pointer for external memory access</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Pin Configuration (40-pin DIP)</h3>
+        <ul>
+          <li><strong>Port 0 (P0.0–P0.7)</strong> – Pins 32–39: Multiplexed I/O and Address/Data bus</li>
+          <li><strong>Port 1 (P1.0–P1.7)</strong> – Pins 1–8: General purpose I/O</li>
+          <li><strong>Port 2 (P2.0–P2.7)</strong> – Pins 21–28: I/O and High Address Bus</li>
+          <li><strong>Port 3 (P3.0–P3.7)</strong> – Pins 10–17: I/O with alternate functions (UART, interrupts, timers)</li>
+          <li><strong>XTAL1, XTAL2</strong> – Pins 18,19: Crystal oscillator inputs</li>
+          <li><strong>RST</strong> – Pin 9: Reset</li>
+          <li><strong>VCC</strong> – Pin 40: +5V power</li>
+          <li><strong>GND</strong> – Pin 20: Ground</li>
+          <li><strong>EA</strong> – Pin 31: External Access (HIGH = use internal ROM)</li>
+          <li><strong>ALE</strong> – Pin 30: Address Latch Enable</li>
+        </ul>
+        <div class="warn-box">
+          <strong>What is ALE (Address Latch Enable)?</strong>
+          <br>ALE is a signal that tells an external latch IC to capture and hold the lower 8 bits of the address that are being sent on Port 0. Since Port 0 is multiplexed (shares address and data), ALE is HIGH when Port 0 carries the address, so a 74HC373 latch can capture it. Then Port 0 switches to carry data.
+        </div>
+      </div>
+    </div>
+    <h3>Interrupts in 8051</h3>
+    <p>An <strong>interrupt</strong> is a signal that temporarily suspends the main program to handle an urgent event.</p>
+    <p>The 8051 has <strong>5 interrupt sources</strong> organized in 2 priority levels:</p>
+    <table>
+      <tr><th>Interrupt</th><th>Source</th><th>Vector Address</th></tr>
+      <tr><td>INT0</td><td>External Interrupt 0 (Pin P3.2)</td><td>0003H</td></tr>
+      <tr><td>TF0</td><td>Timer 0 Overflow</td><td>000BH</td></tr>
+      <tr><td>INT1</td><td>External Interrupt 1 (Pin P3.3)</td><td>0013H</td></tr>
+      <tr><td>TF1</td><td>Timer 1 Overflow</td><td>001BH</td></tr>
+      <tr><td>RI/TI</td><td>Serial Communication (UART)</td><td>0023H</td></tr>
+    </table>
+    <div class="info-box">
+      <strong>What is an Instruction?</strong> An instruction is a binary command that tells the CPU exactly what operation to perform. For example, MOV A, #55H means "put the value 55 hexadecimal into the Accumulator register." Instructions are stored in program memory (ROM) and executed one by one. The 8051 instruction set includes ~111 instructions.
+    </div>
+  </div>
+
+  <!-- Arduino IDE -->
+  <div class="card green-border">
+    <h2><span class="icon">🔧</span> Arduino UNO, ATmega328p & Arduino IDE</h2>
+    <h3>Arduino UNO</h3>
+    <p>The <strong>Arduino UNO</strong> is the most popular beginner microcontroller board. It is based on the <strong>ATmega328p</strong> microcontroller.</p>
+    <div class="grid-2">
+      <div>
+        <h4>Arduino UNO Specs</h4>
+        <ul>
+          <li>Microcontroller: ATmega328p (8-bit)</li>
+          <li>Clock speed: 16 MHz</li>
+          <li>Flash memory: 32 KB</li>
+          <li>SRAM: 2 KB</li>
+          <li>EEPROM: 1 KB</li>
+          <li>Digital I/O pins: 14 (6 with PWM)</li>
+          <li>Analog input pins: 6</li>
+          <li>Operating voltage: 5V</li>
+          <li>USB programming: Yes (via USB-B connector)</li>
+        </ul>
+      </div>
+      <div>
+        <h4>ATmega328p – 8-bit Microcontroller</h4>
+        <p>An <strong>8-bit microcontroller</strong> means its CPU processes 8 bits of data at a time. The ATmega328p is a RISC-based AVR microcontroller by Atmel/Microchip.</p>
+        <ul>
+          <li>Executes most instructions in single clock cycle</li>
+          <li>131 instructions in its instruction set</li>
+          <li>Has ADC, UART, SPI, I2C built-in</li>
+          <li>Watchdog timer, sleep modes for power saving</li>
+        </ul>
+      </div>
+    </div>
+    <h3>Arduino IDE — Steps to Write and Run a Program</h3>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Install Arduino IDE</h4><p>Download from arduino.cc. Install the software on Windows/Mac/Linux.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Connect Arduino</h4><p>Plug Arduino UNO via USB. Install drivers if prompted. Select the board under Tools → Board → Arduino UNO.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Select COM Port</h4><p>Go to Tools → Port → Select the COM port your Arduino is connected to (e.g., COM3 on Windows, /dev/ttyUSB0 on Linux).</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Write Your Code</h4><p>Type your Arduino sketch (program) in the editor. Every Arduino sketch has setup() and loop() functions.</p></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-content"><h4>Verify/Compile</h4><p>Click the ✓ Verify button to check for syntax errors. The IDE compiles code into machine language.</p></div></div>
+      <div class="step"><div class="step-num">6</div><div class="step-content"><h4>Upload</h4><p>Click → Upload button. Code is sent to ATmega328p via USB. "Done uploading" means success!</p></div></div>
+    </div>
+    <div class="example-box">
+      <span class="comment">// Example: Blink an LED — the "Hello World" of Arduino</span><br>
+      <span class="keyword">int</span> ledPin = <span class="number">13</span>; <span class="comment">// LED connected to digital pin 13</span><br><br>
+      <span class="keyword">void</span> <span class="func">setup</span>() {<br>
+      &nbsp;&nbsp;<span class="func">pinMode</span>(ledPin, OUTPUT); <span class="comment">// Set pin 13 as output</span><br>
+      }<br><br>
+      <span class="keyword">void</span> <span class="func">loop</span>() {<br>
+      &nbsp;&nbsp;<span class="func">digitalWrite</span>(ledPin, HIGH); <span class="comment">// Turn LED ON</span><br>
+      &nbsp;&nbsp;<span class="func">delay</span>(<span class="number">1000</span>); &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// Wait 1 second</span><br>
+      &nbsp;&nbsp;<span class="func">digitalWrite</span>(ledPin, LOW); &nbsp;<span class="comment">// Turn LED OFF</span><br>
+      &nbsp;&nbsp;<span class="func">delay</span>(<span class="number">1000</span>); &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// Wait 1 second</span><br>
+      }<br>
+      <span class="comment">// Result: LED blinks ON-OFF every second forever!</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== SECTION: BOARDS ===================== -->
+<div class="section" id="boards">
+  <div class="section-title">
+    <div class="big-icon">🔌</div>
+    <div>
+      <h1>Raspberry Pi & ESP8266</h1>
+      <p>Powerful boards for robotics, IoT, and beyond.</p>
+    </div>
+  </div>
+
+  <!-- Raspberry Pi -->
+  <div class="card">
+    <h2><span class="icon">🍓</span> Raspberry Pi</h2>
+    <p><strong>Raspberry Pi</strong> is a low-cost, credit card–sized <strong>single-board computer (SBC)</strong> developed by the Raspberry Pi Foundation (UK). Unlike Arduino (a microcontroller), Raspberry Pi runs a full operating system (usually Raspberry Pi OS, a Linux-based system).</p>
+    <div class="grid-2">
+      <div>
+        <h3>Raspberry Pi 4 Model B — Specifications</h3>
+        <ul>
+          <li>CPU: Broadcom BCM2711 (Quad-core 64-bit ARM Cortex-A72 @ 1.8 GHz)</li>
+          <li>RAM: 2GB / 4GB / 8GB LPDDR4</li>
+          <li>Storage: MicroSD card slot</li>
+          <li>GPU: VideoCore VI (4K video support)</li>
+          <li>Ports: 2× USB 3.0, 2× USB 2.0, 2× micro-HDMI</li>
+          <li>Connectivity: Gigabit Ethernet, WiFi, Bluetooth 5.0</li>
+          <li>GPIO: 40-pin header (General Purpose I/O)</li>
+          <li>Camera port (CSI), Display port (DSI)</li>
+          <li>Power: 5V/3A USB-C</li>
+          <li>OS: Raspberry Pi OS, Ubuntu, Windows IoT</li>
+        </ul>
+      </div>
+      <div>
+        <h3>What makes Raspberry Pi special?</h3>
+        <ul>
+          <li>Runs a full Linux OS → you can use Python, OpenCV, TensorFlow, ROS</li>
+          <li>Has HDMI output → connect to a monitor, use it as a desktop PC</li>
+          <li>Has camera module support → video processing, face recognition</li>
+          <li>40-pin GPIO → can connect sensors, LEDs, motors (like Arduino)</li>
+          <li>Can run web servers, databases, complex AI models</li>
+        </ul>
+        <h3>Use in Robotics</h3>
+        <ul>
+          <li>Running ROS (Robot Operating System)</li>
+          <li>Image processing with OpenCV</li>
+          <li>Machine learning inference (TensorFlow Lite)</li>
+          <li>Controlling complex robots needing high-level computation</li>
+          <li>Web-based robot monitoring dashboards</li>
+        </ul>
+      </div>
+    </div>
+    <div class="warn-box">
+      <strong>Arduino vs Raspberry Pi:</strong> Arduino is best for real-time hardware control (reading sensors fast, PWM). Raspberry Pi is best for computation-heavy tasks (AI, video, networking). In advanced robots, BOTH are used together — Raspberry Pi for intelligence, Arduino for hardware I/O.
+    </div>
+  </div>
+
+  <!-- ESP8266 -->
+  <div class="card blue-border">
+    <h2><span class="icon">📶</span> ESP8266 — WiFi Microcontroller</h2>
+    <p>The <strong>ESP8266</strong> is a low-cost WiFi microcontroller chip developed by Espressif Systems. It can connect to WiFi networks and acts as both a microcontroller and a WiFi module — making it perfect for <strong>IoT (Internet of Things)</strong> projects.</p>
+    <div class="grid-2">
+      <div>
+        <h3>ESP8266 Specifications</h3>
+        <ul>
+          <li>CPU: 32-bit Tensilica Xtensa LX106 @ 80/160 MHz</li>
+          <li>Flash Memory: 512KB – 4MB (varies)</li>
+          <li>RAM: 80KB user-accessible</li>
+          <li>WiFi: 802.11 b/g/n (2.4 GHz)</li>
+          <li>GPIO: 16 pins (varies by module)</li>
+          <li>1 ADC pin (10-bit, 0-1V)</li>
+          <li>Communication: UART, SPI, I2C, PWM</li>
+          <li>Operating voltage: 3.3V</li>
+          <li>Programming: Arduino IDE, MicroPython, AT commands</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Popular ESP8266 Modules</h3>
+        <ul>
+          <li><strong>ESP-01</strong> – Tiny module, only 2 GPIO pins, basic WiFi</li>
+          <li><strong>NodeMCU</strong> – Development board with USB, 11 GPIO, popular for learning</li>
+          <li><strong>Wemos D1 Mini</strong> – Compact development board</li>
+        </ul>
+        <h3>Applications</h3>
+        <ul>
+          <li>WiFi-controlled robots</li>
+          <li>Smart home automation (control lights via phone)</li>
+          <li>IoT sensor nodes (send temperature to cloud)</li>
+          <li>Web server on the microcontroller itself</li>
+          <li>MQTT-based communication for robot swarms</li>
+        </ul>
+      </div>
+    </div>
+    <div class="example-box">
+      <span class="comment">// ESP8266 (NodeMCU) - Connect to WiFi and serve a webpage</span><br>
+      <span class="keyword">#include</span> &lt;ESP8266WiFi.h&gt;<br>
+      <span class="keyword">#include</span> &lt;ESP8266WebServer.h&gt;<br><br>
+      <span class="keyword">const char*</span> ssid = <span class="string">"YourWiFi"</span>;<br>
+      <span class="keyword">const char*</span> password = <span class="string">"YourPassword"</span>;<br>
+      ESP8266WebServer server(<span class="number">80</span>);<br><br>
+      <span class="keyword">void</span> <span class="func">setup</span>() {<br>
+      &nbsp;&nbsp;WiFi.<span class="func">begin</span>(ssid, password);<br>
+      &nbsp;&nbsp;<span class="keyword">while</span> (WiFi.status() != WL_CONNECTED) <span class="func">delay</span>(<span class="number">500</span>);<br>
+      &nbsp;&nbsp;server.<span class="func">on</span>(<span class="string">"/"</span>, [](){<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;server.<span class="func">send</span>(<span class="number">200</span>, <span class="string">"text/html"</span>, <span class="string">"&lt;h1&gt;Hello from Robot!&lt;/h1&gt;"</span>);<br>
+      &nbsp;&nbsp;});<br>
+      &nbsp;&nbsp;server.<span class="func">begin</span>();<br>
+      }<br>
+      <span class="keyword">void</span> <span class="func">loop</span>() { server.<span class="func">handleClient</span>(); }
+    </div>
+  </div>
+</div>
+
+<!-- ===================== SECTION: VISION & AI ===================== -->
+<div class="section" id="vision">
+  <div class="section-title">
+    <div class="big-icon">👁️</div>
+    <div>
+      <h1>Robot Vision, Image Processing & AI</h1>
+      <p>How robots see and understand the world around them.</p>
+    </div>
+  </div>
+
+  <!-- Pixel -->
+  <div class="card">
+    <h2><span class="icon">🖼️</span> Digital Image & Pixel</h2>
+    <p>A <strong>pixel</strong> (short for "Picture Element") is the <strong>smallest unit of a digital image</strong>. Every digital image is made up of a grid of pixels arranged in rows and columns.</p>
+    <div class="grid-2">
+      <div>
+        <h3>What is a Pixel?</h3>
+        <ul>
+          <li>Each pixel stores color information</li>
+          <li>In a <strong>grayscale</strong> image: each pixel = 1 number (0=black, 255=white)</li>
+          <li>In a <strong>color (RGB)</strong> image: each pixel = 3 numbers (Red, Green, Blue values 0–255)</li>
+          <li>A 1920×1080 image has 1920×1080 = <strong>2,073,600 pixels</strong> (≈2 megapixels)</li>
+        </ul>
+        <h3>Digital Image</h3>
+        <p>A <strong>digital image</strong> is a 2D matrix of pixel values stored as numbers. Computers store and process images as arrays of numbers — this is how OpenCV and image processing libraries work.</p>
+      </div>
+      <div>
+        <div class="diagram">
+          <svg viewBox="0 0 220 200" xmlns="http://www.w3.org/2000/svg">
+            <text x="110" y="18" text-anchor="middle" fill="#555" font-size="12" font-weight="bold">3×3 Grayscale Image</text>
+            <!-- Grid -->
+            <rect x="40" y="30" width="50" height="50" fill="#000000"/><text x="65" y="60" text-anchor="middle" fill="white" font-size="14">0</text>
+            <rect x="90" y="30" width="50" height="50" fill="#808080"/><text x="115" y="60" text-anchor="middle" fill="white" font-size="14">128</text>
+            <rect x="140" y="30" width="50" height="50" fill="#ffffff" stroke="#ddd"/><text x="165" y="60" text-anchor="middle" fill="#333" font-size="14">255</text>
+            <rect x="40" y="80" width="50" height="50" fill="#404040"/><text x="65" y="110" text-anchor="middle" fill="white" font-size="14">64</text>
+            <rect x="90" y="80" width="50" height="50" fill="#c0c0c0"/><text x="115" y="110" text-anchor="middle" fill="#333" font-size="14">192</text>
+            <rect x="140" y="80" width="50" height="50" fill="#d0d0d0" stroke="#ddd"/><text x="165" y="110" text-anchor="middle" fill="#333" font-size="14">208</text>
+            <rect x="40" y="130" width="50" height="50" fill="#909090"/><text x="65" y="160" text-anchor="middle" fill="white" font-size="14">144</text>
+            <rect x="90" y="130" width="50" height="50" fill="#202020"/><text x="115" y="160" text-anchor="middle" fill="white" font-size="14">32</text>
+            <rect x="140" y="130" width="50" height="50" fill="#f0f0f0" stroke="#ddd"/><text x="165" y="160" text-anchor="middle" fill="#333" font-size="14">240</text>
+            <text x="110" y="195" text-anchor="middle" fill="#888" font-size="10">Pixel values (0=black, 255=white)</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Image Processing -->
+  <div class="card blue-border">
+    <h2><span class="icon">🔬</span> Image Processing</h2>
+    <p><strong>Image processing</strong> is the technique of performing operations on a digital image to improve its quality, extract useful information, or transform it for further analysis. It's the foundation of computer vision and robot vision.</p>
+    <h3>Image Processing Steps (Pipeline)</h3>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Image Acquisition</h4><p>Capture image using a camera (webcam, Raspberry Pi camera, IP camera)</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Pre-processing</h4><p>Improve image quality — resize, denoise (Gaussian blur), adjust brightness/contrast</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Color Space Conversion</h4><p>Convert BGR → Grayscale, or BGR → HSV (HSV is better for color-based detection)</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Segmentation</h4><p>Separate objects from background using thresholding, color masking, or edge detection</p></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-content"><h4>Feature Extraction</h4><p>Find edges, corners, blobs, contours, or use deep learning features</p></div></div>
+      <div class="step"><div class="step-num">6</div><div class="step-content"><h4>Analysis / Classification</h4><p>Identify what objects are present, their position, size, shape using algorithms or AI</p></div></div>
+      <div class="step"><div class="step-num">7</div><div class="step-content"><h4>Output / Decision</h4><p>Display result on screen, send command to robot actuators, store data</p></div></div>
+    </div>
+    <h3>Canny Edge Detection</h3>
+    <p><strong>Canny edge detection</strong> is a popular multi-step algorithm for finding edges in images:</p>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Gaussian Blur</h4><p>Smooth the image to reduce noise (noise creates false edges)</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Gradient Calculation</h4><p>Find intensity change in X and Y directions using Sobel filters. Steep change = edge.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Non-Maximum Suppression</h4><p>Thin thick edges to sharp 1-pixel-wide lines</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Double Thresholding</h4><p>Classify pixels as strong edge, weak edge, or not an edge using two threshold values</p></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-content"><h4>Edge Tracking (Hysteresis)</h4><p>Keep weak edges only if connected to strong edges. Final clean edge map produced.</p></div></div>
+    </div>
+    <div class="example-box">
+      <span class="comment"># Python OpenCV - Canny Edge Detection</span><br>
+      <span class="keyword">import</span> cv2<br><br>
+      img = cv2.<span class="func">imread</span>(<span class="string">'robot.jpg'</span>)<br>
+      gray = cv2.<span class="func">cvtColor</span>(img, cv2.COLOR_BGR2GRAY)<br>
+      blurred = cv2.<span class="func">GaussianBlur</span>(gray, (<span class="number">5</span>,<span class="number">5</span>), <span class="number">0</span>)<br>
+      edges = cv2.<span class="func">Canny</span>(blurred, <span class="number">50</span>, <span class="number">150</span>) <span class="comment"># threshold1=50, threshold2=150</span><br>
+      cv2.<span class="func">imshow</span>(<span class="string">'Edges'</span>, edges)<br>
+      cv2.<span class="func">waitKey</span>(<span class="number">0</span>)
+    </div>
+  </div>
+
+  <!-- Computer Vision vs Machine Vision vs Robot Vision -->
+  <div class="card green-border">
+    <h2><span class="icon">👁️</span> Computer Vision, Machine Vision & Robot Vision</h2>
+    <div class="grid-3">
+      <div class="info-box">
+        <h4>🖥️ Computer Vision</h4>
+        <p><strong>Computer Vision (CV)</strong> is the broad field of giving computers the ability to interpret and understand visual information from the world (images and videos). It includes image classification, object detection, face recognition, scene understanding.</p>
+        <p><strong>Applications:</strong> Self-driving cars, medical image analysis, social media photo tagging, Google Lens.</p>
+      </div>
+      <div class="warn-box">
+        <h4>🏭 Machine Vision</h4>
+        <p><strong>Machine Vision</strong> is the application of computer vision in industrial/manufacturing settings for quality control, inspection, and automation. It is typically real-time, high-precision, and highly specialized for specific tasks.</p>
+        <p><strong>Applications:</strong> Detecting defective products on conveyor belts, reading barcodes, measuring component dimensions, PCB inspection.</p>
+      </div>
+      <div class="success-box">
+        <h4>🤖 Robot Vision</h4>
+        <p><strong>Robot Vision</strong> is the use of vision systems to enable robots to perceive, understand, and interact with their environment. It combines computer vision with robot control.</p>
+        <p><strong>Applications:</strong> Picking and placing objects, avoiding obstacles, locating targets, welding seam tracking, humanoid robot navigation.</p>
+      </div>
+    </div>
+    <h3>Role of Robot Vision in Robotics</h3>
+    <ul>
+      <li>Enables robots to identify objects by shape, color, size</li>
+      <li>Allows robots to navigate and avoid obstacles without collisions</li>
+      <li>Enables pick-and-place automation with visual guidance</li>
+      <li>Quality inspection — detect defects without human inspection</li>
+      <li>Human-robot interaction — recognize faces, gestures, expressions</li>
+    </ul>
+  </div>
+
+  <!-- AI and ML -->
+  <div class="card">
+    <h2><span class="icon">🧠</span> Artificial Intelligence, Machine Learning & CNNs</h2>
+    <h3>Artificial Intelligence (AI)</h3>
+    <p><strong>AI</strong> is the simulation of human intelligence in machines. AI enables machines to learn from experience, understand natural language, recognize patterns, solve problems, and make decisions — tasks that typically require human intelligence.</p>
+    <div class="grid-2">
+      <div>
+        <h3>Machine Learning (ML)</h3>
+        <p><strong>Machine Learning</strong> is a subset of AI. Instead of being explicitly programmed with rules, ML systems <strong>learn patterns from data</strong> and improve their performance over time without being explicitly programmed for each task.</p>
+        <div class="info-box">
+          <strong>Analogy:</strong> Traditional programming: Rules + Data → Output. Machine Learning: Data + Output → Rules (learned automatically).
+        </div>
+        <h4>Types of Machine Learning</h4>
+        <ul>
+          <li><strong>Supervised Learning</strong> – Trained on labeled examples (input-output pairs)</li>
+          <li><strong>Unsupervised Learning</strong> – Finds hidden patterns in unlabeled data</li>
+          <li><strong>Reinforcement Learning</strong> – Learns by trial and error, rewarded for good actions</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Supervised Learning in Detail</h3>
+        <p>In <strong>supervised learning</strong>, the algorithm is given a training dataset where each input has a known, correct output (label).</p>
+        <div class="steps">
+          <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Collect labeled data</h4><p>E.g., 1000 images of cats labeled "cat" and 1000 images of dogs labeled "dog"</p></div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Train the model</h4><p>Feed data to algorithm. It learns the relationship between inputs and labels.</p></div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Evaluate</h4><p>Test on new unseen images. Measure accuracy. Fine-tune model.</p></div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Deploy</h4><p>Use trained model to predict labels for new unknown inputs.</p></div></div>
+        </div>
+        <p><strong>Examples:</strong> Spam email detection, image classification, house price prediction, medical diagnosis</p>
+      </div>
+    </div>
+    <h3>Convolutional Neural Networks (CNNs)</h3>
+    <p><strong>CNNs</strong> are a type of deep learning neural network specially designed for processing <strong>grid-like data such as images</strong>. They automatically learn features from images without manual feature engineering.</p>
+    <div class="diagram">
+      <svg viewBox="0 0 580 100" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="20" width="70" height="60" rx="6" fill="#2980b9"/>
+        <text x="40" y="47" text-anchor="middle" fill="white" font-size="10" font-weight="bold">INPUT</text>
+        <text x="40" y="61" text-anchor="middle" fill="white" font-size="9">IMAGE</text>
+        <text x="40" y="74" text-anchor="middle" fill="white" font-size="9">28×28</text>
+        <polygon points="78,50 88,50 88,47 98,50 88,53 88,50" fill="#555"/>
+        <rect x="100" y="20" width="90" height="60" rx="6" fill="#e94560"/>
+        <text x="145" y="47" text-anchor="middle" fill="white" font-size="10" font-weight="bold">CONV</text>
+        <text x="145" y="60" text-anchor="middle" fill="white" font-size="9">Feature</text>
+        <text x="145" y="72" text-anchor="middle" fill="white" font-size="9">Extraction</text>
+        <polygon points="193,50 203,50 203,47 213,50 203,53 203,50" fill="#555"/>
+        <rect x="215" y="20" width="90" height="60" rx="6" fill="#8e44ad"/>
+        <text x="260" y="47" text-anchor="middle" fill="white" font-size="10" font-weight="bold">POOLING</text>
+        <text x="260" y="60" text-anchor="middle" fill="white" font-size="9">Downsample</text>
+        <text x="260" y="72" text-anchor="middle" fill="white" font-size="9">(Reduce size)</text>
+        <polygon points="308,50 318,50 318,47 328,50 318,53 318,50" fill="#555"/>
+        <rect x="330" y="20" width="90" height="60" rx="6" fill="#27ae60"/>
+        <text x="375" y="47" text-anchor="middle" fill="white" font-size="10" font-weight="bold">FULLY</text>
+        <text x="375" y="60" text-anchor="middle" fill="white" font-size="9">CONNECTED</text>
+        <text x="375" y="72" text-anchor="middle" fill="white" font-size="9">Layer</text>
+        <polygon points="423,50 433,50 433,47 443,50 433,53 433,50" fill="#555"/>
+        <rect x="445" y="20" width="90" height="60" rx="6" fill="#f39c12"/>
+        <text x="490" y="47" text-anchor="middle" fill="white" font-size="10" font-weight="bold">OUTPUT</text>
+        <text x="490" y="60" text-anchor="middle" fill="white" font-size="9">Cat: 95%</text>
+        <text x="490" y="72" text-anchor="middle" fill="white" font-size="9">Dog: 5%</text>
+      </svg>
+      <div class="diagram-caption">Figure: CNN Architecture — from image input to classification output</div>
+    </div>
+    <ul>
+      <li><strong>Convolutional Layer</strong> – Applies filters to detect features (edges, curves, textures)</li>
+      <li><strong>Pooling Layer</strong> – Reduces image size while keeping important features (Max Pooling)</li>
+      <li><strong>Fully Connected Layer</strong> – Traditional neural network that classifies based on extracted features</li>
+      <li><strong>Popular CNN Architectures:</strong> LeNet, AlexNet, VGG, ResNet, MobileNet</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===================== SECTION: ROS ===================== -->
+<div class="section" id="ros">
+  <div class="section-title">
+    <div class="big-icon">🌐</div>
+    <div>
+      <h1>ROS — Robot Operating System</h1>
+      <p>The standard framework for building complex robot software.</p>
+    </div>
+  </div>
+
+  <!-- What is ROS -->
+  <div class="card">
+    <h2><span class="icon">🌐</span> What is ROS (Robot Operating System)?</h2>
+    <p><strong>ROS</strong> is an open-source <strong>robotics middleware framework</strong> (not a real operating system) that provides tools, libraries, and conventions for building complex robot software. It handles communication between different parts of a robot's software.</p>
+    <div class="info-box">
+      <strong>Why ROS?</strong> Without ROS, if you have a robot with 10 programs (camera, arm control, navigation, speech, etc.), you'd need to write complex code for them all to communicate. ROS provides a standard way for all these programs to talk to each other using a publish/subscribe messaging system.
+    </div>
+    <h3>Key Features of ROS</h3>
+    <div class="grid-2">
+      <ul>
+        <li>Hardware abstraction (works with different hardware)</li>
+        <li>Low-level device control</li>
+        <li>Message passing between processes</li>
+        <li>Package management</li>
+      </ul>
+      <ul>
+        <li>Ready-made libraries (navigation, SLAM, vision)</li>
+        <li>Visualization tools (RViz, rqt)</li>
+        <li>Simulation support (Gazebo)</li>
+        <li>Supported languages: Python, C++</li>
+      </ul>
+    </div>
+    <h3>ROS Architecture Overview</h3>
+    <div class="diagram">
+      <svg viewBox="0 0 560 200" xmlns="http://www.w3.org/2000/svg">
+        <!-- ROS Master -->
+        <rect x="200" y="10" width="150" height="45" rx="10" fill="#e94560"/>
+        <text x="275" y="30" text-anchor="middle" fill="white" font-size="12" font-weight="bold">ROS MASTER</text>
+        <text x="275" y="46" text-anchor="middle" fill="white" font-size="10">(roscore — name registry)</text>
+        <!-- Nodes -->
+        <rect x="30" y="100" width="120" height="40" rx="8" fill="#2980b9"/>
+        <text x="90" y="123" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Node: Camera</text>
+        <rect x="210" y="100" width="120" height="40" rx="8" fill="#27ae60"/>
+        <text x="270" y="123" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Node: Navigation</text>
+        <rect x="395" y="100" width="120" height="40" rx="8" fill="#8e44ad"/>
+        <text x="455" y="123" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Node: Arm Control</text>
+        <!-- Topics -->
+        <rect x="140" y="165" width="100" height="30" rx="6" fill="#f39c12"/>
+        <text x="190" y="183" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Topic: /image</text>
+        <rect x="310" y="165" width="120" height="30" rx="6" fill="#f39c12"/>
+        <text x="370" y="183" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Topic: /cmd_vel</text>
+        <!-- Lines -->
+        <line x1="275" y1="55" x2="90" y2="100" stroke="#ccc" stroke-width="1.5" stroke-dasharray="5"/>
+        <line x1="275" y1="55" x2="270" y2="100" stroke="#ccc" stroke-width="1.5" stroke-dasharray="5"/>
+        <line x1="275" y1="55" x2="455" y2="100" stroke="#ccc" stroke-width="1.5" stroke-dasharray="5"/>
+        <line x1="90" y1="140" x2="190" y2="165" stroke="#f39c12" stroke-width="2"/>
+        <line x1="270" y1="140" x2="190" y2="165" stroke="#f39c12" stroke-width="2"/>
+        <line x1="270" y1="140" x2="370" y2="165" stroke="#f39c12" stroke-width="2"/>
+        <line x1="455" y1="140" x2="370" y2="165" stroke="#f39c12" stroke-width="2"/>
+      </svg>
+      <div class="diagram-caption">Figure: ROS nodes communicate via topics, registered with ROS Master</div>
+    </div>
+  </div>
+
+  <!-- Nodes -->
+  <div class="card blue-border">
+    <h2><span class="icon">🔵</span> ROS Nodes</h2>
+    <p>A <strong>ROS Node</strong> is an individual executable process that performs a specific task in a robot's software system. Nodes are the fundamental computational units in ROS.</p>
+    <div class="grid-2">
+      <div>
+        <h3>Key Properties of a Node</h3>
+        <ul>
+          <li>Each node is a single program (Python or C++ file)</li>
+          <li>Nodes run independently and can be started/stopped separately</li>
+          <li>Nodes communicate by publishing/subscribing to topics</li>
+          <li>Each node registers with the ROS Master on startup</li>
+          <li>A typical robot has dozens of nodes running simultaneously</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Example Nodes in a Robot</h3>
+        <ul>
+          <li>camera_node → captures images from camera</li>
+          <li>lidar_node → reads LIDAR distance data</li>
+          <li>navigation_node → plans path to destination</li>
+          <li>motor_controller_node → sends commands to motors</li>
+          <li>arm_node → controls robotic arm joints</li>
+          <li>speech_node → converts text to speech</li>
+        </ul>
+      </div>
+    </div>
+    <div class="example-box">
+      <span class="comment"># Simple ROS Publisher Node (Python)</span><br>
+      <span class="keyword">import</span> rospy<br>
+      <span class="keyword">from</span> std_msgs.msg <span class="keyword">import</span> String<br><br>
+      rospy.<span class="func">init_node</span>(<span class="string">'hello_node'</span>)  <span class="comment"># Register node with ROS Master</span><br>
+      pub = rospy.<span class="func">Publisher</span>(<span class="string">'/greetings'</span>, String, queue_size=<span class="number">10</span>)<br>
+      rate = rospy.<span class="func">Rate</span>(<span class="number">1</span>)  <span class="comment"># 1 Hz = 1 message per second</span><br><br>
+      <span class="keyword">while not</span> rospy.is_shutdown():<br>
+      &nbsp;&nbsp;pub.<span class="func">publish</span>(<span class="string">"Hello from Robot!"</span>)<br>
+      &nbsp;&nbsp;rate.<span class="func">sleep</span>()
+    </div>
+  </div>
+
+  <!-- Topics -->
+  <div class="card green-border">
+    <h2><span class="icon">📨</span> ROS Topics, Messages & Services</h2>
+    <h3>ROS Topics</h3>
+    <p>A <strong>ROS Topic</strong> is a named communication channel through which nodes exchange data. Topics follow a <strong>publish-subscribe</strong> model:</p>
+    <ul>
+      <li><strong>Publisher Node</strong> – Writes data to a topic</li>
+      <li><strong>Subscriber Node</strong> – Reads data from that topic</li>
+      <li>Multiple publishers and multiple subscribers can use the same topic</li>
+      <li>Topics are one-way (from publisher to subscribers) and asynchronous</li>
+    </ul>
+    <div class="info-box">
+      <strong>Analogy:</strong> Think of a topic like a YouTube channel. A creator (publisher) posts videos. Many viewers (subscribers) watch the channel. They don't interact directly — it's one-way, and the creator doesn't know who's watching.
+    </div>
+    <h3>Common ROS Topics</h3>
+    <table>
+      <tr><th>Topic Name</th><th>Message Type</th><th>What it carries</th></tr>
+      <tr><td>/cmd_vel</td><td>geometry_msgs/Twist</td><td>Robot movement velocity commands</td></tr>
+      <tr><td>/scan</td><td>sensor_msgs/LaserScan</td><td>LIDAR distance scan data</td></tr>
+      <tr><td>/camera/image_raw</td><td>sensor_msgs/Image</td><td>Raw camera image frames</td></tr>
+      <tr><td>/odom</td><td>nav_msgs/Odometry</td><td>Robot position from wheel encoders</td></tr>
+      <tr><td>/tf</td><td>tf/tfMessage</td><td>Coordinate frame transformations</td></tr>
+    </table>
+    <h3>ROS Messages</h3>
+    <p>A <strong>ROS Message</strong> is the data format used to communicate on topics. Each topic has a fixed message type. Messages are defined in .msg files and can contain basic types (int, float, string, bool) or other messages.</p>
+    <div class="example-box">
+      <span class="comment"># geometry_msgs/Twist message structure:</span><br>
+      <span class="comment"># Linear velocity (X, Y, Z)</span><br>
+      geometry_msgs/Vector3 linear:<br>
+      &nbsp;&nbsp;float64 x   <span class="comment">← forward/backward speed</span><br>
+      &nbsp;&nbsp;float64 y   <span class="comment">← left/right (for holonomic robots)</span><br>
+      &nbsp;&nbsp;float64 z<br>
+      <span class="comment"># Angular velocity (rotation around X, Y, Z)</span><br>
+      geometry_msgs/Vector3 angular:<br>
+      &nbsp;&nbsp;float64 x<br>
+      &nbsp;&nbsp;float64 y<br>
+      &nbsp;&nbsp;float64 z   <span class="comment">← yaw rate (turning speed)</span>
+    </div>
+    <h3>ROS Services</h3>
+    <p>Unlike topics (one-way), <strong>ROS Services</strong> implement a <strong>request-response</strong> communication model — like a function call. A client sends a request and waits for a response from the server node.</p>
+    <table>
+      <tr><th></th><th>Topics</th><th>Services</th></tr>
+      <tr><td>Communication</td><td>One-way (publish/subscribe)</td><td>Two-way (request/response)</td></tr>
+      <tr><td>Timing</td><td>Continuous/asynchronous</td><td>On-demand/synchronous</td></tr>
+      <tr><td>Use case</td><td>Sensor data streams</td><td>Discrete commands ("take photo", "go to position")</td></tr>
+    </table>
+  </div>
+
+  <!-- Gazebo -->
+  <div class="card gold-border">
+    <h2><span class="icon">🌍</span> Gazebo Robot Simulator</h2>
+    <p><strong>Gazebo</strong> is a powerful open-source 3D robot simulation environment that integrates seamlessly with ROS. It allows developers to test and develop robot software in a realistic virtual environment without needing physical hardware.</p>
+    <h3>Key Features of Gazebo</h3>
+    <div class="grid-2">
+      <ul>
+        <li><strong>Physics Engine</strong> – Realistic simulation of gravity, friction, collisions (ODE, Bullet physics)</li>
+        <li><strong>Sensor Simulation</strong> – Virtual cameras, LIDAR, IMU, GPS all produce realistic data</li>
+        <li><strong>3D Environment</strong> – Build indoor rooms, outdoor terrains, obstacle courses</li>
+        <li><strong>ROS Integration</strong> – Runs like a real robot — same ROS nodes and topics work</li>
+      </ul>
+      <ul>
+        <li><strong>Multiple Robots</strong> – Simulate robot swarms</li>
+        <li><strong>Plugin System</strong> – Add custom sensors, controllers, worlds</li>
+        <li><strong>SDF/URDF Support</strong> – Define robot models in XML format</li>
+        <li><strong>Cloud Simulation</strong> – Run on cloud servers for testing</li>
+      </ul>
+    </div>
+    <h3>Applications of Gazebo</h3>
+    <ul>
+      <li><strong>Algorithm Development</strong> – Test navigation, SLAM, manipulation algorithms safely</li>
+      <li><strong>Hardware-in-Loop Testing</strong> – Simulate hardware before it's built</li>
+      <li><strong>Machine Learning Training</strong> – Train RL agents in simulation (sim-to-real transfer)</li>
+      <li><strong>Education</strong> – Students learn robot programming without expensive hardware</li>
+      <li><strong>Competitive Robotics</strong> – RoboCup, DARPA robotics challenges use Gazebo for testing</li>
+    </ul>
+    <div class="success-box">
+      <strong>Example:</strong> NASA uses Gazebo to test Mars rover software before deployment. Self-driving car companies train their algorithms in Gazebo-like simulators with millions of simulated miles before testing on real roads.
+    </div>
+  </div>
+</div>
+
+<!-- ===================== SECTION: AUTOMATION ===================== -->
+<div class="section" id="automation">
+  <div class="section-title">
+    <div class="big-icon">🏭</div>
+    <div>
+      <h1>Automation in Robotics</h1>
+      <p>Fixed, programmable automation and their role in modern industry.</p>
+    </div>
+  </div>
+
+  <!-- What is Automation -->
+  <div class="card">
+    <h2><span class="icon">⚙️</span> What is Automation?</h2>
+    <p><strong>Automation</strong> is the use of technology to perform tasks with minimal or no human intervention. In robotics and manufacturing, automation means using machines, robots, and computer systems to carry out repetitive or complex tasks automatically.</p>
+    <div class="grid-3">
+      <div class="mini-card"><div class="emoji">🔧</div><h4>Fixed Automation</h4><p>Hardwired for one specific task. Cannot be reprogrammed easily.</p></div>
+      <div class="mini-card"><div class="emoji">💾</div><h4>Programmable Automation</h4><p>Can be reprogrammed for different tasks and products.</p></div>
+      <div class="mini-card"><div class="emoji">🤖</div><h4>Flexible Automation</h4><p>Quickly adapts to different products with minimal changeover time.</p></div>
+    </div>
+    <h3>Benefits of Automation</h3>
+    <ul>
+      <li>Increased production speed and throughput</li>
+      <li>Higher consistency and quality (no human error)</li>
+      <li>Reduced labor costs for repetitive tasks</li>
+      <li>Ability to work 24/7 without breaks</li>
+      <li>Safer operation in hazardous environments</li>
+    </ul>
+  </div>
+
+  <!-- Fixed Automation -->
+  <div class="card blue-border">
+    <h2><span class="icon">🔒</span> Fixed Automation</h2>
+    <p><strong>Fixed automation</strong> (also called hard automation) uses equipment with a <strong>fixed configuration</strong> designed to perform a single, specific operation or sequence of operations. The sequence of steps is fixed in the hardware — it cannot be changed without physically rebuilding the machine.</p>
+    <h3>Characteristics</h3>
+    <ul>
+      <li>Designed for one specific product or task</li>
+      <li>Very high production rate</li>
+      <li>Very high initial investment cost</li>
+      <li>Not flexible — difficult to reconfigure for new products</li>
+      <li>Economical only for very high-volume production</li>
+    </ul>
+    <h3>Examples of Fixed Automation</h3>
+    <ul>
+      <li><strong>Automated conveyor systems</strong> in bottling plants (filling, capping, labeling in fixed sequence)</li>
+      <li><strong>Transfer machines</strong> in engine manufacturing (machining operations in fixed sequence)</li>
+      <li><strong>Automatic car wash machines</strong> (fixed sequence of wash, rinse, dry)</li>
+      <li><strong>Chocolate manufacturing line</strong> (fixed sequence: mold, fill, cool, package)</li>
+      <li><strong>Dial index machines</strong> (circular conveyor with fixed machining stations)</li>
+    </ul>
+    <div class="warn-box">
+      <strong>When to use Fixed Automation:</strong> When you need to make millions of identical products. The high initial cost is justified by the extremely high production rate and low per-unit cost.
+    </div>
+
+    <h2 style="margin-top:28px"><span class="icon">💻</span> Programmable Automation vs Fixed Automation</h2>
+    <table>
+      <tr><th>Feature</th><th>Fixed Automation</th><th>Programmable Automation</th></tr>
+      <tr><td>Flexibility</td><td>Very low — one task only</td><td>High — can be reprogrammed</td></tr>
+      <tr><td>Production Volume</td><td>Very high</td><td>Medium to high</td></tr>
+      <tr><td>Setup/Changeover</td><td>Very difficult (hardware change)</td><td>Easier (software reprogramming)</td></tr>
+      <tr><td>Initial Cost</td><td>Very high</td><td>High but lower than fixed</td></tr>
+      <tr><td>Per-unit Cost</td><td>Very low (high volume)</td><td>Moderate</td></tr>
+      <tr><td>Examples</td><td>Bottling plant, car wash</td><td>CNC machines, robot arms, PLCs</td></tr>
+      <tr><td>Product Variety</td><td>Single product</td><td>Multiple product variants</td></tr>
+    </table>
+  </div>
+</div>
+
+</div><!-- end .content -->
+
+<footer>
+  <p>🤖 <span>Robotics Complete Guide</span> — From Beginner to Advanced</p>
+  <p style="margin-top:8px; font-size:0.85rem">Covering Short Type · Long Type · Short Notes Questions | Made with ❤️ for students</p>
+</footer>
+
+<script>
+function showSection(id) {
+  // Hide all sections
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  // Show target
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+  // Scroll to top
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
