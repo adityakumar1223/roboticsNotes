@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RoboPrep – Robotics Exam Preparation</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <span class="logo-icon">⚙️</span>
+    <span class="logo-text">RoboPrep</span>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="index.html" class="nav-item active"><i class="fas fa-home"></i> Home</a>
+    <a href="module1.html" class="nav-item"><i class="fas fa-robot"></i> Module 1 – Automation</a>
+    <a href="module2.html" class="nav-item"><i class="fas fa-satellite-dish"></i> Module 2 – Sensors</a>
+    <a href="module3.html" class="nav-item"><i class="fas fa-microchip"></i> Module 3 – Controllers</a>
+    <a href="module4.html" class="nav-item"><i class="fas fa-cogs"></i> Module 4 – Sequential Control</a>
+    <a href="module5.html" class="nav-item"><i class="fas fa-terminal"></i> Module 5 – ROS & C++</a>
+    <div class="nav-divider"></div>
+    <a href="quickrevision.html" class="nav-item"><i class="fas fa-bolt"></i> Quick Revision</a>
+    <a href="quiz.html" class="nav-item"><i class="fas fa-question-circle"></i> MCQ Quiz</a>
+  </nav>
+  <div class="sidebar-footer">Exam Ready 🎓</div>
+</aside>
+
+<!-- Mobile header -->
+<header class="mobile-header">
+  <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+  <span class="mobile-logo">⚙️ RoboPrep</span>
+</header>
+
+<!-- Main Content -->
+<main class="main-content">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">📚 Engineering Exam Preparation</div>
+    <h1 class="hero-title">Master <span class="accent">Robotics</span><br/>Ace Your Exams</h1>
+    <p class="hero-sub">5 modules · Theory-first · Exam-ready answers · MCQ practice</p>
+
+    <!-- Search -->
+    <div class="search-wrap">
+      <i class="fas fa-search search-icon"></i>
+      <input type="text" id="globalSearch" class="search-input" placeholder="Search topics, questions, concepts…" />
+      <div class="search-results" id="searchResults"></div>
+    </div>
+  </section>
+
+  <!-- Stats Row -->
+  <section class="stats-row">
+    <div class="stat-card"><span class="stat-num">5</span><span class="stat-label">Modules</span></div>
+    <div class="stat-card"><span class="stat-num">33</span><span class="stat-label">Short Qs</span></div>
+    <div class="stat-card"><span class="stat-num">45</span><span class="stat-label">Long Qs</span></div>
+    <div class="stat-card"><span class="stat-num">23</span><span class="stat-label">Short Notes</span></div>
+    <div class="stat-card"><span class="stat-num">40+</span><span class="stat-label">MCQ Practice</span></div>
+  </section>
+
+  <!-- Module Cards -->
+  <section class="section">
+    <h2 class="section-title">📖 Study by Module</h2>
+    <div class="module-grid">
+
+      <a href="module1.html" class="module-card" style="--accent:#3b82f6">
+        <div class="module-number">01</div>
+        <div class="module-icon">🤖</div>
+        <h3>Robotic Automation Introduction</h3>
+        <p>Basics of automation · Robot types · Industrial use · Control systems · Robot anatomy · DOF</p>
+        <div class="module-tags"><span>Automation</span><span>Control</span><span>DOF</span></div>
+        <div class="module-arrow">→</div>
+      </a>
+
+      <a href="module2.html" class="module-card" style="--accent:#10b981">
+        <div class="module-number">02</div>
+        <div class="module-icon">📡</div>
+        <h3>Sensor Requirements in Robots</h3>
+        <p>Sensor selection · Specifications · IR · Ultrasonic · DHT11 · Tilt · Proximity · GPS · GSM</p>
+        <div class="module-tags"><span>Sensors</span><span>Interfacing</span><span>Wireless</span></div>
+        <div class="module-arrow">→</div>
+      </a>
+
+      <a href="module3.html" class="module-card" style="--accent:#f59e0b">
+        <div class="module-number">03</div>
+        <div class="module-icon">💻</div>
+        <h3>Controllers & Output Port Handling</h3>
+        <p>8051 architecture · Arduino · Raspberry Pi · Port handling · Microprocessor vs Microcontroller</p>
+        <div class="module-tags"><span>8051</span><span>Arduino</span><span>Raspberry Pi</span></div>
+        <div class="module-arrow">→</div>
+      </a>
+
+      <a href="module4.html" class="module-card" style="--accent:#ef4444">
+        <div class="module-number">04</div>
+        <div class="module-icon">⚙️</div>
+        <h3>Sequential Robot Control</h3>
+        <p>Sequential control design · I/O device control · Image processing · Machine vision · CNN · ML</p>
+        <div class="module-tags"><span>Control</span><span>Vision</span><span>ML</span></div>
+        <div class="module-arrow">→</div>
+      </a>
+
+      <a href="module5.html" class="module-card" style="--accent:#8b5cf6">
+        <div class="module-number">05</div>
+        <div class="module-icon">🖥️</div>
+        <h3>ROS & C++</h3>
+        <p>Ubuntu · ROS architecture · Nodes · Topics · Services · Gazebo simulator · TurtleBot</p>
+        <div class="module-tags"><span>ROS</span><span>Gazebo</span><span>Ubuntu</span></div>
+        <div class="module-arrow">→</div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Quick Access -->
+  <section class="section">
+    <h2 class="section-title">⚡ Quick Access</h2>
+    <div class="quick-grid">
+      <a href="quickrevision.html" class="quick-card qr">
+        <i class="fas fa-bolt"></i>
+        <h3>Quick Revision</h3>
+        <p>Key points & definitions for last-minute prep</p>
+      </a>
+      <a href="quiz.html" class="quick-card qz">
+        <i class="fas fa-trophy"></i>
+        <h3>MCQ Quiz</h3>
+        <p>40+ practice questions with instant feedback</p>
+      </a>
+      <a href="module1.html#imp" class="quick-card iq">
+        <i class="fas fa-fire"></i>
+        <h3>Important Questions</h3>
+        <p>Must-study questions from all modules</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Important Questions Preview -->
+  <section class="section">
+    <h2 class="section-title">🔥 Top Important Questions</h2>
+    <div class="iq-list">
+      <div class="iq-item" onclick="window.location='module1.html'">
+        <span class="iq-badge m1">M1</span>
+        <span>Explain the concept of robotics and its applications.</span>
+        <span class="iq-type long">Long</span>
+      </div>
+      <div class="iq-item" onclick="window.location='module1.html'">
+        <span class="iq-badge m1">M1</span>
+        <span>Explain the Servo Control System with suitable diagram.</span>
+        <span class="iq-type long">Long</span>
+      </div>
+      <div class="iq-item" onclick="window.location='module2.html'">
+        <span class="iq-badge m2">M2</span>
+        <span>Explain the working of DHT11 Sensor.</span>
+        <span class="iq-type long">Long</span>
+      </div>
+      <div class="iq-item" onclick="window.location='module2.html'">
+        <span class="iq-badge m2">M2</span>
+        <span>Write down the difference between Tactile and Non-tactile sensors.</span>
+        <span class="iq-type long">Long</span>
+      </div>
+      <div class="iq-item" onclick="window.location='module3.html'">
+        <span class="iq-badge m3">M3</span>
+        <span>Explain the architecture of 8051 microcontroller.</span>
+        <span class="iq-type long">Long</span>
+      </div>
+      <div class="iq-item" onclick="window.location='module3.html'">
+        <span class="iq-badge m3">M3</span>
+        <span>Compare between Microprocessor and Microcontroller.</span>
+        <span class="iq-type long">Long</span>
+      </div>
+      <div class="iq-item" onclick="window.location='module4.html'">
+        <span class="iq-badge m4">M4</span>
+        <span>Explain the concept of image processing with examples.</span>
+        <span class="iq-type long">Long</span>
+      </div>
+      <div class="iq-item" onclick="window.location='module5.html'">
+        <span class="iq-badge m5">M5</span>
+        <span>Explain the concept of ROS Framework.</span>
+        <span class="iq-type long">Long</span>
+      </div>
+      <div class="iq-item" onclick="window.location='module5.html'">
+        <span class="iq-badge m5">M5</span>
+        <span>Explain the applications of Gazebo simulator in robotics.</span>
+        <span class="iq-type long">Long</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<script src="script.js"></script>
+</body>
+</html>
