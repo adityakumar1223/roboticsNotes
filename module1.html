@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 1 – Robotic Automation | RoboPrep</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo"><span class="logo-icon">⚙️</span><span class="logo-text">RoboPrep</span></div>
+  <nav class="sidebar-nav">
+    <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+    <a href="module1.html" class="nav-item active"><i class="fas fa-robot"></i> Module 1 – Automation</a>
+    <a href="module2.html" class="nav-item"><i class="fas fa-satellite-dish"></i> Module 2 – Sensors</a>
+    <a href="module3.html" class="nav-item"><i class="fas fa-microchip"></i> Module 3 – Controllers</a>
+    <a href="module4.html" class="nav-item"><i class="fas fa-cogs"></i> Module 4 – Sequential Control</a>
+    <a href="module5.html" class="nav-item"><i class="fas fa-terminal"></i> Module 5 – ROS & C++</a>
+    <div class="nav-divider"></div>
+    <a href="quickrevision.html" class="nav-item"><i class="fas fa-bolt"></i> Quick Revision</a>
+    <a href="quiz.html" class="nav-item"><i class="fas fa-question-circle"></i> MCQ Quiz</a>
+  </nav>
+  <div class="sidebar-footer">Exam Ready 🎓</div>
+</aside>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+  <span class="mobile-logo">⚙️ RoboPrep</span>
+</header>
+
+<main class="main-content">
+
+  <div class="breadcrumb"><a href="index.html">Home</a> <span>›</span> Module 1</div>
+
+  <div class="module-page-header" style="border-color:#3b82f6">
+    <div class="badge">Module 1 · 12 Hours</div>
+    <h1>🤖 Robotic Automation Introduction</h1>
+    <p>Basics of automation, industrial robot use, control systems, robot anatomy, DOF, actuators and manipulators.</p>
+  </div>
+
+  <!-- ===== CONCEPTS ===== -->
+  <div class="content-card">
+    <h2>📌 Core Definitions</h2>
+
+    <div class="def-box">
+      <strong>Robotics:</strong> The branch of engineering and science that involves the conception, design, manufacture, and operation of robots. It combines mechanical engineering, electrical engineering, and computer science.
+    </div>
+
+    <div class="def-box">
+      <strong>Automation:</strong> The technique of making an apparatus, process, or system operate automatically with minimal human intervention. It improves efficiency, consistency, and safety.
+    </div>
+
+    <div class="def-box">
+      <strong>Robot:</strong> A machine that is programmed to carry out complex tasks automatically. A robot can sense its environment, process information, and take actions.
+    </div>
+
+    <div class="def-box">
+      <strong>Robot Anatomy:</strong> The physical structure of a robot — including its body (links), joints, end-effector, actuators, sensors, and controller — that together enable movement and task execution.
+    </div>
+
+    <div class="def-box">
+      <strong>Degrees of Freedom (DOF):</strong> The number of independent movements a robot can perform. Each joint adds one DOF. A standard industrial robot arm has 6 DOF for full spatial movement.
+    </div>
+
+    <div class="def-box">
+      <strong>Robot Manipulator:</strong> The arm-like mechanical structure of a robot consisting of links and joints that mimics the motion of a human arm to perform tasks.
+    </div>
+
+    <div class="def-box">
+      <strong>Actuator:</strong> A device that converts energy (electrical, pneumatic, hydraulic) into mechanical motion. Examples: DC motors, servo motors, stepper motors, pneumatic cylinders.
+    </div>
+
+    <div class="def-box">
+      <strong>Torque:</strong> A rotational force that causes an object to rotate around an axis. In robots, torque = Force × Distance from pivot. Measured in Newton-meters (Nm).
+    </div>
+
+    <div class="def-box">
+      <strong>Pitch, Yaw, Roll:</strong> Three rotational motions — Pitch (up/down tilt), Yaw (left/right rotation), Roll (side-to-side tilt). Together they describe full 3D orientation.
+    </div>
+  </div>
+
+  <!-- ===== LAWS OF ROBOTICS ===== -->
+  <div class="content-card">
+    <h2>📋 Three Laws of Robotics (Isaac Asimov)</h2>
+    <ol style="padding-left:22px; line-height:2">
+      <li><strong>First Law:</strong> A robot may not injure a human being, or through inaction, allow a human being to come to harm.</li>
+      <li><strong>Second Law:</strong> A robot must obey the orders given by human beings except where such orders would conflict with the First Law.</li>
+      <li><strong>Third Law:</strong> A robot must protect its own existence as long as such protection does not conflict with the First or Second Law.</li>
+    </ol>
+    <div class="note-highlight" style="margin-top:14px"><strong>💡 Exam Tip:</strong> Remember the priority order — Human safety > Obeying humans > Self-preservation.</div>
+  </div>
+
+  <!-- ===== TYPES OF ROBOTS ===== -->
+  <div class="content-card">
+    <h2>🤖 Types of Robots Based on Applications</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;">
+      <div style="background:var(--bg2);border-radius:10px;padding:14px;">
+        <strong>🏭 Industrial Robots</strong><br/>Used in manufacturing — welding, painting, assembly
+      </div>
+      <div style="background:var(--bg2);border-radius:10px;padding:14px;">
+        <strong>🏥 Medical Robots</strong><br/>Surgery assistance, rehabilitation, drug delivery
+      </div>
+      <div style="background:var(--bg2);border-radius:10px;padding:14px;">
+        <strong>🪖 Military Robots</strong><br/>Surveillance, bomb disposal, unmanned vehicles
+      </div>
+      <div style="background:var(--bg2);border-radius:10px;padding:14px;">
+        <strong>🏠 Service Robots</strong><br/>Domestic cleaning, delivery, elder care
+      </div>
+      <div style="background:var(--bg2);border-radius:10px;padding:14px;">
+        <strong>🌌 Space Robots</strong><br/>Mars rovers, satellite maintenance
+      </div>
+      <div style="background:var(--bg2);border-radius:10px;padding:14px;">
+        <strong>🎓 Educational Robots</strong><br/>STEM learning, programming practice
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FIXED vs PROGRAMMABLE AUTOMATION ===== -->
+  <div class="content-card">
+    <h2>⚙️ Types of Automation</h2>
+    <table class="diff-table">
+      <tr><th>Feature</th><th>Fixed Automation</th><th>Programmable Automation</th></tr>
+      <tr><td>Definition</td><td>Pre-programmed for one task</td><td>Can be reprogrammed for different tasks</td></tr>
+      <tr><td>Flexibility</td><td>Low</td><td>High</td></tr>
+      <tr><td>Cost</td><td>High initial, low per unit</td><td>Moderate, flexible use</td></tr>
+      <tr><td>Example</td><td>Assembly line conveyor belt</td><td>CNC machines, industrial robots</td></tr>
+      <tr><td>Production Volume</td><td>Very high (mass production)</td><td>Medium (batch production)</td></tr>
+      <tr><td>Changeover Time</td><td>Long</td><td>Short</td></tr>
+    </table>
+  </div>
+
+  <!-- ===== CONTROL SYSTEMS ===== -->
+  <div class="content-card">
+    <h2>🔁 Control Systems in Robotics</h2>
+
+    <div class="def-box">
+      <strong>Open Loop Control System:</strong> No feedback. The controller sends a command and doesn't check if the output was correct. Simple but not accurate.
+      <br/><em>Example: A washing machine timer — runs for set time regardless of cleanliness.</em>
+    </div>
+
+    <div class="def-box">
+      <strong>Closed Loop Control System:</strong> Uses feedback from sensors to continuously correct output. More accurate and reliable.
+      <br/><em>Example: A thermostat — measures temperature and adjusts heating accordingly.</em>
+    </div>
+
+    <!-- SVG DIAGRAM: Open vs Closed Loop -->
+    <div class="diagram-box">
+      <svg viewBox="0 0 700 280" xmlns="http://www.w3.org/2000/svg" style="font-family:'DM Sans',sans-serif">
+        <!-- Title -->
+        <text x="350" y="22" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">Control System Comparison</text>
+
+        <!-- OPEN LOOP -->
+        <text x="30" y="55" font-size="11" font-weight="700" fill="#3b82f6">OPEN LOOP</text>
+        <!-- Boxes -->
+        <rect x="30" y="65" width="110" height="40" rx="7" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+        <text x="85" y="88" text-anchor="middle" font-size="10" fill="#1e40af">Input / Command</text>
+        <rect x="200" y="65" width="110" height="40" rx="7" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+        <text x="255" y="88" text-anchor="middle" font-size="10" fill="#1e40af">Controller</text>
+        <rect x="370" y="65" width="110" height="40" rx="7" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+        <text x="425" y="88" text-anchor="middle" font-size="10" fill="#1e40af">Actuator/Plant</text>
+        <rect x="540" y="65" width="100" height="40" rx="7" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+        <text x="590" y="88" text-anchor="middle" font-size="10" fill="#1e40af">Output</text>
+        <!-- Arrows -->
+        <line x1="140" y1="85" x2="196" y2="85" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+        <line x1="310" y1="85" x2="366" y2="85" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+        <line x1="480" y1="85" x2="536" y2="85" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+        <text x="350" y="125" text-anchor="middle" font-size="10" fill="#64748b">❌ No Feedback</text>
+
+        <!-- CLOSED LOOP -->
+        <text x="30" y="155" font-size="11" font-weight="700" fill="#10b981">CLOSED LOOP</text>
+        <rect x="30" y="165" width="100" height="40" rx="7" fill="#f0fdf4" stroke="#10b981" stroke-width="1.5"/>
+        <text x="80" y="188" text-anchor="middle" font-size="10" fill="#166534">Reference Input</text>
+        <rect x="185" y="165" width="90" height="40" rx="7" fill="#f0fdf4" stroke="#10b981" stroke-width="1.5"/>
+        <text x="230" y="188" text-anchor="middle" font-size="10" fill="#166534">Controller</text>
+        <rect x="335" y="165" width="90" height="40" rx="7" fill="#f0fdf4" stroke="#10b981" stroke-width="1.5"/>
+        <text x="380" y="188" text-anchor="middle" font-size="10" fill="#166534">Actuator</text>
+        <rect x="485" y="165" width="90" height="40" rx="7" fill="#dcfce7" stroke="#10b981" stroke-width="1.5"/>
+        <text x="530" y="188" text-anchor="middle" font-size="10" fill="#166534">Output</text>
+        <rect x="335" y="230" width="90" height="32" rx="7" fill="#f0fdf4" stroke="#10b981" stroke-width="1.5"/>
+        <text x="380" y="250" text-anchor="middle" font-size="10" fill="#166534">Sensor/Feedback</text>
+        <!-- Arrows forward -->
+        <line x1="130" y1="185" x2="181" y2="185" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+        <line x1="275" y1="185" x2="331" y2="185" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+        <line x1="425" y1="185" x2="481" y2="185" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+        <!-- Feedback path -->
+        <line x1="530" y1="205" x2="530" y2="246" stroke="#10b981" stroke-width="1.5"/>
+        <line x1="380" y1="246" x2="530" y2="246" stroke="#10b981" stroke-width="1.5"/>
+        <line x1="380" y1="230" x2="380" y2="246" stroke="#10b981" stroke-width="1.5"/>
+        <line x1="225" y1="246" x2="380" y2="246" stroke="#10b981" stroke-width="1.5"/>
+        <line x1="225" y1="205" x2="225" y2="246" stroke="#10b981" stroke-width="1.5" marker-end="url(#arrowGreenR)"/>
+
+        <!-- Arrow Markers -->
+        <defs>
+          <marker id="arrowBlue" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L7,3 L0,6 Z" fill="#64748b"/>
+          </marker>
+          <marker id="arrowGreen" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L7,3 L0,6 Z" fill="#64748b"/>
+          </marker>
+          <marker id="arrowGreenR" markerWidth="7" markerHeight="7" refX="1" refY="3" orient="auto">
+            <path d="M7,0 L0,3 L7,6 Z" fill="#10b981"/>
+          </marker>
+        </defs>
+      </svg>
+      <div class="diagram-caption">Fig 1: Open Loop (top) vs Closed Loop Control System (bottom)</div>
+    </div>
+
+    <div class="def-box">
+      <strong>Servo Control System:</strong> A closed-loop system that uses a servo motor and feedback (usually an encoder) to precisely control position, speed, or torque.
+      <em>Used in: Robot arms, CNC machines, camera systems.</em>
+    </div>
+
+    <div class="def-box">
+      <strong>Non-Servo Control System:</strong> An open-loop system where the robot follows a fixed path or set of commands with no feedback. Cheaper but less precise.
+      <em>Used in: Simple pick-and-place machines, conveyors.</em>
+    </div>
+
+    <div class="key-points">
+      <h4>✅ Characteristics of a Good Control System</h4>
+      <ul>
+        <li>Accuracy – Output matches desired input precisely</li>
+        <li>Stability – System returns to equilibrium after disturbance</li>
+        <li>Speed – Quick response to changes in input</li>
+        <li>Sensitivity – Responds appropriately to small input changes</li>
+        <li>Reliability – Consistent performance over time</li>
+        <li>Robustness – Works correctly despite external disturbances</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== ROBOT STRUCTURE DIAGRAM ===== -->
+  <div class="content-card">
+    <h2>🦾 Robot Structure & Components</h2>
+    <div class="diagram-box">
+      <svg viewBox="0 0 600 340" xmlns="http://www.w3.org/2000/svg" style="font-family:'DM Sans',sans-serif">
+        <text x="300" y="22" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">Basic Robot Structure</text>
+        <!-- Base -->
+        <rect x="220" y="295" width="160" height="30" rx="6" fill="#64748b"/>
+        <text x="300" y="315" text-anchor="middle" font-size="11" fill="white" font-weight="600">Base (Fixed Platform)</text>
+        <!-- Waist joint -->
+        <circle cx="300" cy="280" r="12" fill="#3b82f6"/>
+        <text x="360" y="284" font-size="10" fill="#1e40af" font-weight="600">⬅ Waist Joint (Rotation)</text>
+        <!-- Link 1 -->
+        <rect x="286" y="220" width="28" height="62" rx="6" fill="#93c5fd"/>
+        <text x="240" y="255" text-anchor="middle" font-size="10" fill="#1e40af">Link 1</text>
+        <!-- Shoulder joint -->
+        <circle cx="300" cy="215" r="12" fill="#3b82f6"/>
+        <text x="360" y="219" font-size="10" fill="#1e40af" font-weight="600">⬅ Shoulder Joint</text>
+        <!-- Link 2 -->
+        <rect x="286" y="155" width="28" height="62" rx="6" fill="#bfdbfe"/>
+        <text x="240" y="188" text-anchor="middle" font-size="10" fill="#1e40af">Link 2 (Upper Arm)</text>
+        <!-- Elbow joint -->
+        <circle cx="300" cy="150" r="12" fill="#3b82f6"/>
+        <text x="360" y="154" font-size="10" fill="#1e40af" font-weight="600">⬅ Elbow Joint</text>
+        <!-- Link 3 -->
+        <rect x="286" y="95" width="28" height="57" rx="6" fill="#dbeafe"/>
+        <text x="240" y="125" text-anchor="middle" font-size="10" fill="#1e40af">Link 3 (Forearm)</text>
+        <!-- Wrist joint -->
+        <circle cx="300" cy="90" r="12" fill="#7c3aed"/>
+        <text x="360" y="94" font-size="10" fill="#5b21b6" font-weight="600">⬅ Wrist Joint (Pitch/Yaw/Roll)</text>
+        <!-- End Effector -->
+        <path d="M270,60 L290,75 L310,75 L330,60 L310,50 L290,50 Z" fill="#10b981" stroke="#059669" stroke-width="1"/>
+        <text x="300" y="63" text-anchor="middle" font-size="9" fill="white" font-weight="700">End Effector</text>
+        <text x="300" y="43" text-anchor="middle" font-size="10" fill="#059669">(Gripper / Tool)</text>
+
+        <!-- Sensors label -->
+        <rect x="30" y="140" width="100" height="50" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+        <text x="80" y="162" text-anchor="middle" font-size="10" font-weight="600" fill="#b45309">Sensors</text>
+        <text x="80" y="175" text-anchor="middle" font-size="9" fill="#92400e">Camera, IR, Touch</text>
+        <line x1="130" y1="165" x2="286" y2="180" stroke="#f59e0b" stroke-dasharray="4" stroke-width="1.5"/>
+
+        <!-- Controller label -->
+        <rect x="450" y="220" width="110" height="50" rx="8" fill="#ede9fe" stroke="#8b5cf6" stroke-width="1.5"/>
+        <text x="505" y="242" text-anchor="middle" font-size="10" font-weight="600" fill="#5b21b6">Controller</text>
+        <text x="505" y="256" text-anchor="middle" font-size="9" fill="#6d28d9">CPU / Arduino / Pi</text>
+        <line x1="450" y1="245" x2="330" y2="245" stroke="#8b5cf6" stroke-dasharray="4" stroke-width="1.5"/>
+
+        <!-- Actuator label -->
+        <rect x="450" y="130" width="110" height="50" rx="8" fill="#fef9c3" stroke="#eab308" stroke-width="1.5"/>
+        <text x="505" y="152" text-anchor="middle" font-size="10" font-weight="600" fill="#854d0e">Actuators</text>
+        <text x="505" y="166" text-anchor="middle" font-size="9" fill="#713f12">Motors, Servos</text>
+        <line x1="450" y1="155" x2="330" y2="155" stroke="#eab308" stroke-dasharray="4" stroke-width="1.5"/>
+      </svg>
+      <div class="diagram-caption">Fig 2: Structure of a 3-Link Robot Arm with key components</div>
+    </div>
+
+    <div class="def-box" style="margin-top:16px">
+      <strong>Links:</strong> Rigid mechanical members that form the body of a robot. They connect joints and transmit forces. A robot arm has multiple links connected in series.
+    </div>
+    <div class="def-box">
+      <strong>Joints:</strong> Points of connection between links that allow movement. Types: <span class="key-term">Revolute</span> (rotational), <span class="key-term">Prismatic</span> (linear/sliding), Spherical, and Cylindrical.
+    </div>
+
+    <table class="diff-table" style="margin-top:16px">
+      <tr><th>Joint Type</th><th>Motion</th><th>DOF Added</th><th>Example</th></tr>
+      <tr><td>Revolute (R)</td><td>Rotational about an axis</td><td>1</td><td>Elbow, shoulder joints</td></tr>
+      <tr><td>Prismatic (P)</td><td>Linear/sliding along axis</td><td>1</td><td>Piston, slider</td></tr>
+      <tr><td>Spherical (S)</td><td>3D rotation (ball-socket)</td><td>3</td><td>Human hip joint</td></tr>
+      <tr><td>Cylindrical</td><td>Rotation + linear along axis</td><td>2</td><td>Telescoping arm</td></tr>
+    </table>
+  </div>
+
+  <!-- ===== IMPORTANT QUESTIONS ===== -->
+  <div id="imp" class="content-card">
+    <h2>❓ Short Type Questions & Answers</h2>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label short">Short</span>&nbsp; Define the term Robotics.</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p><strong>Robotics</strong> is the branch of technology that deals with the design, construction, operation, and use of robots. It combines mechanical engineering, electrical engineering, and computer science to create machines that can perform tasks automatically or semi-automatically.</p>
+        <p><strong>Key aspects:</strong> Perception (sensing), Processing (computing), Action (movement).</p>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label short">Short</span>&nbsp; Write down the three laws of Robot.</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p>Isaac Asimov's Three Laws of Robotics:</p>
+        <ol>
+          <li><strong>First Law:</strong> A robot may not injure a human being, or through inaction, allow a human to be harmed.</li>
+          <li><strong>Second Law:</strong> A robot must obey human orders unless they conflict with the First Law.</li>
+          <li><strong>Third Law:</strong> A robot must protect its own existence unless that conflicts with the First or Second Law.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label short">Short</span>&nbsp; What is Robot Anatomy?</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p><strong>Robot Anatomy</strong> refers to the physical structure of a robot. It includes:</p>
+        <ul>
+          <li><strong>Links</strong> – Rigid body segments</li>
+          <li><strong>Joints</strong> – Connectors allowing movement</li>
+          <li><strong>Actuators</strong> – Motors that create motion</li>
+          <li><strong>End-Effector</strong> – Gripper or tool at the tip</li>
+          <li><strong>Sensors</strong> – Devices for perception</li>
+          <li><strong>Controller</strong> – Brain of the robot</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label short">Short</span>&nbsp; Define DOF in the context of Robotics.</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p><strong>DOF (Degrees of Freedom)</strong> is the number of independent parameters that define the configuration of a robot. Each joint adds one DOF.</p>
+        <ul>
+          <li>A robot with 6 DOF can reach any position and orientation in 3D space.</li>
+          <li>More DOF = more flexibility but more complexity.</li>
+          <li>Example: Human arm has 7 DOF (3 shoulder + 1 elbow + 3 wrist).</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label short">Short</span>&nbsp; Define Pitch, Yaw and Roll.</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <ul>
+          <li><strong>Pitch:</strong> Rotation about the lateral (side-to-side) axis — nodding motion (up/down tilt).</li>
+          <li><strong>Yaw:</strong> Rotation about the vertical axis — turning left or right.</li>
+          <li><strong>Roll:</strong> Rotation about the longitudinal (front-back) axis — tilting sideways.</li>
+        </ul>
+        <p>Together, pitch, yaw, and roll describe the complete orientation of a robot or its end-effector in 3D space.</p>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label short">Short</span>&nbsp; What are actuators?</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p><strong>Actuators</strong> are output devices that convert energy into mechanical motion. They are the "muscles" of a robot.</p>
+        <ul>
+          <li><strong>Electric actuators:</strong> DC motors, Servo motors, Stepper motors</li>
+          <li><strong>Pneumatic actuators:</strong> Use compressed air (fast but less precise)</li>
+          <li><strong>Hydraulic actuators:</strong> Use pressurized fluid (very powerful)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label short">Short</span>&nbsp; What is a robot Manipulator?</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p>A <strong>robot manipulator</strong> is the arm-like structure of a robot that consists of a series of links connected by joints. It mimics the human arm and is designed to move objects, perform tasks, or interact with the environment.</p>
+        <p>Key parts: Base → Links → Joints → Wrist → End-Effector</p>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label short">Short</span>&nbsp; Give examples of open loop and closed loop control systems.</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p><strong>Open Loop Examples:</strong></p>
+        <ul><li>Washing machine (timer-based)</li><li>Traffic signal (fixed timing)</li><li>Electric toaster</li></ul>
+        <p><strong>Closed Loop Examples:</strong></p>
+        <ul><li>Thermostat (temperature feedback)</li><li>Cruise control in cars</li><li>Servo motor with encoder</li><li>Robot arm with position sensor</li></ul>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label short">Short</span>&nbsp; Define Torque, Moment of Inertia, and Power.</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <ul>
+          <li><strong>Torque (τ):</strong> Rotational force = Force × Perpendicular distance. Unit: Nm. It is what makes a robot joint rotate.</li>
+          <li><strong>Moment of Inertia (I):</strong> Resistance of a body to rotational acceleration. Depends on mass distribution. Unit: kg·m². Higher I = more torque needed.</li>
+          <li><strong>Power (P):</strong> Rate of doing work = Force × Velocity (linear) or Torque × Angular velocity. Unit: Watts (W).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== LONG QUESTIONS ===== -->
+  <div class="content-card">
+    <h2>📝 Long Type Questions & Answers</h2>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label long">Long</span>&nbsp; Explain the concept of robotics and its applications.</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p><strong>Robotics</strong> is an interdisciplinary field involving design, construction, programming, and operation of robots. A robot is a programmable machine that can carry out complex tasks automatically.</p>
+        <p><strong>Components of a Robot:</strong></p>
+        <ul>
+          <li><strong>Mechanical System:</strong> Links, joints, end-effector (physical body)</li>
+          <li><strong>Sensing System:</strong> Sensors (cameras, touch, IR) for perceiving the environment</li>
+          <li><strong>Actuation System:</strong> Motors and drives for movement</li>
+          <li><strong>Control System:</strong> Software and hardware (microcontroller/processor) to process decisions</li>
+        </ul>
+        <p><strong>Applications:</strong></p>
+        <ul>
+          <li><strong>Manufacturing:</strong> Welding, painting, assembly in car plants (e.g., FANUC, ABB robots)</li>
+          <li><strong>Healthcare:</strong> Surgical robots (da Vinci), prosthetics, drug delivery</li>
+          <li><strong>Agriculture:</strong> Crop harvesting, spraying pesticides</li>
+          <li><strong>Military:</strong> Bomb disposal, surveillance drones, autonomous vehicles</li>
+          <li><strong>Space:</strong> Mars Rover, satellite maintenance</li>
+          <li><strong>Household:</strong> Roomba vacuum robots, smart appliances</li>
+          <li><strong>Logistics:</strong> Amazon warehouse robots for sorting and delivery</li>
+        </ul>
+        <div class="note-highlight"><strong>💡 Key Point:</strong> Robotics increases efficiency, safety, and precision while reducing human error in dangerous or repetitive tasks.</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label long">Long</span>&nbsp; Explain the Servo Control System with suitable diagram.</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p>A <strong>Servo Control System</strong> is a closed-loop feedback system that controls the position, speed, or torque of a mechanical system (servo motor) very precisely.</p>
+        <p><strong>Components:</strong></p>
+        <ul>
+          <li><strong>Reference Input (Setpoint):</strong> Desired position or speed command</li>
+          <li><strong>Error Detector:</strong> Compares desired vs actual output</li>
+          <li><strong>Controller (Amplifier):</strong> Processes the error signal</li>
+          <li><strong>Servo Motor:</strong> Actuator that produces motion</li>
+          <li><strong>Feedback Sensor (Encoder/Tachometer):</strong> Measures actual output</li>
+        </ul>
+        <p><strong>Working Principle:</strong></p>
+        <ol>
+          <li>Desired position (setpoint) is given as input.</li>
+          <li>Error = Setpoint – Actual output</li>
+          <li>Controller amplifies error signal and drives the motor.</li>
+          <li>Motor moves the robot joint.</li>
+          <li>Encoder feeds back actual position to the comparator.</li>
+          <li>Process repeats until error = 0.</li>
+        </ol>
+        <p><strong>Applications:</strong> Robot arm joints, CNC machines, throttle control, camera gimbals.</p>
+        <div class="note-highlight"><strong>💡 Key Advantage:</strong> Servo systems are self-correcting — they continuously adjust to maintain accuracy.</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label long">Long</span>&nbsp; Compare Fixed Automation and Programmable Automation in detail.</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <table class="diff-table">
+          <tr><th>Parameter</th><th>Fixed Automation</th><th>Programmable Automation</th></tr>
+          <tr><td>Definition</td><td>Sequence of operations is fixed for one product</td><td>Sequence can be reprogrammed for different products</td></tr>
+          <tr><td>Flexibility</td><td>Very Low</td><td>High</td></tr>
+          <tr><td>Initial Cost</td><td>Very High</td><td>Moderate</td></tr>
+          <tr><td>Production Rate</td><td>Very High</td><td>Moderate</td></tr>
+          <tr><td>Product Variety</td><td>Only one product type</td><td>Multiple product types</td></tr>
+          <tr><td>Changeover</td><td>Requires complete redesign</td><td>Software/program change</td></tr>
+          <tr><td>Examples</td><td>Assembly lines for cars, bottling plants</td><td>CNC machines, industrial robots, 3D printers</td></tr>
+          <tr><td>Best For</td><td>Mass production of identical products</td><td>Batch production of varied products</td></tr>
+        </table>
+        <div class="note-highlight"><strong>💡 Conclusion:</strong> Fixed automation is efficient for mass production; programmable automation is better when flexibility and variety are required.</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label long">Long</span>&nbsp; Define DOF and explain its significance in robotics.</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p><strong>DOF (Degrees of Freedom)</strong> is the number of independent variables (parameters) needed to completely define the configuration or state of a mechanical system.</p>
+        <p><strong>In Robotics:</strong> Each joint in a robot provides one DOF. The total DOF = number of joints (for simple serial robots).</p>
+        <p><strong>Significance:</strong></p>
+        <ul>
+          <li><strong>Workspace Coverage:</strong> More DOF = larger and more complex workspace the robot can cover.</li>
+          <li><strong>Dexterity:</strong> 6 DOF allows full 3D positioning (x,y,z) and orientation (pitch, yaw, roll).</li>
+          <li><strong>Obstacle Avoidance:</strong> Extra DOF (redundant robots, 7+ DOF) allow path planning around obstacles.</li>
+          <li><strong>Task Complexity:</strong> Simple tasks need fewer DOF (2–3), while surgery or assembly needs 6+.</li>
+        </ul>
+        <p><strong>Types of DOF:</strong></p>
+        <ul>
+          <li>Translational DOF: Movement in x, y, z directions (linear)</li>
+          <li>Rotational DOF: Rotation about axes (pitch, yaw, roll)</li>
+        </ul>
+        <div class="note-highlight"><strong>💡 Example:</strong> Human arm has 7 DOF (3 shoulder + 1 elbow + 3 wrist), which is why we can reach any point in space while keeping our hand oriented correctly.</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label long">Long</span>&nbsp; Explain the revolute and prismatic joints with examples.</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p><strong>1. Revolute Joint (Rotary Joint):</strong></p>
+        <ul>
+          <li>Allows rotational motion about a fixed axis (like a hinge).</li>
+          <li>Denoted by R in robot notation.</li>
+          <li>Provides 1 DOF.</li>
+          <li><strong>Examples:</strong> Elbow joint in robot arm, door hinge, human knee joint.</li>
+        </ul>
+        <p><strong>2. Prismatic Joint (Sliding Joint):</strong></p>
+        <ul>
+          <li>Allows linear/translational motion along an axis (like a piston).</li>
+          <li>Denoted by P in robot notation.</li>
+          <li>Provides 1 DOF.</li>
+          <li><strong>Examples:</strong> Hydraulic cylinders, drawer slide, telescope extension.</li>
+        </ul>
+        <table class="diff-table" style="margin-top:12px">
+          <tr><th>Feature</th><th>Revolute Joint</th><th>Prismatic Joint</th></tr>
+          <tr><td>Motion Type</td><td>Rotational</td><td>Linear (translational)</td></tr>
+          <tr><td>Denoted By</td><td>R</td><td>P</td></tr>
+          <tr><td>DOF</td><td>1</td><td>1</td></tr>
+          <tr><td>Example</td><td>Human elbow, door hinge</td><td>Hydraulic piston, lift mechanism</td></tr>
+          <tr><td>Use in Robots</td><td>Most common — arm joints</td><td>Used in Cartesian/SCARA robots</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SHORT NOTES ===== -->
+  <div class="content-card">
+    <h2>📋 Short Notes</h2>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label note">Note</span>&nbsp; Robot Manipulator</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p>A robot manipulator is a mechanical device that performs tasks by manipulating objects. It is made of a series of links connected by joints, forming a kinematic chain from the base to the end-effector. Used in welding, pick-and-place, painting, and assembly operations. Key parameters: DOF, workspace, payload capacity, and repeatability.</p>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label note">Note</span>&nbsp; Laws of Robotics</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p>Asimov's three laws: (1) Safety first – robots cannot harm humans, (2) Obedience – robots follow human orders unless it causes harm, (3) Self-preservation – robots protect themselves if it doesn't violate laws 1 or 2. These laws are the foundation of ethical robot design. Modern robotics extends these for AI systems and autonomous vehicles.</p>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label note">Note</span>&nbsp; Automation in Robotics</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p>Automation refers to using technology to perform tasks without human intervention. In robotics, automation is categorized as: Fixed (one product, high volume), Programmable (reprogrammable, batch production), and Flexible (real-time adaptation). Benefits: Increased speed, consistency, safety, and reduced cost. Challenges: High initial investment, loss of certain jobs, maintenance requirements.</p>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label note">Note</span>&nbsp; Types of DOF</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p>DOF types: <strong>Translational</strong> – movement along X, Y, Z axes (3 DOF). <strong>Rotational</strong> – rotation about X (Roll), Y (Pitch), Z (Yaw) axes (3 DOF). Together they give 6 DOF for full spatial freedom. Redundant robots have 7+ DOF for obstacle avoidance. Serial robots have DOF equal to number of joints. Parallel robots (like Delta robots) have different DOF calculation methods.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- KEY POINTS SUMMARY -->
+  <div class="key-points">
+    <h4>🎯 Module 1 – Key Points for Exam</h4>
+    <ul>
+      <li>Robotics = Mechanical + Electrical + Computer Science</li>
+      <li>Three laws: Human safety > Obey humans > Self-preservation</li>
+      <li>6 DOF needed for full 3D manipulation</li>
+      <li>Revolute = rotational, Prismatic = linear joint</li>
+      <li>Open loop = no feedback; Closed loop = feedback used</li>
+      <li>Servo system is a closed-loop system using encoders</li>
+      <li>Fixed automation = high volume; Programmable = high flexibility</li>
+      <li>Actuators convert energy to mechanical motion (motors, cylinders)</li>
+      <li>Pitch/Yaw/Roll describe 3D orientation of end-effector</li>
+    </ul>
+  </div>
+
+</main>
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <i class="fas fa-arrow-up"></i>
+</button>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<script src="script.js"></script>
+</body>
+</html>
