@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 4 – Sequential Control | RoboPrep</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo"><span class="logo-icon">⚙️</span><span class="logo-text">RoboPrep</span></div>
+  <nav class="sidebar-nav">
+    <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+    <a href="module1.html" class="nav-item"><i class="fas fa-robot"></i> Module 1 – Automation</a>
+    <a href="module2.html" class="nav-item"><i class="fas fa-satellite-dish"></i> Module 2 – Sensors</a>
+    <a href="module3.html" class="nav-item"><i class="fas fa-microchip"></i> Module 3 – Controllers</a>
+    <a href="module4.html" class="nav-item active"><i class="fas fa-cogs"></i> Module 4 – Sequential Control</a>
+    <a href="module5.html" class="nav-item"><i class="fas fa-terminal"></i> Module 5 – ROS & C++</a>
+    <div class="nav-divider"></div>
+    <a href="quickrevision.html" class="nav-item"><i class="fas fa-bolt"></i> Quick Revision</a>
+    <a href="quiz.html" class="nav-item"><i class="fas fa-question-circle"></i> MCQ Quiz</a>
+  </nav>
+  <div class="sidebar-footer">Exam Ready 🎓</div>
+</aside>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+  <span class="mobile-logo">⚙️ RoboPrep</span>
+</header>
+
+<main class="main-content">
+  <div class="breadcrumb"><a href="index.html">Home</a> <span>›</span> Module 4</div>
+  <div class="module-page-header">
+    <div class="badge" style="background:#fef2f2;color:#991b1b;border:1px solid #fca5a5">Module 4 · 12 Hours</div>
+    <h1>⚙️ Sequential Robot Control</h1>
+    <p>Sequential control design, image processing, machine vision, computer vision, CNN, and machine learning for robotics.</p>
+  </div>
+
+  <!-- SEQUENTIAL CONTROL -->
+  <div class="content-card">
+    <h2>📌 Sequential Robot Control</h2>
+    <div class="def-box">
+      <strong>Sequential Control:</strong> A control method where a robot executes a series of operations in a fixed, predefined order — one step at a time. Each step is completed before the next begins.
+    </div>
+    <div class="def-box">
+      <strong>Sequential Robot:</strong> A robot that performs tasks in a predetermined sequence — e.g., pick → move → place → return. The sequence is stored in the controller as a program.
+    </div>
+
+    <p style="margin:14px 0"><strong>Designing a Sequential Control System involves:</strong></p>
+    <ol style="padding-left:22px;line-height:2;font-size:.9rem">
+      <li><strong>Define Task Sequence:</strong> List all steps the robot must perform in order.</li>
+      <li><strong>Identify I/O Devices:</strong> Sensors (inputs) and actuators/motors (outputs).</li>
+      <li><strong>Draw Flowchart/State Diagram:</strong> Represent the control logic visually.</li>
+      <li><strong>Program the Controller:</strong> Code the sequence in C/C++/Python/Assembly.</li>
+      <li><strong>Test and Verify:</strong> Run the sequence and correct errors.</li>
+    </ol>
+
+    <div class="diagram-box" style="margin-top:16px">
+      <svg viewBox="0 0 600 280" xmlns="http://www.w3.org/2000/svg" style="font-family:'DM Sans',sans-serif">
+        <text x="300" y="20" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">Sequential Robot Control Flow</text>
+        <!-- Boxes -->
+        <rect x="220" y="35" width="160" height="38" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+        <text x="300" y="57" text-anchor="middle" font-size="11" font-weight="600" fill="#92400e">START / Initialize</text>
+        <rect x="220" y="95" width="160" height="38" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+        <text x="300" y="117" text-anchor="middle" font-size="11" font-weight="600" fill="#1e40af">Step 1: Read Sensor</text>
+        <rect x="220" y="155" width="160" height="38" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+        <text x="300" y="177" text-anchor="middle" font-size="11" font-weight="600" fill="#1e40af">Step 2: Move Arm</text>
+        <rect x="220" y="215" width="160" height="38" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+        <text x="300" y="237" text-anchor="middle" font-size="11" font-weight="600" fill="#1e40af">Step 3: Actuate Gripper</text>
+        <!-- Diamond -->
+        <polygon points="300,268 240,290 300,310 360,290" fill="#f0fdf4" stroke="#10b981" stroke-width="1.5"/>
+        <text x="300" y="293" text-anchor="middle" font-size="10" font-weight="600" fill="#065f46">Task Done?</text>
+        <!-- Arrows down -->
+        <line x1="300" y1="73" x2="300" y2="92" stroke="#64748b" stroke-width="1.5" marker-end="url(#am4)"/>
+        <line x1="300" y1="133" x2="300" y2="152" stroke="#64748b" stroke-width="1.5" marker-end="url(#am4)"/>
+        <line x1="300" y1="193" x2="300" y2="212" stroke="#64748b" stroke-width="1.5" marker-end="url(#am4)"/>
+        <line x1="300" y1="253" x2="300" y2="265" stroke="#64748b" stroke-width="1.5" marker-end="url(#am4)"/>
+        <!-- Loop back -->
+        <line x1="240" y1="290" x2="60" y2="290" stroke="#ef4444" stroke-width="1.5"/>
+        <line x1="60" y1="290" x2="60" y2="114" stroke="#ef4444" stroke-width="1.5"/>
+        <line x1="60" y1="114" x2="218" y2="114" stroke="#ef4444" stroke-width="1.5" marker-end="url(#amRed)"/>
+        <text x="38" y="200" font-size="10" fill="#dc2626">NO</text>
+        <text x="363" y="293" font-size="10" fill="#15803d">YES → END</text>
+        <defs>
+          <marker id="am4" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L7,3 L0,6 Z" fill="#64748b"/>
+          </marker>
+          <marker id="amRed" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L7,3 L0,6 Z" fill="#ef4444"/>
+          </marker>
+        </defs>
+      </svg>
+      <div class="diagram-caption">Fig: Sequential Robot Control Flowchart</div>
+    </div>
+  </div>
+
+  <!-- IMAGE PROCESSING -->
+  <div class="content-card">
+    <h2>🖼️ Image Processing</h2>
+    <div class="def-box">
+      <strong>Image Processing:</strong> A method of performing operations on digital images to enhance them, extract meaningful information, or prepare them for further analysis. It converts raw pixel data into useful output.
+    </div>
+    <div class="def-box">
+      <strong>Digital Image:</strong> A 2D array of pixels where each pixel has a numerical value representing color/intensity. In grayscale: 0 (black) to 255 (white). In color (RGB): 3 channels × 8 bits = 24-bit color.
+    </div>
+    <div class="def-box">
+      <strong>Pixel:</strong> The smallest unit of a digital image. "Picture Element." A 640×480 image has 307,200 pixels total.
+    </div>
+
+    <p style="margin:16px 0 10px"><strong>Steps of Image Processing:</strong></p>
+    <div style="display:flex;flex-wrap:wrap;gap:10px">
+      <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:12px 16px;flex:1;min-width:160px;text-align:center">
+        <div style="font-size:1.2rem">📷</div>
+        <div style="font-weight:600;font-size:.85rem;margin-top:4px">1. Image Acquisition</div>
+        <div style="font-size:.78rem;color:var(--text-muted)">Capture via camera</div>
+      </div>
+      <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:12px 16px;flex:1;min-width:160px;text-align:center">
+        <div style="font-size:1.2rem">🔧</div>
+        <div style="font-weight:600;font-size:.85rem;margin-top:4px">2. Preprocessing</div>
+        <div style="font-size:.78rem;color:var(--text-muted)">Resize, denoise, normalize</div>
+      </div>
+      <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:12px 16px;flex:1;min-width:160px;text-align:center">
+        <div style="font-size:1.2rem">🔍</div>
+        <div style="font-weight:600;font-size:.85rem;margin-top:4px">3. Segmentation</div>
+        <div style="font-size:.78rem;color:var(--text-muted)">Separate objects of interest</div>
+      </div>
+      <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:12px 16px;flex:1;min-width:160px;text-align:center">
+        <div style="font-size:1.2rem">📊</div>
+        <div style="font-weight:600;font-size:.85rem;margin-top:4px">4. Feature Extraction</div>
+        <div style="font-size:.78rem;color:var(--text-muted)">Edges, shapes, colors</div>
+      </div>
+      <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:12px 16px;flex:1;min-width:160px;text-align:center">
+        <div style="font-size:1.2rem">🧠</div>
+        <div style="font-weight:600;font-size:.85rem;margin-top:4px">5. Recognition/Interpretation</div>
+        <div style="font-size:.78rem;color:var(--text-muted)">Classify / detect objects</div>
+      </div>
+    </div>
+
+    <div class="note-highlight" style="margin-top:16px">
+      <strong>💡 Canny Edge Detection:</strong> A popular edge detection algorithm that: (1) Applies Gaussian blur to reduce noise, (2) Computes image gradient, (3) Applies non-maximum suppression, (4) Uses double threshold to identify strong/weak edges, (5) Tracks edges by hysteresis. Result: clean, thin edge outlines.
+    </div>
+  </div>
+
+  <!-- MACHINE VISION & COMPUTER VISION -->
+  <div class="content-card">
+    <h2>👁️ Vision Technologies Comparison</h2>
+    <table class="diff-table">
+      <tr><th>Feature</th><th>Image Processing</th><th>Machine Vision</th><th>Computer Vision</th><th>Robot Vision</th></tr>
+      <tr><td>Definition</td><td>Operations on images</td><td>Industrial inspection</td><td>Teaching computers to see</td><td>Vision for robot guidance</td></tr>
+      <tr><td>Focus</td><td>Enhancement & analysis</td><td>Quality control</td><td>Understanding scenes</td><td>Navigation & manipulation</td></tr>
+      <tr><td>Real-time?</td><td>Sometimes</td><td>Yes (critical)</td><td>Often</td><td>Yes (critical)</td></tr>
+      <tr><td>Examples</td><td>Photo editing, OCR</td><td>PCB defect detection</td><td>Face recognition, self-driving</td><td>Pick-and-place, bin picking</td></tr>
+      <tr><td>Tools</td><td>OpenCV, PIL</td><td>HALCON, Cognex</td><td>TensorFlow, PyTorch</td><td>ROS + OpenCV</td></tr>
+    </table>
+
+    <div class="def-box" style="margin-top:16px">
+      <strong>Machine Vision:</strong> Application of computer vision in industrial settings to automate visual inspection and guide machines. Cameras + processing units replace human inspectors. Used for: PCB defect detection, label verification, dimension measurement on production lines.
+    </div>
+    <div class="def-box">
+      <strong>Computer Vision:</strong> A broader field of AI where computers learn to interpret and understand the visual world from images and videos. Includes object detection, face recognition, pose estimation, depth sensing.
+    </div>
+    <div class="def-box">
+      <strong>Robot Vision:</strong> Use of cameras and vision algorithms to give robots the ability to perceive their environment — used for navigation (avoiding obstacles), manipulation (grasping objects), and inspection.
+    </div>
+  </div>
+
+  <!-- MACHINE LEARNING & CNN -->
+  <div class="content-card">
+    <h2>🧠 Machine Learning & CNNs</h2>
+    <div class="def-box">
+      <strong>Artificial Intelligence (AI):</strong> The simulation of human intelligence in machines — enabling them to learn, reason, problem-solve, perceive, and make decisions.
+    </div>
+    <div class="def-box">
+      <strong>Machine Learning (ML):</strong> A subset of AI where machines learn from data without being explicitly programmed. The model improves its performance through experience/training.
+    </div>
+
+    <p style="margin:14px 0 10px"><strong>Types of Machine Learning:</strong></p>
+    <table class="diff-table">
+      <tr><th>Type</th><th>Description</th><th>Example</th></tr>
+      <tr><td>Supervised Learning</td><td>Trains on labeled data (input-output pairs)</td><td>Image classification, spam detection</td></tr>
+      <tr><td>Unsupervised Learning</td><td>Finds patterns in unlabeled data</td><td>Clustering, anomaly detection</td></tr>
+      <tr><td>Reinforcement Learning</td><td>Agent learns by rewards/punishments</td><td>Robot learning to walk, game AI</td></tr>
+    </table>
+
+    <div class="def-box" style="margin-top:16px">
+      <strong>Supervised Learning:</strong> The model is trained on a dataset where each input (e.g., image of a cat) has a corresponding label (e.g., "cat"). The model learns the mapping function f(x) → y. Steps: Collect labeled data → Split train/test → Train model → Evaluate → Deploy.
+    </div>
+
+    <div class="def-box">
+      <strong>CNN (Convolutional Neural Network):</strong> A type of deep neural network specially designed for processing grid-like data such as images. It uses convolution operations to automatically extract features (edges, textures, shapes) from images without manual feature engineering.
+    </div>
+
+    <p style="margin:14px 0 8px"><strong>CNN Layers:</strong></p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <div style="background:#ede9fe;border-radius:8px;padding:10px 14px;text-align:center;flex:1;min-width:100px">
+        <div style="font-weight:700;font-size:.85rem;color:#5b21b6">Input Layer</div>
+        <div style="font-size:.75rem;color:#6d28d9">Raw image pixels</div>
+      </div>
+      <div style="color:var(--text-muted);display:flex;align-items:center">→</div>
+      <div style="background:#ede9fe;border-radius:8px;padding:10px 14px;text-align:center;flex:1;min-width:100px">
+        <div style="font-weight:700;font-size:.85rem;color:#5b21b6">Conv Layer</div>
+        <div style="font-size:.75rem;color:#6d28d9">Feature extraction filters</div>
+      </div>
+      <div style="color:var(--text-muted);display:flex;align-items:center">→</div>
+      <div style="background:#ede9fe;border-radius:8px;padding:10px 14px;text-align:center;flex:1;min-width:100px">
+        <div style="font-weight:700;font-size:.85rem;color:#5b21b6">Pooling Layer</div>
+        <div style="font-size:.75rem;color:#6d28d9">Reduce spatial size</div>
+      </div>
+      <div style="color:var(--text-muted);display:flex;align-items:center">→</div>
+      <div style="background:#ede9fe;border-radius:8px;padding:10px 14px;text-align:center;flex:1;min-width:100px">
+        <div style="font-weight:700;font-size:.85rem;color:#5b21b6">Fully Connected</div>
+        <div style="font-size:.75rem;color:#6d28d9">Classification</div>
+      </div>
+      <div style="color:var(--text-muted);display:flex;align-items:center">→</div>
+      <div style="background:#ede9fe;border-radius:8px;padding:10px 14px;text-align:center;flex:1;min-width:100px">
+        <div style="font-weight:700;font-size:.85rem;color:#5b21b6">Output</div>
+        <div style="font-size:.75rem;color:#6d28d9">Class probabilities</div>
+      </div>
+    </div>
+    <p style="margin-top:12px;font-size:.87rem;color:var(--text-muted)"><strong>Applications in Robotics:</strong> Object detection (YOLO), facial recognition, gesture recognition, medical image analysis, autonomous driving lane detection.</p>
+  </div>
+
+  <!-- QUESTIONS -->
+  <div class="content-card">
+    <h2>❓ Short & Long Questions</h2>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label short">Short</span>&nbsp; What are Convolutional Neural Networks (CNNs)?</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p><strong>CNNs</strong> are a class of deep neural networks primarily used for visual data. They use convolution operations (filters/kernels sliding over image) to extract features like edges, corners, and textures. Key layers: Convolutional (feature extraction), Pooling (dimensionality reduction), Fully Connected (classification). Famous CNNs: LeNet, AlexNet, VGG, ResNet. Used for: image classification, object detection, face recognition.</p>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label short">Short</span>&nbsp; What do you mean by pixel?</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p>A <strong>pixel</strong> (picture element) is the smallest addressable unit in a digital image. Each pixel stores color information as a numerical value. In a grayscale image: values range 0 (black) to 255 (white). In an RGB color image: each pixel has three values (Red, Green, Blue), each 0–255. The resolution of an image is measured in pixels (e.g., 1920×1080 = Full HD).</p>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label short">Short</span>&nbsp; What is Robot Vision?</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p><strong>Robot Vision</strong> is the ability of a robot to interpret visual information from cameras and sensors to perceive its environment. It allows robots to: detect and recognize objects, navigate autonomously, guide grippers to pick objects, inspect quality, and avoid obstacles. It combines image processing, computer vision, and AI. Applications: bin picking, welding seam tracking, autonomous vehicles.</p>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label long">Long</span>&nbsp; Explain the concept of image processing with examples.</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p><strong>Image Processing</strong> involves applying mathematical operations and algorithms on digital images to improve them, extract information, or analyze their content.</p>
+        <p><strong>Types of Image Processing:</strong></p>
+        <ul>
+          <li><strong>Analog Image Processing:</strong> Applied to analog (continuous) signals — traditional TV/video processing.</li>
+          <li><strong>Digital Image Processing:</strong> Applied to digitized images using computers — most common today.</li>
+        </ul>
+        <p><strong>Steps in Image Processing:</strong></p>
+        <ol>
+          <li><strong>Image Acquisition:</strong> Capture image using camera or scanner. Convert to digital format.</li>
+          <li><strong>Preprocessing:</strong> Noise removal (Gaussian blur, median filter), contrast enhancement, resizing.</li>
+          <li><strong>Segmentation:</strong> Divide image into meaningful regions (thresholding, edge detection, watershed).</li>
+          <li><strong>Feature Extraction:</strong> Extract important characteristics — edges, corners, color histograms, textures.</li>
+          <li><strong>Object Recognition:</strong> Match features to known patterns or use ML/CNN to classify objects.</li>
+          <li><strong>Output/Decision:</strong> Display result, trigger robot action, or store classification result.</li>
+        </ol>
+        <p><strong>Examples:</strong></p>
+        <ul>
+          <li><strong>Medical:</strong> X-ray and MRI analysis — detect tumors, fractures.</li>
+          <li><strong>Industrial:</strong> PCB defect detection on assembly lines.</li>
+          <li><strong>Robotics:</strong> Object detection for pick-and-place tasks.</li>
+          <li><strong>Security:</strong> Face recognition for access control.</li>
+          <li><strong>Agriculture:</strong> Crop disease detection from drone images.</li>
+        </ul>
+        <p><strong>Key Tools:</strong> OpenCV (Python/C++), MATLAB Image Processing Toolbox, PIL/Pillow.</p>
+        <div class="note-highlight"><strong>💡 Key Formula:</strong> Binary Thresholding — if pixel value > threshold: white (255); else: black (0). Used to separate foreground from background.</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label long">Long</span>&nbsp; Explain the concept of supervised learning in machine learning.</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p><strong>Supervised Learning</strong> is a type of machine learning where the model is trained on a labeled dataset — each input example has a known, correct output (label).</p>
+        <p><strong>How it Works:</strong></p>
+        <ol>
+          <li><strong>Data Collection:</strong> Gather large dataset with input-output pairs (e.g., images + labels).</li>
+          <li><strong>Data Splitting:</strong> Split data into Training set (70–80%) and Testing set (20–30%).</li>
+          <li><strong>Model Training:</strong> Algorithm learns by minimizing error between predicted and actual output.</li>
+          <li><strong>Evaluation:</strong> Test accuracy, precision, recall, F1-score on test data.</li>
+          <li><strong>Prediction:</strong> Apply trained model to new, unseen data.</li>
+        </ol>
+        <p><strong>Types of Supervised Learning Tasks:</strong></p>
+        <ul>
+          <li><strong>Classification:</strong> Output is a category (e.g., cat/dog, spam/not spam).</li>
+          <li><strong>Regression:</strong> Output is a continuous value (e.g., predicting temperature, house price).</li>
+        </ul>
+        <p><strong>Common Algorithms:</strong> Linear Regression, Logistic Regression, Decision Trees, SVM (Support Vector Machine), Neural Networks, CNN.</p>
+        <p><strong>Application in Robotics:</strong> Training a robot arm to classify objects by shape → collect images of objects with labels → train CNN → robot classifies objects and picks accordingly.</p>
+        <div class="note-highlight"><strong>💡 Key Issue:</strong> Overfitting — model learns training data too well but fails on new data. Prevented by: regularization, dropout, more training data, cross-validation.</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label long">Long</span>&nbsp; Describe computer vision and its applications.</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p><strong>Computer Vision</strong> is a field of artificial intelligence that enables computers to interpret and understand visual information from the world — images, videos, and live streams — just like humans do.</p>
+        <p><strong>Key Tasks in Computer Vision:</strong></p>
+        <ul>
+          <li><strong>Image Classification:</strong> Assign a label to the whole image (cat, dog, car).</li>
+          <li><strong>Object Detection:</strong> Locate and classify multiple objects in an image (YOLO, Faster R-CNN).</li>
+          <li><strong>Image Segmentation:</strong> Label each pixel (semantic segmentation) or separate instances (instance segmentation).</li>
+          <li><strong>Pose Estimation:</strong> Detect body joint positions to understand human pose.</li>
+          <li><strong>Depth Estimation:</strong> Measure distances from camera to objects in a scene.</li>
+          <li><strong>OCR:</strong> Optical Character Recognition — read text from images.</li>
+        </ul>
+        <p><strong>Applications:</strong></p>
+        <ul>
+          <li><strong>Autonomous Vehicles:</strong> Lane detection, pedestrian detection, traffic sign recognition.</li>
+          <li><strong>Healthcare:</strong> X-ray, CT scan, MRI analysis; tumor detection; retina scanning.</li>
+          <li><strong>Robotics:</strong> Object picking, navigation, inspection.</li>
+          <li><strong>Security:</strong> Face recognition, surveillance, biometric authentication.</li>
+          <li><strong>Retail:</strong> Amazon Go cashierless stores, product recognition.</li>
+          <li><strong>Agriculture:</strong> Crop health monitoring, fruit ripeness detection.</li>
+        </ul>
+        <p><strong>Tools:</strong> OpenCV, TensorFlow, PyTorch, Keras, YOLO, MediaPipe.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="key-points">
+    <h4>🎯 Module 4 – Key Points for Exam</h4>
+    <ul>
+      <li>Sequential control = tasks executed in fixed, predefined order, one at a time</li>
+      <li>Image processing steps: Acquisition → Preprocessing → Segmentation → Feature extraction → Recognition</li>
+      <li>Pixel = smallest image unit; grayscale: 0–255; RGB: 3 channels</li>
+      <li>Canny edge detection: Gaussian blur → Gradient → Non-max suppression → Hysteresis</li>
+      <li>Machine Vision = industrial quality inspection using cameras</li>
+      <li>Computer Vision = AI field for general visual understanding</li>
+      <li>Robot Vision = cameras used for robot guidance and navigation</li>
+      <li>ML types: Supervised (labeled data), Unsupervised (patterns), Reinforcement (rewards)</li>
+      <li>Supervised learning: collect labeled data → train → evaluate → predict</li>
+      <li>CNN layers: Input → Convolutional → Pooling → Fully Connected → Output</li>
+      <li>Overfitting = model too fit to training data; fix with dropout, more data</li>
+    </ul>
+  </div>
+</main>
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<script src="script.js"></script>
+</body>
+</html>

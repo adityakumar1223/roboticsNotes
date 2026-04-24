@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quick Revision | RoboPrep</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo"><span class="logo-icon">⚙️</span><span class="logo-text">RoboPrep</span></div>
+  <nav class="sidebar-nav">
+    <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+    <a href="module1.html" class="nav-item"><i class="fas fa-robot"></i> Module 1 – Automation</a>
+    <a href="module2.html" class="nav-item"><i class="fas fa-satellite-dish"></i> Module 2 – Sensors</a>
+    <a href="module3.html" class="nav-item"><i class="fas fa-microchip"></i> Module 3 – Controllers</a>
+    <a href="module4.html" class="nav-item"><i class="fas fa-cogs"></i> Module 4 – Sequential Control</a>
+    <a href="module5.html" class="nav-item"><i class="fas fa-terminal"></i> Module 5 – ROS & C++</a>
+    <div class="nav-divider"></div>
+    <a href="quickrevision.html" class="nav-item active"><i class="fas fa-bolt"></i> Quick Revision</a>
+    <a href="quiz.html" class="nav-item"><i class="fas fa-question-circle"></i> MCQ Quiz</a>
+  </nav>
+  <div class="sidebar-footer">Exam Ready 🎓</div>
+</aside>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+  <span class="mobile-logo">⚙️ RoboPrep</span>
+</header>
+
+<main class="main-content">
+  <div class="breadcrumb"><a href="index.html">Home</a> <span>›</span> Quick Revision</div>
+  <div class="module-page-header">
+    <div class="badge" style="background:#fff7ed;color:#c2410c;border:1px solid #fed7aa">Last Minute Prep ⚡</div>
+    <h1>⚡ Quick Revision – All Modules</h1>
+    <p>Key definitions, formulas, differences, and must-remember points for all 5 modules.</p>
+  </div>
+
+  <!-- MODULE 1 -->
+  <div class="section">
+    <h2 class="section-title" style="color:#3b82f6">🤖 Module 1 – Robotic Automation</h2>
+    <div class="rev-grid">
+      <div class="rev-card">
+        <h4>Core Definitions</h4>
+        <ul>
+          <li>Robotics = Mech + Electrical + CS combined</li>
+          <li>Automation = tasks done without human help</li>
+          <li>DOF = number of independent movements</li>
+          <li>6 DOF = full 3D position + orientation</li>
+          <li>Manipulator = arm with links + joints</li>
+        </ul>
+      </div>
+      <div class="rev-card">
+        <h4>Asimov's 3 Laws</h4>
+        <ul>
+          <li>1st: Robot cannot harm humans</li>
+          <li>2nd: Must obey humans (if no conflict)</li>
+          <li>3rd: Protect itself (if no conflict)</li>
+          <li>Priority: Safety > Obedience > Self</li>
+        </ul>
+      </div>
+      <div class="rev-card">
+        <h4>Control Systems</h4>
+        <ul>
+          <li>Open loop = No feedback (simple, less accurate)</li>
+          <li>Closed loop = Uses feedback (accurate)</li>
+          <li>Servo = closed loop with encoder feedback</li>
+          <li>Non-servo = open loop, fixed path</li>
+          <li>Thermostat = closed loop example</li>
+        </ul>
+      </div>
+      <div class="rev-card">
+        <h4>Joints & Links</h4>
+        <ul>
+          <li>Revolute (R) = rotational, 1 DOF</li>
+          <li>Prismatic (P) = linear/sliding, 1 DOF</li>
+          <li>Spherical = 3D rotation, 3 DOF</li>
+          <li>Pitch = up/down tilt</li>
+          <li>Yaw = left/right rotation</li>
+          <li>Roll = sideways tilt</li>
+        </ul>
+      </div>
+      <div class="rev-card">
+        <h4>Automation Types</h4>
+        <ul>
+          <li>Fixed = one task, high volume, less flexible</li>
+          <li>Programmable = reprogrammable, batch</li>
+          <li>Flexible = real-time adaptation</li>
+          <li>Fixed examples: assembly lines, bottling</li>
+          <li>Programmable examples: CNC, robots</li>
+        </ul>
+      </div>
+      <div class="rev-card">
+        <h4>Key Formulas</h4>
+        <ul>
+          <li>Torque = Force × Distance (Nm)</li>
+          <li>Power = Torque × Angular velocity (W)</li>
+          <li>Good control: Accurate, Stable, Fast, Sensitive</li>
+          <li>Actuator types: Electric, Pneumatic, Hydraulic</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE 2 -->
+  <div class="section">
+    <h2 class="section-title" style="color:#10b981">📡 Module 2 – Sensors</h2>
+    <div class="rev-grid">
+      <div class="rev-card">
+        <h4>Sensor Types</h4>
+        <ul>
+          <li>Active = emits energy (IR, Ultrasonic)</li>
+          <li>Passive = only receives (LDR, thermistor)</li>
+          <li>Tactile = needs contact (force sensor)</li>
+          <li>Non-Tactile = no contact (IR, camera)</li>
+          <li>Proprioceptive = internal state (encoder)</li>
+          <li>Exteroceptive = external (camera, GPS)</li>
+        </ul>
+      </div>
+      <div class="rev-card">
+        <h4>DHT11 Sensor</h4>
+        <ul>
+          <li>Measures: Temperature + Humidity</li>
+          <li>Temp range: 0°C to 50°C (±2°C)</li>
+          <li>Humidity: 20% to 90% RH</li>
+          <li>Output: Digital (single-wire)</li>
+          <li>Voltage: 3.3V–5V</li>
+          <li>Uses capacitive + thermistor principle</li>
+        </ul>
+      </div>
+      <div class="rev-card">
+        <h4>Ultrasonic (HC-SR04)</h4>
+        <ul>
+          <li>Principle: SONAR (sound reflection)</li>
+          <li>Frequency: 40kHz</li>
+          <li>Range: 2cm – 400cm</li>
+          <li>Pins: VCC, TRIG, ECHO, GND</li>
+          <li>Distance = time × 0.034 / 2 cm</li>
+        </ul>
+      </div>
+      <div class="rev-card">
+        <h4>Wireless Modules</h4>
+        <ul>
+          <li>HC-05: Bluetooth, Master+Slave, ~10m</li>
+          <li>HC-06: Bluetooth, Slave only</li>
+          <li>ESP8266: WiFi + MCU, 3.3V, IoT</li>
+          <li>NEO-6M: GPS, NMEA output, ~2.5m accuracy</li>
+          <li>SIM800L: GSM, SMS + calls, AT commands</li>
+        </ul>
+      </div>
+      <div class="rev-card">
+        <h4>IR Sensor Working</h4>
+        <ul>
+          <li>IR LED emits → object reflects → photodiode detects</li>
+          <li>Output LOW = object detected</li>
+          <li>Range: 2–30cm typically</li>
+          <li>Used in: line following, obstacle avoidance</li>
+        </ul>
+      </div>
+      <div class="rev-card">
+        <h4>Tilt Sensor</h4>
+        <ul>
+          <li>Detects orientation vs gravity</li>
+          <li>Ball-type: metal ball on contacts</li>
+          <li>Upright = circuit closed (HIGH)</li>
+          <li>Tilted = circuit open (LOW)</li>
+          <li>Modern: MEMS accelerometer (MPU-6050)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE 3 -->
+  <div class="section">
+    <h2 class="section-title" style="color:#f59e0b">💻 Module 3 – Controllers</h2>
+    <div class="rev-grid">
+      <div class="rev-card">
+        <h4>8051 Key Facts</h4>
+        <ul>
+          <li>8-bit microcontroller by Intel</li>
+          <li>4KB ROM, 128 bytes RAM</li>
+          <li>4 I/O ports: P0, P1, P2, P3</li>
+          <li>2 Timers: T0, T1 (16-bit)</li>
+          <li>5 interrupts: INT0, INT1, T0, T1, Serial</li>
+          <li>Harvard architecture</li>
+        </ul>
+      </div>
+      <div class="rev-card">
+        <h4>8051 Ports</h4>
+        <ul>
+          <li>P0: Address/Data bus (dual purpose)</li>
+          <li>P1: General I/O (only pure I/O port)</li>
+          <li>P2: High-byte address bus</li>
+          <li>P3: Special functions (INT, UART, T0, T1)</li>
+          <li>ALE: Separates address from data on P0</li>
+        </ul>
+      </div>
+      <div class="rev-card">
+        <h4>Arduino UNO</h4>
+        <ul>
+          <li>MCU: ATmega328P @ 16MHz</li>
+          <li>Digital pins: 14 (6 PWM)</li>
+          <li>Analog pins: 6 (10-bit ADC)</li>
+          <li>Flash: 32KB, RAM: 2KB</li>
+          <li>Voltage: 5V operating</li>
+          <li>setup() once + loop() forever</li>
+        </ul>
+      </div>
+      <div class="rev-card">
+        <h4>Raspberry Pi vs Arduino</h4>
+        <ul>
+          <li>RPi = Single-board Computer (Linux OS)</li>
+          <li>Arduino = Microcontroller (no OS)</li>
+          <li>RPi: 1.5GHz, 2–8GB RAM</li>
+          <li>Arduino: 16MHz, 2KB RAM</li>
+          <li>RPi: Complex AI, ROS, vision</li>
+          <li>Arduino: Real-time sensor/motor control</li>
+        </ul>
+      </div>
+      <div class="rev-card">
+        <h4>Microprocessor vs Microcontroller</h4>
+        <ul>
+          <li>µP: CPU only, needs external RAM/ROM</li>
+          <li>µC: CPU + RAM + ROM + I/O on one chip</li>
+          <li>µP: High processing, high power</li>
+          <li>µC: Low power, embedded use</li>
+          <li>µP example: Intel Core, 8085</li>
+          <li>µC example: 8051, ATmega328</li>
+        </ul>
+      </div>
+      <div class="rev-card">
+        <h4>Arduino IDE Steps</h4>
+        <ul>
+          <li>Install IDE → Connect board → USB</li>
+          <li>Tools → Board → Arduino UNO</li>
+          <li>Tools → Port → COM X</li>
+          <li>Write setup() + loop() code</li>
+          <li>Verify (✓) → Upload (→)</li>
+          <li>Serial Monitor for debugging</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE 4 -->
+  <div class="section">
+    <h2 class="section-title" style="color:#ef4444">⚙️ Module 4 – Sequential Control & Vision</h2>
+    <div class="rev-grid">
+      <div class="rev-card">
+        <h4>Sequential Control</h4>
+        <ul>
+          <li>Fixed order step-by-step execution</li>
+          <li>One step completes before next starts</li>
+          <li>Steps: Define tasks → I/O → Flowchart → Code → Test</li>
+          <li>Example: Pick → Move → Place → Return</li>
+        </ul>
+      </div>
+      <div class="rev-card">
+        <h4>Image Processing Steps</h4>
+        <ul>
+          <li>1. Acquisition (capture via camera)</li>
+          <li>2. Preprocessing (noise removal, resize)</li>
+          <li>3. Segmentation (separate objects)</li>
+          <li>4. Feature extraction (edges, shapes)</li>
+          <li>5. Recognition (classify/detect)</li>
+        </ul>
+      </div>
+      <div class="rev-card">
+        <h4>Vision Types</h4>
+        <ul>
+          <li>Image Processing = operations on images</li>
+          <li>Machine Vision = industrial inspection</li>
+          <li>Computer Vision = AI visual understanding</li>
+          <li>Robot Vision = guides robot actions</li>
+        </ul>
+      </div>
+      <div class="rev-card">
+        <h4>Machine Learning</h4>
+        <ul>
+          <li>Supervised: labeled data, classification</li>
+          <li>Unsupervised: unlabeled, clustering</li>
+          <li>Reinforcement: rewards/penalties</li>
+          <li>Overfitting: fix with dropout, more data</li>
+        </ul>
+      </div>
+      <div class="rev-card">
+        <h4>CNN Layers</h4>
+        <ul>
+          <li>Input → Convolutional → ReLU activation</li>
+          <li>Pooling → Fully Connected → Output</li>
+          <li>Used for image classification, detection</li>
+          <li>Examples: LeNet, VGG, ResNet, YOLO</li>
+          <li>Pixel = smallest image unit (0–255)</li>
+        </ul>
+      </div>
+      <div class="rev-card">
+        <h4>Canny Edge Detection</h4>
+        <ul>
+          <li>1. Gaussian blur (noise reduction)</li>
+          <li>2. Compute image gradient (Sobel)</li>
+          <li>3. Non-maximum suppression</li>
+          <li>4. Double threshold (strong/weak edges)</li>
+          <li>5. Hysteresis edge tracking</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE 5 -->
+  <div class="section">
+    <h2 class="section-title" style="color:#8b5cf6">🖥️ Module 5 – ROS & Gazebo</h2>
+    <div class="rev-grid">
+      <div class="rev-card">
+        <h4>ROS Basics</h4>
+        <ul>
+          <li>ROS = middleware, not a real OS</li>
+          <li>Runs on Ubuntu Linux</li>
+          <li>roscore = start Master first always</li>
+          <li>Nodes = individual programs</li>
+          <li>catkin_make = build workspace</li>
+        </ul>
+      </div>
+      <div class="rev-card">
+        <h4>Topics vs Services</h4>
+        <ul>
+          <li>Topic = async, publish/subscribe</li>
+          <li>Service = sync, request/response</li>
+          <li>Topic → streaming continuous data</li>
+          <li>Service → one-time command</li>
+          <li>Messages (.msg) / Services (.srv)</li>
+        </ul>
+      </div>
+      <div class="rev-card">
+        <h4>Common ROS Topics</h4>
+        <ul>
+          <li>/cmd_vel → velocity commands (Twist)</li>
+          <li>/odom → odometry (position)</li>
+          <li>/scan → LIDAR data</li>
+          <li>/camera/image_raw → camera frames</li>
+          <li>/tf → coordinate transforms</li>
+        </ul>
+      </div>
+      <div class="rev-card">
+        <h4>Gazebo Features</h4>
+        <ul>
+          <li>Physics engine: ODE (gravity, friction)</li>
+          <li>Sensor simulation (camera, LIDAR, IMU)</li>
+          <li>3D world building (SDF format)</li>
+          <li>ROS bridge via gazebo_ros package</li>
+          <li>TurtleBot3 = common simulation robot</li>
+        </ul>
+      </div>
+      <div class="rev-card">
+        <h4>Key ROS Commands</h4>
+        <ul>
+          <li>roscore → start master</li>
+          <li>rosrun pkg node → run a node</li>
+          <li>rosnode list → show all nodes</li>
+          <li>rostopic list → show all topics</li>
+          <li>rostopic echo /topic → print data</li>
+          <li>rqt_graph → visualize node network</li>
+        </ul>
+      </div>
+      <div class="rev-card">
+        <h4>ROS Tools</h4>
+        <ul>
+          <li>RViz = 3D visualization of sensors/robot</li>
+          <li>Gazebo = physics simulation</li>
+          <li>rqt = GUI toolkit for ROS</li>
+          <li>roslaunch = start multiple nodes</li>
+          <li>rosbag = record/play topic data</li>
+          <li>roswtf = diagnose ROS issues</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- IMPORTANT FORMULA CARD -->
+  <div class="content-card">
+    <h2>📐 Important Formulas & Facts</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px">
+      <div style="background:#fef3c7;border-radius:10px;padding:16px;border:1px solid #fde68a">
+        <strong style="color:#92400e">Ultrasonic Distance</strong><br/>
+        <code style="font-size:.9rem;display:block;margin-top:8px;color:#78350f">distance = time × 0.034 / 2 (cm)</code>
+      </div>
+      <div style="background:#eff6ff;border-radius:10px;padding:16px;border:1px solid #bfdbfe">
+        <strong style="color:#1e40af">Torque Formula</strong><br/>
+        <code style="font-size:.9rem;display:block;margin-top:8px;color:#1d4ed8">τ = F × d (Newton-meters)</code>
+      </div>
+      <div style="background:#f0fdf4;border-radius:10px;padding:16px;border:1px solid #86efac">
+        <strong style="color:#15803d">8051 Machine Cycle</strong><br/>
+        <code style="font-size:.9rem;display:block;margin-top:8px;color:#166534">1 cycle = 12 oscillator clocks (at 12MHz = 1µs)</code>
+      </div>
+      <div style="background:#fdf4ff;border-radius:10px;padding:16px;border:1px solid #e9d5ff">
+        <strong style="color:#6b21a8">DHT11 Range</strong><br/>
+        <code style="font-size:.9rem;display:block;margin-top:8px;color:#7c3aed">Temp: 0–50°C | Humidity: 20–90% RH</code>
+      </div>
+      <div style="background:#fff7ed;border-radius:10px;padding:16px;border:1px solid #fed7aa">
+        <strong style="color:#c2410c">Arduino UNO Specs</strong><br/>
+        <code style="font-size:.9rem;display:block;margin-top:8px;color:#9a3412">16MHz | 32KB Flash | 14 digital | 6 analog</code>
+      </div>
+      <div style="background:#fef2f2;border-radius:10px;padding:16px;border:1px solid #fecaca">
+        <strong style="color:#991b1b">8051 Interrupts</strong><br/>
+        <code style="font-size:.9rem;display:block;margin-top:8px;color:#7f1d1d">INT0, INT1, Timer0, Timer1, Serial (5 total)</code>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<script src="script.js"></script>
+</body>
+</html>

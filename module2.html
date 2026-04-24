@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 2 – Sensors | RoboPrep</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo"><span class="logo-icon">⚙️</span><span class="logo-text">RoboPrep</span></div>
+  <nav class="sidebar-nav">
+    <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+    <a href="module1.html" class="nav-item"><i class="fas fa-robot"></i> Module 1 – Automation</a>
+    <a href="module2.html" class="nav-item active"><i class="fas fa-satellite-dish"></i> Module 2 – Sensors</a>
+    <a href="module3.html" class="nav-item"><i class="fas fa-microchip"></i> Module 3 – Controllers</a>
+    <a href="module4.html" class="nav-item"><i class="fas fa-cogs"></i> Module 4 – Sequential Control</a>
+    <a href="module5.html" class="nav-item"><i class="fas fa-terminal"></i> Module 5 – ROS & C++</a>
+    <div class="nav-divider"></div>
+    <a href="quickrevision.html" class="nav-item"><i class="fas fa-bolt"></i> Quick Revision</a>
+    <a href="quiz.html" class="nav-item"><i class="fas fa-question-circle"></i> MCQ Quiz</a>
+  </nav>
+  <div class="sidebar-footer">Exam Ready 🎓</div>
+</aside>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+  <span class="mobile-logo">⚙️ RoboPrep</span>
+</header>
+
+<main class="main-content">
+  <div class="breadcrumb"><a href="index.html">Home</a> <span>›</span> Module 2</div>
+  <div class="module-page-header">
+    <div class="badge" style="background:#f0fdf4;color:#15803d;border:1px solid #86efac">Module 2 · 12 Hours</div>
+    <h1>📡 Sensor Requirements in Robots</h1>
+    <p>Sensor selection, specifications, interfacing — Tilt, Proximity, Temperature, DHT11, IR, Ultrasonic, Bluetooth, GPS, GSM.</p>
+  </div>
+
+  <!-- CORE CONCEPTS -->
+  <div class="content-card">
+    <h2>📌 What is a Sensor?</h2>
+    <div class="def-box">
+      <strong>Sensor:</strong> A device that detects or measures a physical quantity (light, temperature, distance, touch, etc.) and converts it into an electrical signal that a controller can process.
+    </div>
+    <div class="def-box">
+      <strong>Active Sensor:</strong> Requires an external power source to operate and emits energy to detect the environment. Example: Ultrasonic sensor, IR sensor (emits IR light).
+    </div>
+    <div class="def-box">
+      <strong>Passive Sensor:</strong> Does not emit energy; only detects naturally occurring signals. Example: LDR (detects ambient light), thermistor (detects heat).
+    </div>
+    <div class="def-box">
+      <strong>Tactile Sensor:</strong> Detects physical contact or touch. Examples: Force sensors, pressure sensors, touch pads. Used in robot grippers.
+    </div>
+    <div class="def-box">
+      <strong>Non-Tactile Sensor:</strong> Detects without physical contact (proximity-based). Examples: IR, Ultrasonic, Camera, Radar.
+    </div>
+
+    <table class="diff-table" style="margin-top:18px">
+      <tr><th>Feature</th><th>Tactile Sensors</th><th>Non-Tactile Sensors</th></tr>
+      <tr><td>Contact needed</td><td>Yes – physical touch</td><td>No – remote sensing</td></tr>
+      <tr><td>Examples</td><td>Force sensor, pressure pad</td><td>IR, Ultrasonic, Camera</td></tr>
+      <tr><td>Range</td><td>Very short (contact only)</td><td>Short to long range</td></tr>
+      <tr><td>Use in robots</td><td>Gripping, collision detection</td><td>Navigation, obstacle avoidance</td></tr>
+      <tr><td>Damage risk</td><td>Possible on collision</td><td>None</td></tr>
+    </table>
+  </div>
+
+  <!-- SENSOR SELECTION -->
+  <div class="content-card">
+    <h2>🎯 Selecting Sensors for a Project</h2>
+    <p style="margin-bottom:14px">When selecting a sensor for a robotic project, consider:</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px">
+      <div style="background:var(--bg2);border-radius:10px;padding:14px"><strong>📏 Range</strong><br/><span style="font-size:.84rem;color:var(--text-muted)">Max distance or value it can detect</span></div>
+      <div style="background:var(--bg2);border-radius:10px;padding:14px"><strong>⚡ Power</strong><br/><span style="font-size:.84rem;color:var(--text-muted)">Operating voltage (3.3V / 5V) and current</span></div>
+      <div style="background:var(--bg2);border-radius:10px;padding:14px"><strong>🎯 Accuracy</strong><br/><span style="font-size:.84rem;color:var(--text-muted)">How precise the measurement is</span></div>
+      <div style="background:var(--bg2);border-radius:10px;padding:14px"><strong>🔌 Interface</strong><br/><span style="font-size:.84rem;color:var(--text-muted)">Digital/Analog, I2C, SPI, UART output</span></div>
+      <div style="background:var(--bg2);border-radius:10px;padding:14px"><strong>🌡️ Environment</strong><br/><span style="font-size:.84rem;color:var(--text-muted)">Temperature, humidity, dust tolerance</span></div>
+      <div style="background:var(--bg2);border-radius:10px;padding:14px"><strong>💰 Cost</strong><br/><span style="font-size:.84rem;color:var(--text-muted)">Budget for the application</span></div>
+    </div>
+  </div>
+
+  <!-- SENSOR DIAGRAM -->
+  <div class="content-card">
+    <h2>🔬 Sensor Working Principle Diagram</h2>
+    <div class="diagram-box">
+      <svg viewBox="0 0 680 200" xmlns="http://www.w3.org/2000/svg" style="font-family:'DM Sans',sans-serif">
+        <text x="340" y="20" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">Generic Sensor Signal Flow</text>
+        <!-- Physical World -->
+        <rect x="20" y="40" width="110" height="50" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+        <text x="75" y="63" text-anchor="middle" font-size="10" font-weight="600" fill="#92400e">Physical</text>
+        <text x="75" y="78" text-anchor="middle" font-size="10" fill="#92400e">Phenomenon</text>
+        <!-- Transducer -->
+        <rect x="180" y="40" width="110" height="50" rx="8" fill="#ede9fe" stroke="#8b5cf6" stroke-width="1.5"/>
+        <text x="235" y="63" text-anchor="middle" font-size="10" font-weight="600" fill="#5b21b6">Transducer</text>
+        <text x="235" y="78" text-anchor="middle" font-size="10" fill="#6d28d9">(Converts signal)</text>
+        <!-- Signal Conditioning -->
+        <rect x="340" y="40" width="120" height="50" rx="8" fill="#f0fdf4" stroke="#10b981" stroke-width="1.5"/>
+        <text x="400" y="63" text-anchor="middle" font-size="10" font-weight="600" fill="#065f46">Signal</text>
+        <text x="400" y="78" text-anchor="middle" font-size="10" fill="#065f46">Conditioning</text>
+        <!-- Controller -->
+        <rect x="510" y="40" width="110" height="50" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+        <text x="565" y="63" text-anchor="middle" font-size="10" font-weight="600" fill="#1e40af">Controller</text>
+        <text x="565" y="78" text-anchor="middle" font-size="10" fill="#1e40af">(Arduino/Pi)</text>
+        <!-- Arrows -->
+        <line x1="130" y1="65" x2="177" y2="65" stroke="#64748b" stroke-width="1.5" marker-end="url(#arr1)"/>
+        <line x1="290" y1="65" x2="337" y2="65" stroke="#64748b" stroke-width="1.5" marker-end="url(#arr1)"/>
+        <line x1="460" y1="65" x2="507" y2="65" stroke="#64748b" stroke-width="1.5" marker-end="url(#arr1)"/>
+        <!-- Labels below -->
+        <text x="75" y="120" text-anchor="middle" font-size="9" fill="#92400e">Heat, Light,</text>
+        <text x="75" y="132" text-anchor="middle" font-size="9" fill="#92400e">Sound, Motion</text>
+        <text x="235" y="120" text-anchor="middle" font-size="9" fill="#6d28d9">Resistance/</text>
+        <text x="235" y="132" text-anchor="middle" font-size="9" fill="#6d28d9">Voltage change</text>
+        <text x="400" y="120" text-anchor="middle" font-size="9" fill="#065f46">Amplify, Filter,</text>
+        <text x="400" y="132" text-anchor="middle" font-size="9" fill="#065f46">ADC conversion</text>
+        <text x="565" y="120" text-anchor="middle" font-size="9" fill="#1e40af">Digital/Analog</text>
+        <text x="565" y="132" text-anchor="middle" font-size="9" fill="#1e40af">Input reading</text>
+        <defs>
+          <marker id="arr1" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L7,3 L0,6 Z" fill="#64748b"/>
+          </marker>
+        </defs>
+      </svg>
+      <div class="diagram-caption">Fig: Sensor signal flow from physical phenomenon to controller</div>
+    </div>
+  </div>
+
+  <!-- INDIVIDUAL SENSORS -->
+  <div class="content-card">
+    <h2>🌡️ Individual Sensor Explanations</h2>
+
+    <!-- DHT11 -->
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label note">Note</span>&nbsp; DHT11 – Temperature & Humidity Sensor</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p><strong>DHT11</strong> is a basic, low-cost digital sensor that measures both <span class="key-term">temperature</span> and <span class="key-term">humidity</span>.</p>
+        <p><strong>Specifications:</strong></p>
+        <ul>
+          <li>Temperature range: 0°C to 50°C (±2°C accuracy)</li>
+          <li>Humidity range: 20% to 90% RH (±5% accuracy)</li>
+          <li>Operating voltage: 3.3V – 5V DC</li>
+          <li>Output: Digital single-wire protocol</li>
+          <li>Sampling rate: 1 reading per second</li>
+        </ul>
+        <p><strong>Working Principle:</strong></p>
+        <ol>
+          <li>A <strong>capacitive humidity sensor</strong> measures moisture — humidity changes the capacitance of the sensor material.</li>
+          <li>A <strong>thermistor</strong> (NTC type) measures temperature — resistance decreases as temperature increases.</li>
+          <li>An internal 8-bit microcontroller converts these readings to digital values.</li>
+          <li>Data is sent as a 40-bit signal via a single data line to the Arduino/controller.</li>
+        </ol>
+        <p><strong>Pinout:</strong> VCC (power), DATA (signal), GND (ground). A 10kΩ pull-up resistor is used on the data line.</p>
+        <p><strong>Applications:</strong> Weather stations, HVAC systems, greenhouse automation, home automation.</p>
+        <div class="note-highlight"><strong>💡 vs DHT22:</strong> DHT22 has better accuracy (±0.5°C) and wider range but is more expensive. DHT11 is suitable for basic applications.</div>
+      </div>
+    </div>
+
+    <!-- IR Sensor -->
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label note">Note</span>&nbsp; IR Sensor – Infrared Sensor</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p>An <strong>IR (Infrared) Sensor</strong> detects objects or measures distance using infrared light. It has an <span class="key-term">IR emitter (LED)</span> and an <span class="key-term">IR receiver (photodiode)</span>.</p>
+        <p><strong>Working Principle:</strong></p>
+        <ol>
+          <li>IR LED emits infrared radiation (invisible to human eye).</li>
+          <li>When an object comes in range, it reflects the IR light back.</li>
+          <li>The photodiode detects the reflected IR signal.</li>
+          <li>Output goes LOW (0) when object detected, HIGH (1) when no object.</li>
+        </ol>
+        <p><strong>Types:</strong></p>
+        <ul>
+          <li><strong>Reflective IR:</strong> Emitter and receiver on same side — detects nearby objects</li>
+          <li><strong>Through-beam IR:</strong> Emitter and receiver face each other — object detection on crossing</li>
+        </ul>
+        <p><strong>Specifications:</strong> Range: 2–30cm. Operating voltage: 5V. Output: Digital (High/Low).</p>
+        <p><strong>Applications:</strong> Line-following robots, obstacle avoidance, TV remotes, counting objects on conveyors.</p>
+      </div>
+    </div>
+
+    <!-- Ultrasonic -->
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label note">Note</span>&nbsp; Ultrasonic Sensor (HC-SR04)</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p>The <strong>HC-SR04 Ultrasonic Sensor</strong> measures distance by emitting ultrasonic sound waves and measuring the time for the echo to return.</p>
+        <p><strong>Working Principle:</strong></p>
+        <ol>
+          <li>A 10µs HIGH pulse is sent to the <strong>TRIG</strong> pin.</li>
+          <li>Sensor emits 8 pulses of 40kHz ultrasonic sound.</li>
+          <li>Sound waves travel, hit an object, and bounce back.</li>
+          <li>The <strong>ECHO</strong> pin goes HIGH for the duration the sound traveled.</li>
+          <li>Distance = (Time × Speed of Sound) / 2 = (Time × 343 m/s) / 2</li>
+        </ol>
+        <p><strong>Specifications:</strong> Range: 2cm–400cm, Accuracy: ±3mm, Operating voltage: 5V, Frequency: 40kHz.</p>
+        <p><strong>Pins:</strong> VCC, TRIG (trigger input), ECHO (echo output), GND.</p>
+        <p><strong>Applications:</strong> Obstacle avoidance, parking sensors, water level detection, robot navigation.</p>
+        <div class="note-highlight"><strong>💡 Formula:</strong> Distance (cm) = (Echo pulse time in µs) / 58</div>
+      </div>
+    </div>
+
+    <!-- Tilt Sensor -->
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label note">Note</span>&nbsp; Tilt Sensor</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p>A <strong>Tilt Sensor</strong> (also called inclination sensor) detects the orientation or tilt of a device with respect to gravity.</p>
+        <p><strong>Working Principle (Ball-type tilt sensor):</strong></p>
+        <ol>
+          <li>Inside the sensor is a small metallic ball and two contact pins.</li>
+          <li>When the sensor is upright, the ball rests on the contacts → circuit is CLOSED → output HIGH.</li>
+          <li>When tilted, the ball rolls away from contacts → circuit OPEN → output LOW.</li>
+        </ol>
+        <p><strong>Types:</strong></p>
+        <ul>
+          <li><strong>Mercury tilt switch:</strong> Uses liquid mercury (obsolete, toxic)</li>
+          <li><strong>Ball tilt switch:</strong> Metal ball inside cylinder (common, safe)</li>
+          <li><strong>MEMS accelerometer:</strong> Modern digital tilt sensing (MPU-6050)</li>
+        </ul>
+        <p><strong>Specifications:</strong> Operating voltage: 3.3V–5V. Output: Digital (HIGH/LOW). Tilt angle threshold: typically 30°–45°.</p>
+        <p><strong>Applications:</strong> Anti-theft alarms, phone screen rotation, drone stabilization, fall detection systems.</p>
+      </div>
+    </div>
+
+    <!-- Proximity Sensor -->
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label note">Note</span>&nbsp; Proximity Sensor</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p>A <strong>Proximity Sensor</strong> detects the presence of nearby objects without physical contact. It emits an electromagnetic field or beam and detects changes caused by a nearby object.</p>
+        <p><strong>Types of Proximity Sensors:</strong></p>
+        <ul>
+          <li><strong>Inductive:</strong> Detects metal objects using electromagnetic induction. Used in CNC machines.</li>
+          <li><strong>Capacitive:</strong> Detects any material (including non-metal) by measuring capacitance change. Used for liquid level detection.</li>
+          <li><strong>Ultrasonic Proximity:</strong> Uses sound waves; works on any material. Used in parking systems.</li>
+          <li><strong>IR Proximity:</strong> Uses infrared light reflection. Used in smartphones (screen off during calls).</li>
+          <li><strong>Magnetic (Reed Switch):</strong> Detects magnets/magnetic fields.</li>
+        </ul>
+        <p><strong>Applications:</strong> Conveyor belt object detection, robot arm safety stop, automatic doors, touchless switches.</p>
+      </div>
+    </div>
+
+    <!-- LDR -->
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label note">Note</span>&nbsp; LDR – Light Dependent Resistor</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p>An <strong>LDR (Light Dependent Resistor)</strong> is a passive sensor whose resistance changes depending on the amount of light falling on it.</p>
+        <p><strong>Working Principle:</strong></p>
+        <ul>
+          <li>In <strong>darkness</strong>: high resistance (1MΩ or more)</li>
+          <li>In <strong>bright light</strong>: low resistance (~100Ω)</li>
+          <li>Made of semiconductor material (cadmium sulfide) — photons free electrons, reducing resistance.</li>
+        </ul>
+        <p><strong>Connection:</strong> Used as part of a voltage divider circuit. Voltage across LDR changes with light → read by Arduino analog pin.</p>
+        <p><strong>Applications:</strong> Automatic street lights, light-following robots, camera exposure control, burglar alarms.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- WIRELESS MODULES -->
+  <div class="content-card">
+    <h2>📶 Wireless Communication Modules</h2>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label note">Note</span>&nbsp; Bluetooth Module (HC-05 / HC-06)</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p>The <strong>HC-05/HC-06</strong> is a Bluetooth serial communication module used for wireless data transfer between a robot and a smartphone or PC.</p>
+        <ul>
+          <li><strong>Range:</strong> ~10 meters</li>
+          <li><strong>Frequency:</strong> 2.4GHz ISM band</li>
+          <li><strong>Communication:</strong> UART serial (TX/RX pins)</li>
+          <li><strong>HC-05:</strong> Can work as Master or Slave</li>
+          <li><strong>HC-06:</strong> Only Slave mode</li>
+          <li><strong>Baud rate:</strong> Default 9600 bps</li>
+        </ul>
+        <p><strong>Applications:</strong> Bluetooth-controlled robots, wireless sensor data logging, phone-to-Arduino communication.</p>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label note">Note</span>&nbsp; ESP8266 – WiFi Module</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p>The <strong>ESP8266</strong> is a low-cost WiFi microcontroller module that allows devices to connect to the internet (IoT applications).</p>
+        <ul>
+          <li><strong>Processor:</strong> 80MHz Tensilica L106 32-bit RISC</li>
+          <li><strong>WiFi:</strong> IEEE 802.11 b/g/n (2.4GHz)</li>
+          <li><strong>Operating Voltage:</strong> 3.3V</li>
+          <li><strong>GPIO Pins:</strong> Multiple digital I/O pins</li>
+          <li><strong>Flash Memory:</strong> 512KB to 4MB</li>
+          <li><strong>Programmable using Arduino IDE</strong></li>
+        </ul>
+        <p><strong>Modes:</strong> Station (connects to WiFi), Access Point (creates WiFi hotspot), or Both.</p>
+        <p><strong>Applications:</strong> IoT robots, cloud-connected sensors, web-controlled robots, smart home devices.</p>
+        <div class="note-highlight"><strong>💡 Note:</strong> ESP8266 can act as a standalone controller — no need for a separate Arduino in many projects.</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label note">Note</span>&nbsp; GPS Module (NEO-6M)</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p>A <strong>GPS (Global Positioning System) Module</strong> receives signals from satellites to determine the precise location (latitude, longitude, altitude) of a robot.</p>
+        <ul>
+          <li><strong>Module:</strong> NEO-6M (common Arduino-compatible GPS)</li>
+          <li><strong>Accuracy:</strong> ~2.5 meters</li>
+          <li><strong>Interface:</strong> UART (TX/RX)</li>
+          <li><strong>Output:</strong> NMEA sentences (text strings containing location data)</li>
+          <li><strong>Channels:</strong> 50 satellite channels</li>
+          <li><strong>Update rate:</strong> 1Hz (1 reading/second)</li>
+        </ul>
+        <p><strong>Applications:</strong> Autonomous outdoor robots, drone navigation, vehicle tracking, search-and-rescue robots.</p>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label note">Note</span>&nbsp; GSM Module (SIM800L / SIM900)</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p>A <strong>GSM (Global System for Mobile communication) Module</strong> allows a robot to send/receive SMS messages and make phone calls using a SIM card and mobile network.</p>
+        <ul>
+          <li><strong>Module:</strong> SIM800L or SIM900</li>
+          <li><strong>Bands:</strong> 850/900/1800/1900 MHz (quad-band)</li>
+          <li><strong>Interface:</strong> UART (AT commands)</li>
+          <li><strong>Features:</strong> SMS, voice call, GPRS data</li>
+          <li><strong>Operating voltage:</strong> 3.4V–4.4V</li>
+        </ul>
+        <p><strong>AT Commands used:</strong> AT (test), AT+CMGF=1 (SMS text mode), AT+CMGS (send SMS).</p>
+        <p><strong>Applications:</strong> Remote robot alerts via SMS, IoT alarm systems, security robots, remote monitoring.</p>
+        <div class="note-highlight"><strong>💡 Difference:</strong> GPS = finds location using satellites. GSM = communicates using cellular network. They are often combined in tracking systems.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHORT QUESTIONS -->
+  <div class="content-card">
+    <h2>❓ Short & Long Questions</h2>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label short">Short</span>&nbsp; What is a Tactile Sensor?</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p>A <strong>Tactile Sensor</strong> is a sensor that detects physical contact, pressure, or force. It works like the human sense of touch. It is used in robot grippers to detect when an object is held and how firmly. Examples: Force-sensitive resistor (FSR), piezoelectric sensor, capacitive touch pad. Applications: Robot grippers, prosthetic hands, touchscreens, surgical robots.</p>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label short">Short</span>&nbsp; What is the role of Closed Loop Control System in robotics?</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p>In robotics, a closed loop control system uses sensor feedback to continuously correct the robot's actions. The sensor (e.g., encoder, camera) measures the actual output and compares it with the desired value. The error is used to adjust the actuator. This ensures precise positioning, consistent speed, and accurate force control — essential for tasks like welding, surgery, and assembly.</p>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label short">Short</span>&nbsp; What is a temperature sensor? Give two examples.</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p>A <strong>temperature sensor</strong> measures the degree of heat or coldness of an environment and converts it to an electrical signal. Examples: <strong>(1) DHT11</strong> – measures temperature and humidity digitally. <strong>(2) LM35</strong> – analog sensor; outputs 10mV per °C. Other examples: DS18B20 (digital, waterproof), NTC Thermistor (analog resistance change), thermocouple (high-temperature range).</p>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label long">Long</span>&nbsp; Explain the concept of sensors in robotic systems.</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p>Sensors are the "eyes and ears" of a robot — they allow it to perceive and interact with the environment.</p>
+        <p><strong>Classification of Sensors in Robotics:</strong></p>
+        <ul>
+          <li><strong>Proprioceptive Sensors:</strong> Measure internal state of robot — encoders (position), gyroscopes (orientation), current sensors.</li>
+          <li><strong>Exteroceptive Sensors:</strong> Measure external environment — cameras, ultrasonic, IR, GPS.</li>
+          <li><strong>Active Sensors:</strong> Emit energy and detect its return (Ultrasonic, IR, Radar).</li>
+          <li><strong>Passive Sensors:</strong> Only receive signals (Camera, microphone, thermistor).</li>
+        </ul>
+        <p><strong>Role of Sensors:</strong></p>
+        <ol>
+          <li><strong>Perception:</strong> Detect obstacles, measure distance, identify objects.</li>
+          <li><strong>Feedback:</strong> Provide data for closed-loop control.</li>
+          <li><strong>Safety:</strong> Stop robot when unexpected contact occurs.</li>
+          <li><strong>Navigation:</strong> GPS + IMU for autonomous movement.</li>
+          <li><strong>Manipulation:</strong> Force/tactile sensors for precise gripping.</li>
+        </ol>
+        <p><strong>Sensor interfacing to controllers:</strong> Sensors connect via Analog pins (ADC conversion), Digital pins (HIGH/LOW), or communication protocols (I2C, SPI, UART) to Arduino, Raspberry Pi, or 8051.</p>
+        <div class="note-highlight"><strong>💡 Key Point:</strong> Without sensors, a robot is blind — it cannot adapt to changes in the environment and becomes just a fixed automation machine.</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label long">Long</span>&nbsp; Discuss the role of Bluetooth, GPS and GSM in robotic communication.</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <table class="diff-table">
+          <tr><th>Feature</th><th>Bluetooth</th><th>GPS</th><th>GSM</th></tr>
+          <tr><td>Purpose</td><td>Short-range wireless comm.</td><td>Location tracking</td><td>Long-range comm via cellular</td></tr>
+          <tr><td>Range</td><td>~10 meters</td><td>Global (satellite)</td><td>Entire cellular network</td></tr>
+          <tr><td>Data type</td><td>Serial data, commands</td><td>Coordinates (lat/lon)</td><td>SMS, calls, GPRS data</td></tr>
+          <tr><td>Common module</td><td>HC-05, HC-06</td><td>NEO-6M</td><td>SIM800L, SIM900</td></tr>
+          <tr><td>Interface</td><td>UART</td><td>UART (NMEA)</td><td>UART (AT commands)</td></tr>
+          <tr><td>Use in robots</td><td>Phone-controlled robots</td><td>Autonomous outdoor nav.</td><td>Remote alerts, SMS control</td></tr>
+        </table>
+        <p style="margin-top:12px"><strong>Practical Application:</strong> A security robot might use GPS to track location, GSM to send SMS alerts when intruder detected, and Bluetooth for nearby manual override control.</p>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label long">Long</span>&nbsp; Describe the working principle of an ultrasonic sensor.</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p>The <strong>HC-SR04 Ultrasonic Sensor</strong> works on the principle of <span class="key-term">SONAR</span> (Sound Navigation And Ranging).</p>
+        <p><strong>Step-by-step Working:</strong></p>
+        <ol>
+          <li>The microcontroller sends a 10µs HIGH pulse to the TRIG pin.</li>
+          <li>This triggers the sensor to emit 8 ultrasonic pulses at 40kHz frequency.</li>
+          <li>The ultrasonic waves travel through air at 343 m/s.</li>
+          <li>When the waves hit an obstacle, they reflect back as echo.</li>
+          <li>The ECHO pin goes HIGH for the duration = time taken for sound to travel to object and return.</li>
+          <li>Distance = (Time × 343) / 2 meters</li>
+        </ol>
+        <p><strong>Arduino Code Formula:</strong></p>
+        <pre style="background:var(--bg2);padding:10px;border-radius:8px;font-size:.82rem">duration = pulseIn(ECHO, HIGH);
+distance = duration * 0.034 / 2; // in cm</pre>
+        <p><strong>Limitations:</strong> Cannot detect soft/sound-absorbing objects well. Works poorly at very small angles. Affected by temperature changes (speed of sound changes).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="key-points">
+    <h4>🎯 Module 2 – Key Points for Exam</h4>
+    <ul>
+      <li>Active sensor = emits energy (IR, Ultrasonic); Passive sensor = only receives (LDR, thermistor)</li>
+      <li>Tactile = requires contact; Non-tactile = no contact needed</li>
+      <li>DHT11 measures BOTH temperature (0–50°C) and humidity (20–90%) via single data wire</li>
+      <li>Ultrasonic: TRIG input → 8 pulses → ECHO output; Distance = time × 0.034 / 2</li>
+      <li>Tilt sensor uses ball-in-cylinder mechanism; modern ones use MEMS accelerometers</li>
+      <li>HC-05 = Master/Slave Bluetooth; HC-06 = Slave only</li>
+      <li>ESP8266 = WiFi + microcontroller in one chip; 3.3V, uses AT commands or Arduino IDE</li>
+      <li>GPS = location from satellites (NEO-6M, NMEA output)</li>
+      <li>GSM = cellular communication — SMS and calls (SIM800L, AT commands)</li>
+      <li>Sensor interfacing: Analog → ADC, Digital → GPIO, Serial → UART/I2C/SPI</li>
+    </ul>
+  </div>
+</main>
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<script src="script.js"></script>
+</body>
+</html>

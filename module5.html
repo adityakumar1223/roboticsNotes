@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 5 – ROS & C++ | RoboPrep</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo"><span class="logo-icon">⚙️</span><span class="logo-text">RoboPrep</span></div>
+  <nav class="sidebar-nav">
+    <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+    <a href="module1.html" class="nav-item"><i class="fas fa-robot"></i> Module 1 – Automation</a>
+    <a href="module2.html" class="nav-item"><i class="fas fa-satellite-dish"></i> Module 2 – Sensors</a>
+    <a href="module3.html" class="nav-item"><i class="fas fa-microchip"></i> Module 3 – Controllers</a>
+    <a href="module4.html" class="nav-item"><i class="fas fa-cogs"></i> Module 4 – Sequential Control</a>
+    <a href="module5.html" class="nav-item active"><i class="fas fa-terminal"></i> Module 5 – ROS & C++</a>
+    <div class="nav-divider"></div>
+    <a href="quickrevision.html" class="nav-item"><i class="fas fa-bolt"></i> Quick Revision</a>
+    <a href="quiz.html" class="nav-item"><i class="fas fa-question-circle"></i> MCQ Quiz</a>
+  </nav>
+  <div class="sidebar-footer">Exam Ready 🎓</div>
+</aside>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+  <span class="mobile-logo">⚙️ RoboPrep</span>
+</header>
+
+<main class="main-content">
+  <div class="breadcrumb"><a href="index.html">Home</a> <span>›</span> Module 5</div>
+  <div class="module-page-header">
+    <div class="badge" style="background:#f5f3ff;color:#5b21b6;border:1px solid #ddd6fe">Module 5 · 12 Hours</div>
+    <h1>🖥️ ROS & C++</h1>
+    <p>Ubuntu basics, ROS framework, nodes, topics, services, messages, Gazebo simulator, and TurtleBot simulation.</p>
+  </div>
+
+  <!-- UBUNTU -->
+  <div class="content-card">
+    <h2>🐧 What is Ubuntu?</h2>
+    <div class="def-box">
+      <strong>Ubuntu:</strong> A free, open-source Linux-based operating system developed by Canonical Ltd. It is the most popular OS for robotics development, especially for running ROS (Robot Operating System). Ubuntu is known for its stability, developer tools, and large community.
+    </div>
+    <p style="margin:14px 0 10px"><strong>Key Ubuntu Features for Robotics:</strong></p>
+    <ul style="padding-left:20px;line-height:2;font-size:.9rem">
+      <li>Terminal-based control (bash commands) — efficient for robotics</li>
+      <li>Native ROS support (ROS runs natively on Ubuntu)</li>
+      <li>Package management via <code style="background:var(--bg2);padding:2px 6px;border-radius:4px">apt</code> command</li>
+      <li>Supports Python, C++, and all major robotics libraries</li>
+      <li>Widely used in research, industry, and education</li>
+    </ul>
+    <div style="background:var(--bg2);border-radius:10px;padding:16px;margin-top:14px">
+      <p style="font-size:.84rem;font-weight:700;margin-bottom:10px">📟 Basic Ubuntu / Terminal Commands:</p>
+      <table style="width:100%;font-size:.82rem;border-collapse:collapse">
+        <tr style="background:#e2e8f0"><th style="padding:7px 12px;text-align:left">Command</th><th style="padding:7px 12px;text-align:left">Description</th></tr>
+        <tr><td style="padding:7px 12px"><code>ls</code></td><td style="padding:7px 12px">List files in directory</td></tr>
+        <tr style="background:#f8fafc"><td style="padding:7px 12px"><code>cd folder</code></td><td style="padding:7px 12px">Change directory</td></tr>
+        <tr><td style="padding:7px 12px"><code>pwd</code></td><td style="padding:7px 12px">Print working directory</td></tr>
+        <tr style="background:#f8fafc"><td style="padding:7px 12px"><code>mkdir name</code></td><td style="padding:7px 12px">Create new directory</td></tr>
+        <tr><td style="padding:7px 12px"><code>sudo apt-get install pkg</code></td><td style="padding:7px 12px">Install a software package</td></tr>
+        <tr style="background:#f8fafc"><td style="padding:7px 12px"><code>roscore</code></td><td style="padding:7px 12px">Start ROS master node</td></tr>
+        <tr><td style="padding:7px 12px"><code>rostopic list</code></td><td style="padding:7px 12px">List all active ROS topics</td></tr>
+        <tr style="background:#f8fafc"><td style="padding:7px 12px"><code>catkin_make</code></td><td style="padding:7px 12px">Build ROS workspace</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ROS INTRO -->
+  <div class="content-card">
+    <h2>🤖 What is ROS (Robot Operating System)?</h2>
+    <div class="def-box">
+      <strong>ROS (Robot Operating System):</strong> An open-source, flexible framework (middleware) for writing robot software. Despite the name, it is NOT an actual operating system — it runs ON top of an OS (Ubuntu). ROS provides tools, libraries, and conventions to simplify creating complex robot behavior.
+    </div>
+    <div class="def-box">
+      <strong>Developed by:</strong> Willow Garage (2007), now maintained by Open Robotics. Latest stable versions: ROS Noetic (Ubuntu 20.04), ROS 2 Humble (Ubuntu 22.04).
+    </div>
+
+    <p style="margin:14px 0 10px"><strong>Requirements to Run ROS:</strong></p>
+    <ul style="padding-left:20px;line-height:2;font-size:.9rem">
+      <li>Ubuntu Linux (recommended — ROS has best support on Ubuntu)</li>
+      <li>Minimum 2GB RAM (4GB+ recommended)</li>
+      <li>Python 2.7 / 3.x (ROS Noetic uses Python 3)</li>
+      <li>CMake and catkin build system</li>
+      <li>Internet connection for package installation</li>
+    </ul>
+
+    <p style="margin:14px 0 10px"><strong>Applications of ROS:</strong></p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px">
+      <div style="background:var(--bg2);border-radius:8px;padding:12px"><strong>🦾 Industrial Arms</strong><br/><span style="font-size:.8rem;color:var(--text-muted)">MoveIt! for motion planning</span></div>
+      <div style="background:var(--bg2);border-radius:8px;padding:12px"><strong>🚗 Autonomous Cars</strong><br/><span style="font-size:.8rem;color:var(--text-muted)">Sensor fusion, path planning</span></div>
+      <div style="background:var(--bg2);border-radius:8px;padding:12px"><strong>🏠 Service Robots</strong><br/><span style="font-size:.8rem;color:var(--text-muted)">Navigation, SLAM mapping</span></div>
+      <div style="background:var(--bg2);border-radius:8px;padding:12px"><strong>🏥 Medical Robots</strong><br/><span style="font-size:.8rem;color:var(--text-muted)">Surgical robot control</span></div>
+      <div style="background:var(--bg2);border-radius:8px;padding:12px"><strong>🌌 Space</strong><br/><span style="font-size:.8rem;color:var(--text-muted)">NASA robotics research</span></div>
+      <div style="background:var(--bg2);border-radius:8px;padding:12px"><strong>🎓 Education</strong><br/><span style="font-size:.8rem;color:var(--text-muted)">TurtleBot, simulation</span></div>
+    </div>
+  </div>
+
+  <!-- ROS ARCHITECTURE DIAGRAM -->
+  <div class="content-card">
+    <h2>🏗️ ROS Architecture</h2>
+    <div class="diagram-box">
+      <svg viewBox="0 0 700 340" xmlns="http://www.w3.org/2000/svg" style="font-family:'DM Sans',sans-serif">
+        <text x="350" y="22" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">ROS Architecture – Nodes, Topics, Master</text>
+
+        <!-- ROS Master -->
+        <rect x="260" y="40" width="180" height="52" rx="10" fill="#7c3aed" stroke="#5b21b6" stroke-width="2"/>
+        <text x="350" y="63" text-anchor="middle" font-size="12" font-weight="700" fill="white">ROS MASTER</text>
+        <text x="350" y="80" text-anchor="middle" font-size="9" fill="#ddd6fe">(roscore) – Name Server</text>
+
+        <!-- Node 1 - Camera -->
+        <rect x="50" y="155" width="130" height="52" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+        <text x="115" y="176" text-anchor="middle" font-size="11" font-weight="600" fill="#1e40af">Camera Node</text>
+        <text x="115" y="192" text-anchor="middle" font-size="9" fill="#3b82f6">Publisher</text>
+
+        <!-- Node 2 - Sensor -->
+        <rect x="210" y="155" width="130" height="52" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+        <text x="275" y="176" text-anchor="middle" font-size="11" font-weight="600" fill="#1e40af">Sensor Node</text>
+        <text x="275" y="192" text-anchor="middle" font-size="9" fill="#3b82f6">Publisher</text>
+
+        <!-- Node 3 - Controller -->
+        <rect x="370" y="155" width="130" height="52" rx="8" fill="#f0fdf4" stroke="#10b981" stroke-width="1.5"/>
+        <text x="435" y="176" text-anchor="middle" font-size="11" font-weight="600" fill="#065f46">Controller Node</text>
+        <text x="435" y="192" text-anchor="middle" font-size="9" fill="#10b981">Subscriber</text>
+
+        <!-- Node 4 - Motor -->
+        <rect x="530" y="155" width="130" height="52" rx="8" fill="#f0fdf4" stroke="#10b981" stroke-width="1.5"/>
+        <text x="595" y="176" text-anchor="middle" font-size="11" font-weight="600" fill="#065f46">Motor Node</text>
+        <text x="595" y="192" text-anchor="middle" font-size="9" fill="#10b981">Subscriber</text>
+
+        <!-- Topic bus -->
+        <rect x="50" y="255" width="610" height="35" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+        <text x="355" y="277" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e">📨 ROS Topic Bus — /cmd_vel, /sensor_data, /camera/image_raw</text>
+
+        <!-- Master to all arrows -->
+        <line x1="280" y1="92" x2="160" y2="152" stroke="#8b5cf6" stroke-width="1.5" stroke-dasharray="5" marker-end="url(#am5)"/>
+        <line x1="330" y1="92" x2="300" y2="152" stroke="#8b5cf6" stroke-width="1.5" stroke-dasharray="5" marker-end="url(#am5)"/>
+        <line x1="380" y1="92" x2="420" y2="152" stroke="#8b5cf6" stroke-width="1.5" stroke-dasharray="5" marker-end="url(#am5)"/>
+        <line x1="420" y1="92" x2="560" y2="152" stroke="#8b5cf6" stroke-width="1.5" stroke-dasharray="5" marker-end="url(#am5)"/>
+
+        <!-- Nodes to topic -->
+        <line x1="115" y1="207" x2="115" y2="252" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#am5y)"/>
+        <line x1="275" y1="207" x2="275" y2="252" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#am5y)"/>
+        <line x1="435" y1="252" x2="435" y2="210" stroke="#10b981" stroke-width="1.5" marker-end="url(#am5g)"/>
+        <line x1="595" y1="252" x2="595" y2="210" stroke="#10b981" stroke-width="1.5" marker-end="url(#am5g)"/>
+
+        <!-- Labels -->
+        <text x="60" y="235" font-size="9" fill="#b45309">Publish</text>
+        <text x="220" y="235" font-size="9" fill="#b45309">Publish</text>
+        <text x="440" y="235" font-size="9" fill="#065f46">Subscribe</text>
+        <text x="560" y="235" font-size="9" fill="#065f46">Subscribe</text>
+        <text x="320" y="135" font-size="9" fill="#7c3aed">Registration</text>
+
+        <!-- ROS Service box -->
+        <rect x="220" y="310" width="260" height="28" rx="6" fill="#fdf2f8" stroke="#ec4899" stroke-width="1"/>
+        <text x="350" y="328" text-anchor="middle" font-size="10" fill="#9d174d">🔄 ROS Services: Request → Response (synchronous)</text>
+
+        <defs>
+          <marker id="am5" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#8b5cf6"/></marker>
+          <marker id="am5y" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#f59e0b"/></marker>
+          <marker id="am5g" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#10b981"/></marker>
+        </defs>
+      </svg>
+      <div class="diagram-caption">Fig: ROS Architecture — Master, Nodes, Topics, and Services</div>
+    </div>
+  </div>
+
+  <!-- ROS COMPONENTS -->
+  <div class="content-card">
+    <h2>📦 ROS Core Concepts</h2>
+
+    <div class="def-box">
+      <strong>ROS Master (roscore):</strong> The central name server of ROS. It allows nodes to find each other by registering their names and topics. Must be started first with <code style="background:var(--bg2);padding:1px 5px;border-radius:3px">roscore</code> before any nodes run. Manages parameter server and rosout logging.
+    </div>
+
+    <div class="def-box">
+      <strong>ROS Node:</strong> An executable process (program) in the ROS framework. Each node performs a specific task (e.g., camera driver node, motor controller node, navigation node). Nodes communicate with each other through topics and services. A robot application typically consists of many nodes running simultaneously.
+    </div>
+
+    <div class="def-box">
+      <strong>ROS Topic:</strong> A named communication channel over which nodes exchange messages. Topics follow the <span class="key-term">publish/subscribe</span> model — publishers send data and subscribers receive data. Topics are unidirectional and asynchronous. Examples: <code style="background:var(--bg2);padding:1px 5px;border-radius:3px">/cmd_vel</code>, <code style="background:var(--bg2);padding:1px 5px;border-radius:3px">/odom</code>, <code style="background:var(--bg2);padding:1px 5px;border-radius:3px">/scan</code>, <code style="background:var(--bg2);padding:1px 5px;border-radius:3px">/camera/image_raw</code>
+    </div>
+
+    <div class="def-box">
+      <strong>ROS Message:</strong> The data structure used to communicate over topics. Messages are defined in <code>.msg</code> files. They can contain basic types (int, float, string) or complex nested types. Example: <code>geometry_msgs/Twist</code> contains linear and angular velocity components for robot movement.
+    </div>
+
+    <div class="def-box">
+      <strong>ROS Service:</strong> A synchronous request-response communication mechanism. Unlike topics (asynchronous), services wait for a response before continuing. Defined in <code>.srv</code> files. Good for: configuration, one-time commands (e.g., "move to position X"). Example: <code>/move_base</code> service.
+    </div>
+
+    <table class="diff-table" style="margin-top:18px">
+      <tr><th>Feature</th><th>ROS Topic</th><th>ROS Service</th></tr>
+      <tr><td>Communication</td><td>Publisher → Subscriber</td><td>Client → Server → Client</td></tr>
+      <tr><td>Pattern</td><td>Publish/Subscribe (async)</td><td>Request/Response (sync)</td></tr>
+      <tr><td>Direction</td><td>One-way (unidirectional)</td><td>Two-way (bidirectional)</td></tr>
+      <tr><td>Use case</td><td>Continuous data streams (sensor data)</td><td>One-time requests (robot action)</td></tr>
+      <tr><td>Example</td><td>/cmd_vel, /sensor_data</td><td>/set_mode, /take_photo</td></tr>
+      <tr><td>File type</td><td>.msg files</td><td>.srv files</td></tr>
+    </table>
+  </div>
+
+  <!-- GAZEBO -->
+  <div class="content-card">
+    <h2>🏙️ Gazebo Simulator</h2>
+    <div class="def-box">
+      <strong>Gazebo:</strong> An open-source 3D robot simulator tightly integrated with ROS. It provides a realistic simulation environment with physics engine, sensors, and 3D visualization — allowing robot development and testing without actual hardware.
+    </div>
+
+    <p style="margin:14px 0 10px"><strong>Key Features of Gazebo:</strong></p>
+    <ul style="padding-left:20px;line-height:2;font-size:.9rem">
+      <li><strong>Physics Engine:</strong> ODE (Open Dynamics Engine) — simulates gravity, friction, collisions</li>
+      <li><strong>Sensor Simulation:</strong> Cameras, LIDAR, IMU, GPS, depth sensors work in simulation</li>
+      <li><strong>3D Rendering:</strong> OGRE graphics engine for realistic visualization</li>
+      <li><strong>World Building:</strong> Create custom environments (rooms, obstacles, outdoor terrain)</li>
+      <li><strong>ROS Integration:</strong> Publishes simulated sensor data as real ROS topics</li>
+      <li><strong>Plugin System:</strong> Custom robot models, sensors, and actuators via plugins</li>
+      <li><strong>Multiple robots:</strong> Simulate multiple robots interacting in same environment</li>
+    </ul>
+
+    <p style="margin:14px 0 10px"><strong>Applications of Gazebo:</strong></p>
+    <ul style="padding-left:20px;line-height:2;font-size:.9rem">
+      <li>Testing autonomous navigation algorithms (SLAM, path planning)</li>
+      <li>Developing and debugging robot software before real deployment</li>
+      <li>Training ML/RL models in simulated environments</li>
+      <li>Education and research without expensive hardware</li>
+      <li>Simulating disaster scenarios for search-and-rescue robot testing</li>
+    </ul>
+
+    <div class="note-highlight"><strong>💡 Key Tool:</strong> <strong>TurtleBot</strong> — a popular low-cost mobile robot platform. In ROS + Gazebo, TurtleBot3 can be simulated for navigation, SLAM, and autonomous movement exercises.</div>
+  </div>
+
+  <!-- QUESTIONS -->
+  <div class="content-card">
+    <h2>❓ Short & Long Questions</h2>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label short">Short</span>&nbsp; Define "Topic" in ROS.</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p>A <strong>ROS Topic</strong> is a named bus (communication channel) over which nodes exchange data using the publish/subscribe model. Publishers send messages to a topic; subscribers receive messages from the topic. Topics are asynchronous and unidirectional. Multiple publishers and subscribers can use the same topic. Common topics: <code>/cmd_vel</code> (velocity commands), <code>/odom</code> (odometry), <code>/scan</code> (laser scan data).</p>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label short">Short</span>&nbsp; What is meant by a ROS node?</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p>A <strong>ROS node</strong> is an executable process (a program) that performs a specific task in a ROS system. Nodes communicate with each other using topics (publish/subscribe) and services (request/response). Each robot function is separated into nodes: e.g., camera_driver node, lidar_node, controller_node. Nodes are listed using <code>rosnode list</code> and can be visualized using <code>rqt_graph</code>.</p>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label short">Short</span>&nbsp; What is ROS (Robot Operating System)?</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p><strong>ROS</strong> is an open-source middleware framework for robot software development. It provides: hardware abstraction, device drivers, libraries, visualization tools (RViz), simulation (Gazebo), message passing (topics/services), and package management. It runs on Ubuntu Linux. ROS simplifies building complex robotic systems by breaking them into modular, reusable nodes. Current versions: ROS Noetic (ROS 1), ROS 2 Humble.</p>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label short">Short</span>&nbsp; Name a tool used for robot simulation in ROS and mention its applications.</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p><strong>Gazebo</strong> is the primary tool for robot simulation in ROS. Applications: (1) Test navigation algorithms (SLAM, A*, Dijkstra) without hardware. (2) Simulate sensor data (LIDAR, camera, IMU) published as ROS topics. (3) Train machine learning models in simulation. (4) Design custom robot environments and test performance. (5) Educational exercises using TurtleBot3 in simulated environments.</p>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label long">Long</span>&nbsp; Explain the concept of ROS Framework.</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p><strong>ROS (Robot Operating System)</strong> is an open-source middleware that provides a structured communication layer and tools for robot development. It runs on Ubuntu and connects robot software components.</p>
+        <p><strong>Layers of ROS:</strong></p>
+        <ul>
+          <li><strong>Filesystem Level:</strong> How ROS code is organized — packages, manifests, msg/srv files, launch files.</li>
+          <li><strong>Computation Graph Level:</strong> Runtime network of ROS nodes, topics, services, and the master.</li>
+          <li><strong>Community Level:</strong> Shared packages, repositories, documentation on ROS Wiki.</li>
+        </ul>
+        <p><strong>Key ROS Components:</strong></p>
+        <ul>
+          <li><strong>roscore / ROS Master:</strong> Central coordination node. Manages registration of all nodes and topics.</li>
+          <li><strong>Nodes:</strong> Individual programs performing specific tasks (camera, controller, planner).</li>
+          <li><strong>Topics:</strong> Named channels for asynchronous publish/subscribe data exchange.</li>
+          <li><strong>Messages (.msg):</strong> Data types used in topic communication.</li>
+          <li><strong>Services (.srv):</strong> Synchronous request-response communication.</li>
+          <li><strong>Parameter Server:</strong> Shared dictionary for storing robot configuration values.</li>
+          <li><strong>RViz:</strong> 3D visualization tool for sensor data, robot model, transforms.</li>
+          <li><strong>Gazebo:</strong> Physics-based simulation environment.</li>
+          <li><strong>catkin:</strong> ROS build system based on CMake.</li>
+          <li><strong>roslaunch:</strong> Tool to start multiple nodes from a single .launch file.</li>
+        </ul>
+        <p><strong>ROS Workspace Structure:</strong></p>
+        <pre style="background:var(--bg2);padding:12px;border-radius:8px;font-size:.8rem;line-height:1.7">catkin_ws/
+  src/          ← Source code (packages)
+    my_robot/
+      CMakeLists.txt
+      package.xml
+      src/       ← C++ nodes
+      scripts/   ← Python nodes
+      msg/       ← Message definitions
+      launch/    ← Launch files
+  build/        ← Compiled binaries
+  devel/        ← Development workspace</pre>
+        <div class="note-highlight"><strong>💡 Key Command Flow:</strong> roscore → rosrun package node → rostopic echo /topicname → rqt_graph (visualize node connections)</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label long">Long</span>&nbsp; Explain ROS Messages, ROS Topics and ROS Services.</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p><strong>1. ROS Messages:</strong></p>
+        <p>Messages are the data structures used for communication between nodes. They are defined in <code>.msg</code> files inside a ROS package.</p>
+        <pre style="background:var(--bg2);padding:10px;border-radius:8px;font-size:.8rem">Example: geometry_msgs/Twist.msg
+  Vector3 linear    # x, y, z linear velocity
+  Vector3 angular   # x, y, z angular velocity</pre>
+        <p>Standard message types: <code>std_msgs/String</code>, <code>std_msgs/Int32</code>, <code>sensor_msgs/Image</code>, <code>geometry_msgs/Twist</code>, <code>nav_msgs/Odometry</code>.</p>
+
+        <p style="margin-top:14px"><strong>2. ROS Topics:</strong></p>
+        <p>Topics enable asynchronous, many-to-many communication. A publisher node sends messages to a topic; subscriber nodes receive them.</p>
+        <pre style="background:var(--bg2);padding:10px;border-radius:8px;font-size:.8rem">Publisher (Python example):
+  pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
+  pub.publish(twist_msg)
+
+Subscriber (Python example):
+  def callback(msg):
+      print(msg.linear.x)
+  rospy.Subscriber('/cmd_vel', Twist, callback)</pre>
+        <p>Key commands: <code>rostopic list</code> (show all topics), <code>rostopic echo /topicname</code> (print data), <code>rostopic hz /topicname</code> (message rate).</p>
+
+        <p style="margin-top:14px"><strong>3. ROS Services:</strong></p>
+        <p>Services provide synchronous request-response communication. The client sends a request and waits for the server's response.</p>
+        <pre style="background:var(--bg2);padding:10px;border-radius:8px;font-size:.8rem">Example .srv file:
+  int32 a
+  int32 b
+  ---        ← separator
+  int32 sum  ← response
+
+rosservice call /add_two_ints 3 5
+  → sum: 8</pre>
+        <div class="note-highlight"><strong>💡 Summary:</strong> Messages = data format. Topics = streaming data channel (async). Services = request-reply (sync). Action = long-running tasks with feedback (advanced).</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header" onclick="toggleQ(this)">
+        <span><span class="q-label long">Long</span>&nbsp; Explain the applications and features of Gazebo simulator.</span>
+        <i class="fas fa-chevron-down q-toggle"></i>
+      </div>
+      <div class="q-body">
+        <p><strong>Gazebo</strong> is a powerful open-source 3D robot simulator used with ROS for testing and development of robot software without physical hardware.</p>
+        <p><strong>Features of Gazebo:</strong></p>
+        <ul>
+          <li><strong>Realistic Physics:</strong> Uses ODE/Bullet/Simbody engine — simulates gravity, inertia, friction, collision response.</li>
+          <li><strong>Sensor Simulation:</strong> Supports cameras, LIDAR, GPS, IMU, sonar, tactile sensors — publishes data as ROS topics.</li>
+          <li><strong>3D Visualization:</strong> OGRE-based rendering for realistic robot and environment visualization.</li>
+          <li><strong>World Creation:</strong> Create/modify 3D environments with walls, floors, objects using GUI or SDF files.</li>
+          <li><strong>URDF/SDF Models:</strong> Import robot models from URDF (Unified Robot Description Format) or SDF files.</li>
+          <li><strong>Plugin Support:</strong> Extend with custom sensor, motor, and controller plugins.</li>
+          <li><strong>ROS Bridge:</strong> gazebo_ros package connects Gazebo to ROS topics seamlessly.</li>
+          <li><strong>Headless Mode:</strong> Run simulation without GUI — useful for training ML models.</li>
+        </ul>
+        <p><strong>Applications of Gazebo:</strong></p>
+        <ul>
+          <li>Simulating TurtleBot3 for SLAM, navigation, and mapping algorithms.</li>
+          <li>Testing arm trajectory planning with MoveIt! before real deployment.</li>
+          <li>Reinforcement learning training — robot learns to walk/navigate in simulation.</li>
+          <li>Multi-robot simulation for swarm robotics research.</li>
+          <li>Disaster response testing — search-and-rescue robots in collapsed building scenarios.</li>
+          <li>Student education — learn ROS concepts without buying hardware.</li>
+        </ul>
+        <p><strong>Key Gazebo Commands (via ROS):</strong></p>
+        <pre style="background:var(--bg2);padding:10px;border-radius:8px;font-size:.8rem">roslaunch gazebo_ros empty_world.launch    # Launch empty world
+roslaunch turtlebot3_gazebo turtlebot3_world.launch  # TurtleBot world
+rosrun teleop_twist_keyboard teleop_twist_keyboard.py  # Control robot</pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="key-points">
+    <h4>🎯 Module 5 – Key Points for Exam</h4>
+    <ul>
+      <li>ROS is a middleware (not an actual OS) running on Ubuntu Linux</li>
+      <li>roscore starts the ROS Master — must run first before any nodes</li>
+      <li>Node = individual executable program performing one task</li>
+      <li>Topic = async publish/subscribe channel; Service = sync request/response</li>
+      <li>Messages (.msg) define data structure; Services (.srv) define request/response format</li>
+      <li>Common topics: /cmd_vel (velocity), /odom (position), /scan (LIDAR)</li>
+      <li>Gazebo = 3D physics simulator integrated with ROS</li>
+      <li>TurtleBot = popular mobile robot used for ROS learning and simulation</li>
+      <li>catkin_make = build command for ROS workspace</li>
+      <li>RViz = visualization tool; Gazebo = simulation tool</li>
+      <li>rqt_graph shows the node-topic network of a running ROS system</li>
+    </ul>
+  </div>
+</main>
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<script src="script.js"></script>
+</body>
+</html>
